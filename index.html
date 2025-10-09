@@ -4,106 +4,78 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Poistenie bicykla a e-biku – rýchlo, férovo, online</title>
-  <meta name="description" content="Jednoduché poistenie bicykla a e-biku proti krádeži a poškodeniu. Krytie v celej EÚ. Vyplňte krátky dotazník – ponuka na mieru.">
+  <meta name="description" content="Jednoduché poistenie bicykla a e-biku proti krádeži a poškodeniu. Krytie v celej EÚ. Nezáväzná ponuka po krátkom dotazníku.">
   <meta property="og:title" content="Poistenie bicykla a e-biku" />
-  <meta property="og:description" content="Rýchla ponuka, férové krytie, bez viazanosti. Dotazník zaberie 2 minúty." />
+  <meta property="og:description" content="Krádež, havária, zodpovednosť. Nezáväzná ponuka do pár minút." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bikepoistenie.sk" />
-  <meta property="og:image" content="https://bikepoistenie.sk/og-cover.jpg" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1520975922284-7b683863aa0b?q=80&w=1600&auto=format&fit=crop" />
   <link rel="icon" href="/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- GA4 (voliteľné) - doplň svoje ID
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "G-XXXXXXX");
-  </script> -->
   <style>
-    /* drobné vylepšenia */
-    details { cursor: pointer; }
+    .gradient { background: linear-gradient(135deg, #0B6EF3 0%, #0ACF83 100%); }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
-  <header class="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
+  <!-- =================== KONFIG =================== -->
+  <script>
+    // TODO: uprav si tieto 3 riadky
+    const PHONE = "+421 900 000 000";
+    const EMAIL = "info@bikepoistenie.sk";
+    const FORM_URL = "YOUR_FORM_URL"; // vlož link na Google Form
+
+    // farby (ak chceš zmeniť brand)
+    const BRAND = { primary:"#0B6EF3", accent:"#0ACF83" };
+
+    // prenesieme UTM parametre / shop_id do všetkých CTA linkov na FORM_URL
+    const carryParams = () => {
+      const params = new URLSearchParams(window.location.search);
+      // ak nie sú žiadne, necháme len základné UTM defaulty
+      const defaults = new URLSearchParams({ utm_source:"web", utm_medium:"cta", utm_campaign:"bike" });
+      for (const [k,v] of params.entries()) defaults.set(k, v);
+      const withParams = (base) => base + (base.includes("?") ? "&" : "?") + defaults.toString();
+
+      document.querySelectorAll("a[data-cta='form']").forEach(a => {
+        a.href = withParams(FORM_URL);
+      });
+
+      // doplň kontakt do stránok
+      document.querySelectorAll("[data-bind='phone']").forEach(el => el.textContent = PHONE);
+      document.querySelectorAll("[data-bind='email']").forEach(el => el.textContent = EMAIL);
+      document.querySelectorAll("a[href^='tel:']").forEach(a => a.href = "tel:" + PHONE.replace(/\s+/g,''));
+      document.querySelectorAll("a[href^='mailto:']").forEach(a => a.href = "mailto:" + EMAIL);
+    };
+    document.addEventListener("DOMContentLoaded", carryParams);
+  </script>
+  <!-- ============================================== -->
+
+  <header class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
     <a href="/" class="font-semibold text-lg">Poistenie bicykla</a>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLScJ9yuOwtHbofC3mQ_sIeAn_Du4qqOG1RyL9b8Bn2bhheh6Gg/viewform?usp=header"
-       class="inline-block bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 text-sm">Získať ponuku</a>
+    <nav class="hidden sm:flex gap-6 text-sm">
+      <a href="#vyhody" class="hover:underline">Výhody</a>
+      <a href="#ako" class="hover:underline">Ako to funguje</a>
+      <a href="#faq" class="hover:underline">FAQ</a>
+      <a href="#clanky" class="hover:underline">Články</a>
+      <a href="#kontakt" class="hover:underline">Kontakt</a>
+    </nav>
+    <a data-cta="form"
+       class="inline-block px-4 py-2 rounded-xl text-white text-sm"
+       style="background:#0B6EF3">Získať ponuku</a>
   </header>
 
-  <section class="max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
-    <div>
-      <h1 class="text-3xl md:text-5xl font-bold leading-tight">
-        Poistenie bicykla a e-biku <span class="text-blue-600">do 2 minút</span>
-      </h1>
-      <p class="mt-4 text-lg text-gray-700">
-        Krytie proti krádeži, havárii a škodám na zdraví. Platí v celej EÚ. Bez viazanosti.
-      </p>
-      <div class="mt-6 flex flex-wrap gap-3">
-        <a href="YOUR_FORM_URL?utm_source=web&utm_medium=hero-btn&utm_campaign=bike"
-           class="bg-blue-600 text-white px-5 py-3 rounded-xl hover:bg-blue-700">Vyplniť dotazník</a>
-        <a href="#info" class="px-5 py-3 rounded-xl border border-gray-300 hover:bg-white">Viac informácií</a>
-      </div>
-      <p class="mt-3 text-xs text-gray-500">Odoslanie dotazníka uloží údaje priamo do nášho systému (Google Sheets).</p>
-    </div>
-    <div class="bg-white rounded-2xl shadow p-6">
-      <ul class="space-y-3">
-        <li class="flex gap-3"><span>✅</span> Krádež aj poškodenie (e-biky, kolobežky)</li>
-        <li class="flex gap-3"><span>✅</span> Platnosť v SR aj EÚ</li>
-        <li class="flex gap-3"><span>✅</span> Rýchla aktivácia – online</li>
-        <li class="flex gap-3"><span>✅</span> Férové podmienky bez háčikov</li>
-      </ul>
-    </div>
-  </section>
+  <!-- HERO -->
+  <section class="relative">
+    <img src="https://images.unsplash.com/photo-1520975922284-7b683863aa0b?q=80&w=2000&auto=format&fit=crop"
+         alt="Cyklista" class="w-full h-[360px] md:h-[460px] object-cover">
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="absolute inset-0 flex items-center">
+      <div class="max-w-7xl mx-auto px-4">
+        <h1 class="text-3xl md:text-5xl font-bold text-white max-w-3xl">
+          Poistenie bicykla a e-biku <span class="text-[#0ACF83]">do 2 minút</span>
+        </h1>
+        <p class="mt-3 text-white/90 max-w-2xl">
+          Krytie krádeže, havárie a zodpovednosti za škodu. Platnosť v SR aj v EÚ. Nezáväzná ponuka po krátkom dotazníku.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a data-ct
 
-  <section id="info" class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-6">
-    <div class="p-6 rounded-2xl border bg-gray-50">
-      <h3 class="font-semibold text-lg">Jednoduchosť</h3>
-      <p class="text-gray-700 mt-2">Dotazník na pár klikov, ponuka e-mailom/WhatsApp.</p>
-    </div>
-    <div class="p-6 rounded-2xl border bg-gray-50">
-      <h3 class="font-semibold text-lg">Široké krytie</h3>
-      <p class="text-gray-700 mt-2">Krádež, vandalizmus, havária; voliteľne zodpovednosť.</p>
-    </div>
-    <div class="p-6 rounded-2xl border bg-gray-50">
-      <h3 class="font-semibold text-lg">Podpora</h3>
-      <p class="text-gray-700 mt-2">Pomoc pri výbere aj pri škodovej udalosti.</p>
-    </div>
-  </section>
-
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <h2 class="text-2xl font-bold">Ako to funguje</h2>
-    <ol class="mt-4 space-y-3 list-decimal list-inside text-gray-700">
-      <li>Vyplníte krátky dotazník (≈2 min).</li>
-      <li>Dostanete nezáväznú ponuku na mieru.</li>
-      <li>Ak sedí, aktivujeme krytie online – bez papierov.</li>
-    </ol>
-  </section>
-
-  <section class="bg-white">
-    <div class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-2 gap-6">
-      <div>
-        <h2 class="text-2xl font-bold">Kontakt</h2>
-        <p class="mt-2 text-gray-700">Ing. Martin Hubáček – M&F Consulting s.r.o.</p>
-        <p class="text-gray-700">Tel: <a class="underline" href="tel:+421900000000">+421 900 000 000</a></p>
-        <p class="text-gray-700">E-mail: <a class="underline" href="mailto:info@bikepoistenie.sk">info@bikepoistenie.sk</a></p>
-      </div>
-      <div class="p-6 rounded-2xl border bg-gray-50 text-sm text-gray-600">
-        <p><strong>Upozornenie:</strong> Táto stránka má informatívny charakter. Konkrétne podmienky krytia a cena sú vždy uvedené v návrhu po vyplnení dotazníka.</p>
-      </div>
-    </div>
-  </section>
-
-  <footer class="max-w-6xl mx-auto px-4 py-8 text-xs text-gray-500">
-    <div class="flex flex-wrap items-center gap-3">
-      <a href="/privacy.html" class="underline">Ochrana súkromia</a>
-      <span>•</span>
-      <a href="/terms.html" class="underline">Podmienky</a>
-      <span class="ml-auto">© <span id="y"></span> M&F Consulting s.r.o.</span>
-    </div>
-  </footer>
-
-  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
-</body>
-</html>
