@@ -173,95 +173,153 @@
 
 
   <!-- FAQ -->
- <!-- FAQ (parafrázované podľa Colonnade VIVA BIKE) -->
+ <!-- FAQ (hlavný switch + vnorené otázky) -->
 <section id="faq" class="max-w-7xl mx-auto px-4 py-12">
   <h2 class="text-2xl font-bold">Časté otázky</h2>
 
-  <details class="mt-4 p-4 bg-gray-50 rounded-xl border">
-    <summary class="font-medium">Kto a čo si môže poistiť?</summary>
-    <p class="mt-2 text-gray-700">
-      Poistiť si viete až <strong>5 kusov</strong> vybavenia – bicykle, e-biky, kolobežky (aj elektrické) a cyklovozíky – 
-      s limitom do <strong>10&nbsp;000&nbsp;€ na kus</strong> (spolu do <strong>50&nbsp;000&nbsp;€</strong> na zmluve). 
-      Poistenie platí doma aj na cestách po <strong>Slovensku a v celej Európe</strong>. 
-    </p>
-  </details>
+  <!-- 1. Hlavný „master“ rozklik -->
+  <details class="group mt-4 rounded-2xl border bg-gray-50 p-4">
+    <summary class="flex cursor-pointer list-none items-center justify-between">
+      <span class="font-medium text-lg">Najčastejšie otázky o poistení bicykla</span>
+      <!-- šípka -->
+      <svg class="h-5 w-5 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </summary>
 
-  <details class="mt-3 p-4 bg-gray-50 rounded-xl border">
-    <summary class="font-medium">Aké riziká sú kryté?</summary>
-    <p class="mt-2 text-gray-700">
-      Kryté je <strong>poškodenie pri páde/nehode</strong>, <strong>živly</strong> (napr. víchrica, krupobitie, požiar, blesk, záplava), 
-      <strong>vandalizmus</strong>, <strong>krádež vlámaním alebo lúpež</strong> a škody pri dopravnej nehode. 
-      Vybrané športové podujatia (preteky, súťaže, maratóny) sú vylúčené. 
-    </p>
-  </details>
+    <!-- 2. Podotázky (zobrazia sa až po otvorení masteru) -->
+    <div class="mt-4 space-y-3">
 
-  <details class="mt-3 p-4 bg-gray-50 rounded-xl border">
-    <summary class="font-medium">Ako musím bicykel zabezpečiť, aby krádež krytie uznala?</summary>
-    <div class="mt-2 text-gray-700 space-y-2">
-      <p><strong>Uzamknutý bicykel</strong> (rám k pevnému bodu) alebo <strong>uzamknutý priestor</strong> =&nbsp;krytie až do 100&nbsp;% limitu.</p>
-      <p>Povolené typy zámkov (aspoň jeden z nich):</p>
-      <ul class="list-disc list-inside ml-4">
-        <li><strong>U-zámok</strong> s cylindrickou vložkou, priemer strmeňa min. <strong>8&nbsp;mm</strong> (kalená oceľ),</li>
-        <li><strong>kábel/lanko/reťaz</strong> s priemerom ocele min. <strong>8&nbsp;mm</strong>,</li>
-        <li><strong>skladací zámok</strong> (tvrdená oceľ) hrúbka plátu min. <strong>5&nbsp;mm</strong>, šírka min. <strong>10&nbsp;mm</strong>.</li>
-      </ul>
-      <p>Bicykel môže byť uzamknutý aj k <strong>nosiču na vozidle</strong> (strecha, ťažné, dvere). 
-         Krádež vlámaním/lúpež treba vždy nahlásiť polícii.</p>
+      <!-- Q1 -->
+      <details class="rounded-xl border bg-white p-4">
+        <summary class="flex cursor-pointer list-none items-center justify-between">
+          <span class="font-medium">Kto a čo si môže poistiť?</span>
+          <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <p class="mt-2 text-gray-700">
+          Poistiť si viete až <strong>5 kusov</strong> (bicykle, e-biky, kolobežky, cyklovozíky) do <strong>10&nbsp;000&nbsp;€ na kus</strong>, spolu do <strong>50&nbsp;000&nbsp;€</strong>.
+          Územne platí <strong>Slovensko + Európa</strong>.
+        </p>
+      </details>
+
+      <!-- Q2 -->
+      <details class="rounded-xl border bg-white p-4">
+        <summary class="flex cursor-pointer list-none items-center justify-between">
+          <span class="font-medium">Aké riziká sú kryté?</span>
+          <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <p class="mt-2 text-gray-700">
+          <strong>Poškodenie pri páde/nehode</strong>, <strong>živly</strong>, <strong>vandalizmus</strong>, <strong>krádež vlámaním/lúpež</strong>, škody pri dopravnej nehode.
+          (Preteky a niektoré špecifické situácie môžu byť vylúčené.)
+        </p>
+      </details>
+
+      <!-- Q3 -->
+      <details class="rounded-xl border bg-white p-4">
+        <summary class="flex cursor-pointer list-none items-center justify-between">
+          <span class="font-medium">Ako musím bicykel zabezpečiť proti krádeži?</span>
+          <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="mt-2 text-gray-700 space-y-2">
+          <p><strong>Rám k pevnému bodu</strong> alebo uzamknutý priestor =&nbsp;plné krytie.</p>
+          <ul class="list-disc list-inside ml-4">
+            <li><strong>U-zámok</strong> – priemer strmeňa min. <strong>8&nbsp;mm</strong> (kalená oceľ),</li>
+            <li><strong>kábel/lanko/reťaz</strong> – oceľ min. <strong>8&nbsp;mm</strong>,</li>
+            <li><strong>skladací zámok</strong> – plát min. <strong>5&nbsp;mm</strong>, šírka min. <strong>10&nbsp;mm</strong>.</li>
+          </ul>
+          <p>Možné je aj uzamknutie k <strong>nosiču na vozidle</strong>. Krádež/lúpež hláste polícii.</p>
+        </div>
+      </details>
+
+      <!-- Q4 -->
+      <details class="rounded-xl border bg-white p-4">
+        <summary class="flex cursor-pointer list-none items-center justify-between">
+          <span class="font-medium">Platí poistenie aj mimo domova a v zahraničí?</span>
+          <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <p class="mt-2 text-gray-700">Áno, platí <strong>mimo domova</strong>, na adrese aj na cestách, s územnou platnosťou <strong>Slovensko + Európa</strong>.</p>
+      </details>
+
+      <!-- Q5 -->
+      <details class="rounded-xl border bg-white p-4">
+        <summary class="flex cursor-pointer list-none items-center justify-between">
+          <span class="font-medium">Kryje aj škody spôsobené iným osobám (zodpovednosť)?</span>
+          <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <p class="mt-2 text-gray-700">
+          Voliteľné poistenie <strong>zodpovednosti</strong> (škody na zdraví/majetku tretích osôb) s limitmi až do <strong>750&nbsp;000&nbsp;€</strong>, územne <strong>Európa</strong>.
+          Nevzťahuje sa na vozidlá s povinným PZP.
+        </p>
+      </details>
+
+      <!-- Q6 -->
+      <details class="rounded-xl border bg-white p-4">
+        <summary class="flex cursor-pointer list-none items-center justify-between">
+          <span class="font-medium">Dá sa poistiť aj starší bicykel?</span>
+          <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <p class="mt-2 text-gray-700">Áno. Rozhoduje <strong>technický stav</strong>, nie formálny vek kusu.</p>
+      </details>
+
+      <!-- Q7 -->
+      <details class="rounded-xl border bg-white p-4">
+        <summary class="flex cursor-pointer list-none items-center justify-between">
+          <span class="font-medium">Ako sa vypláca škoda (nová vs. časová cena)?</span>
+          <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <ul class="mt-2 text-gray-700 list-disc list-inside ml-4">
+          <li><strong>Oprava ekonomická</strong> → plnenie v <strong>novej cene</strong>.</li>
+          <li><strong>Totálna škoda/krádež</strong> → plnenie v <strong>časovej cene</strong> (s ohľadom na opotrebenie).</li>
+        </ul>
+      </details>
+
+      <!-- Q8 -->
+      <details class="rounded-xl border bg-white p-4">
+        <summary class="flex cursor-pointer list-none items-center justify-between">
+          <span class="font-medium">Bicykel na firmu (IČO) – je to možné?</span>
+          <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <p class="mt-2 text-gray-700">Áno, ak bicykel <strong>neslúži na podnikanie</strong> (predaj, požičiavanie). Poistený je vlastník (firma).</p>
+      </details>
+
+      <!-- Q9 -->
+      <details class="rounded-xl border bg-white p-4">
+        <summary class="flex cursor-pointer list-none items-center justify-between">
+          <span class="font-medium">Čo robiť pri poistnej udalosti?</span>
+          <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <p class="mt-2 text-gray-700">
+          Pri krádeži/lúpeži <strong>kontaktujte políciu</strong> a nahláste udalosť poisťovni. Pripravte doklad o vlastníctve,
+          fotky zabezpečenia a popis udalosti. Pomôžeme vám s postupom.
+        </p>
+      </details>
+
+      <!-- malá poznámka -->
+      <p class="px-1 pt-2 text-xs text-gray-500">
+        Pozn.: Informácie sú zhrnuté a informatívne. Presné podmienky vyplývajú z dokumentácie konkrétneho produktu.
+      </p>
     </div>
   </details>
-
-  <details class="mt-3 p-4 bg-gray-50 rounded-xl border">
-    <summary class="font-medium">Platí poistenie aj mimo domu a mimo Slovenska?</summary>
-    <p class="mt-2 text-gray-700">
-      Áno. Poistenie platí doma, na vašej adrese aj <strong>mimo domova</strong> a územne pokrýva <strong>Slovensko aj Európu</strong>.
-    </p>
-  </details>
-
-  <details class="mt-3 p-4 bg-gray-50 rounded-xl border">
-    <summary class="font-medium">Kryje poistenie aj škody, ktoré spôsobím niekomu inému?</summary>
-    <p class="mt-2 text-gray-700">
-      Viete si dojednať <strong>zodpovednosť za škodu</strong> (škody na zdraví a majetku tretích osôb pri jazde na bicykli/kolobežke) 
-      s limitom až do <strong>750&nbsp;000&nbsp;€</strong> a územnou platnosťou <strong>Európa</strong>. 
-      Nevzťahuje sa na vozidlá, ktoré majú mať <strong>PZP</strong>.
-    </p>
-  </details>
-
-  <details class="mt-3 p-4 bg-gray-50 rounded-xl border">
-    <summary class="font-medium">Môžem poistiť aj starší bicykel?</summary>
-    <p class="mt-2 text-gray-700">
-      Áno, poistiť sa dá <strong>nový aj starší bicykel</strong> (bez obmedzenia veku kusu – rozhoduje technický stav).
-    </p>
-  </details>
-
-  <details class="mt-3 p-4 bg-gray-50 rounded-xl border">
-    <summary class="font-medium">V akej cene vyplácate škodu?</summary>
-    <ul class="mt-2 text-gray-700 list-disc list-inside ml-4">
-      <li><strong>Oprava ekonomická</strong> → plnenie v <strong>novej cene</strong>.</li>
-      <li><strong>Neopraviteľné/neekonomické</strong> alebo <strong>krádež/totálna škoda</strong> → plnenie v <strong>časovej cene</strong>.</li>
-    </ul>
-    <p class="mt-2 text-gray-700">Prihliada sa na opotrebenie a celkový stav (údržba, servis, používanie).</p>
-  </details>
-
-  <details class="mt-3 p-4 bg-gray-50 rounded-xl border">
-    <summary class="font-medium">Mám bicykel kúpený na firmu (IČO). Je poistenie možné?</summary>
-    <p class="mt-2 text-gray-700">
-      Áno, ak bicykel <strong>neslúži na podnikanie</strong> (predaj, požičiavanie). Poistený je vlastník (právnická osoba).
-    </p>
-  </details>
-
-  <details class="mt-3 p-4 bg-gray-50 rounded-xl border">
-    <summary class="font-medium">Čo robiť pri poistnej udalosti?</summary>
-    <p class="mt-2 text-gray-700">
-      Pri krádeži/lúpeži kontaktujte <strong>políciu</strong> a udalosť nahláste poisťovni (online formulár/klientská linka). 
-      Majte pripravené doklady o vlastníctve, fotky zabezpečenia a popis udalosti. 
-    </p>
-  </details>
-
-  <p class="mt-6 text-xs text-gray-500">
-    Upozornenie: vyššie uvedené odpovede sú stručné a informatívne. Presné definície krytia, limity a výluky sú uvedené v 
-    dokumentoch a poistných podmienkach konkrétneho produktu (Colonnade VIVA BIKE). Pre ponuku na mieru použite náš dotazník.
-  </p>
 </section>
+
 
 
   <!-- ČLÁNKY -->
