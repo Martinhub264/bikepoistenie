@@ -13,23 +13,38 @@
   <link rel="icon" href="/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    .btn-primary{background:#0B6EF3;color:#fff}
-    .btn-accent{background:#0ACF83;color:#fff}
-    .legal-note{font-size:.8rem; line-height:1.4}
+    /* prístupnosť: výrazný outline len pri klávesnici */
+    .btn:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 4px rgba(11,110,243,.5);
+    }
+    .btn-grad {
+      background-image: linear-gradient(to right, #0B6EF3, #0ACF83);
+    }
+    .btn {
+      display:inline-flex;align-items:center;gap:.5rem;
+      color:#fff;border-radius:.75rem;
+      padding:.75rem 1.25rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,.06);
+      transition: opacity .15s ease;
+      text-decoration: none;
+    }
+    .btn:hover { opacity:.95 }
   </style>
-</head>
-<body class="bg-gray-50 text-gray-900">
-  <!-- === KONFIG (uprav len FORM_URL ak chceš) === -->
+
+  <!-- CTA/konfigurácia -->
   <script>
     const PHONE = "+421 905 874 100";
     const EMAIL = "hubacekm26@gmail.com";
-    const FORM_URL = "https://forms.gle/rNYBGAVB1dkxyL3g6"; // link na Google Form
+    const FORM_URL = "https://forms.gle/rNYBGAVB1dkxyL3g6";
 
     function carryParams(){
       const q = new URLSearchParams(location.search);
       const d = new URLSearchParams({utm_source:"web",utm_medium:"cta",utm_campaign:"bike"});
       for (const [k,v] of q.entries()) d.set(k,v);
       const withParams = (u)=> u + (u.includes("?")?"&":"?") + d.toString();
+
       document.querySelectorAll("a[data-cta='form']").forEach(a=>a.href=withParams(FORM_URL));
       document.querySelectorAll("[data-bind='phone']").forEach(el=>el.textContent=PHONE);
       document.querySelectorAll("[data-bind='email']").forEach(el=>el.textContent=EMAIL);
@@ -38,20 +53,28 @@
     }
     document.addEventListener("DOMContentLoaded", carryParams);
   </script>
+</head>
 
+<body class="bg-gray-50 text-gray-900">
+  <!-- HEADER -->
   <header class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
     <a href="/" class="font-semibold text-lg">Poistenie bicykla</a>
     <nav class="hidden sm:flex gap-6 text-sm">
-      <a href="#vyhody" class="hover:underline">Výhody</a>
+      <a href="#vyhody" class="hover:underline">Prečo cez nás</a>
       <a href="#ako" class="hover:underline">Ako to funguje</a>
       <a href="#faq" class="hover:underline">FAQ</a>
       <a href="#clanky" class="hover:underline">Články</a>
       <a href="#kontakt" class="hover:underline">Kontakt</a>
     </nav>
-    <a data-cta="form" class="inline-block px-4 py-2 rounded-xl btn-primary text-sm">Získať ponuku</a>
+    <!-- CTA vpravo hore: gradient + focus-visible -->
+    <a data-cta="form" class="btn btn-grad text-sm md:text-base">Získať ponuku
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+        <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
   </header>
 
-  <!-- HERO s obrázkom v root-e -->
+  <!-- HERO -->
   <section class="relative">
     <img src="/hero2.png" alt="Cyklista v horách" class="w-full h-[360px] md:h-[460px] object-cover">
     <div class="absolute inset-0 bg-black/35"></div>
@@ -63,13 +86,99 @@
         <p class="mt-3 text-white/90 max-w-2xl">
           Krytie krádeže, havárie a zodpovednosti za škodu. Platnosť v SR aj v EÚ. Nezáväzná ponuka po krátkom dotazníku.
         </p>
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a data-cta="form" class="px-6 py-3 rounded-xl btn-primary font-medium">Vyplniť dotazník</a>
-          <a href="#vyhody" class="px-6 py-3 rounded-xl bg-white/90">Viac informácií</a>
+        <div class="mt-6">
+          <!-- len jedno tlačidlo (Viac informácií odstránené) -->
+          <a data-cta="form" class="btn btn-grad">
+            Vyplniť dotazník
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 -mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+              <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- ====== PREČO CEZ NÁS (sekcia #vyhody) ====== -->
+  <section id="vyhody" class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#F7FAFF] via-white to-white pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 py-14">
+      <!-- nadpis vycentrovaný + doplnená veta -->
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Prečo cez nás</h2>
+        <p class="mt-3 text-gray-600">
+          Poistíme to, čo naozaj používate – bicykel, elektrobicykel, kolobežku, elektrokolobežku, cyklovozík ale aj Vašu zodpovednosť ak <strong>spôsobite nehodu</strong>.
+          V jednej zmluve môžete mať až <strong>5 bicyklov</strong>. Spolupracujeme s viacerými partnermi
+          a ponuku vždy skladáme podľa <strong>vašich požiadaviek</strong>.
+        </p>
+      </div>
+
+      <!-- ak chceš ponechať statické makety bez animácie, nechaj tento wrapper bez JS -->
+      <div class="mt-8 overflow-hidden rounded-2xl border bg-white/70 backdrop-blur p-4">
+        <div class="flex items-center justify-center flex-wrap gap-10 md:gap-14">
+          <!-- Bicykel -->
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="14" cy="22" r="8" class="text-gray-300"/>
+              <circle cx="50" cy="22" r="8" class="text-gray-300"/>
+              <path d="M14 22l8-12 8 12m-8-12h12m-4 0l12 12" class="text-[#0B6EF3]"/>
+            </svg>
+            <figcaption class="mt-1 text-xs text-gray-600">Bicykel</figcaption>
+          </figure>
+
+          <!-- E-bike -->
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="14" cy="22" r="8" class="text-gray-300"/>
+              <circle cx="50" cy="22" r="8" class="text-gray-300"/>
+              <path d="M14 22l8-12 8 12m-8-12h12m-4 0l12 12" class="text-[#0ACF83]"/>
+              <rect x="28" y="7" width="8" height="4" rx="1" class="text-[#0ACF83]"/>
+              <path d="M36 8.5h2" class="text-[#0ACF83]"/>
+            </svg>
+            <figcaption class="mt-1 text-xs text-gray-600">Elektrobicykel</figcaption>
+          </figure>
+
+          <!-- Kolobežka -->
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="16" cy="22" r="7" class="text-gray-300"/>
+              <circle cx="48" cy="22" r="7" class="text-gray-300"/>
+              <path d="M20 22h16l4-10h6" class="text-sky-600"/>
+              <path d="M24 12v10" class="text-gray-400"/>
+            </svg>
+            <figcaption class="mt-1 text-xs text-gray-600">Kolobežka</figcaption>
+          </figure>
+
+          <!-- E-kolobežka -->
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="16" cy="22" r="7" class="text-gray-300"/>
+              <circle cx="48" cy="22" r="7" class="text-gray-300"/>
+              <path d="M20 22h16l4-10h6" class="text-emerald-600"/>
+              <path d="M24 12v10" class="text-gray-400"/>
+              <path d="M41 9l-3 5h3l-2 4" class="text-emerald-600"/>
+            </svg>
+            <figcaption class="mt-1 text-xs text-gray-600">Elektrokolobežka</figcaption>
+          </figure>
+
+          <!-- Cyklovozík -->
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="18" cy="22" r="6.5" class="text-gray-300"/>
+              <circle cx="42" cy="22" r="7.5" class="text-gray-300"/>
+              <path d="M12 22h18" class="text-amber-600"/>
+              <path d="M30 22l14-8 6 8" class="text-amber-600"/>
+              <path d="M44 14a6 6 0 0 0-6-6h-6" class="text-amber-600"/>
+            </svg>
+            <figcaption class="mt-1 text-xs text-gray-600">Cyklovozík</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ====== /PREČO CEZ NÁS ====== -->
+
 
   <!-- PREČO CEZ NÁS – pomalý side-to-side pás bez čipov -->
 <section id="vyhody" class="relative overflow-hidden">
