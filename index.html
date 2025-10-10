@@ -88,17 +88,89 @@
   </section>
 
   <!-- AKO TO FUNGUJE -->
-  <section id="ako" class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 py-12">
-      <h2 class="text-2xl font-bold">Ako to funguje</h2>
-      <ol class="mt-4 space-y-3 list-decimal list-inside text-gray-700">
-        <li>Vyplníte krátky dotazník (≈ 2 min).</li>
-        <li>Dostanete nezáväznú ponuku na mieru (e-mail/WhatsApp).</li>
-        <li>Ak súhlasíte, aktivujeme krytie online – bez papierov.</li>
-      </ol>
-      <a data-cta="form" class="inline-block mt-6 px-5 py-3 rounded-xl btn-accent">Získať ponuku</a>
+  <!-- AKO TO FUNGUJE (moderná sekcia s kartami) -->
+<section id="ako" class="relative">
+  <!-- jemné pozadie s gradientom -->
+  <div class="absolute inset-0 bg-gradient-to-b from-[#F0F7FF] via-white to-white pointer-events-none"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4 py-14">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Ako to funguje</h2>
+      <p class="mt-2 text-gray-600">Tri krátke kroky a máte hotovo. Bez papierovania.</p>
     </div>
-  </section>
+
+    <!-- karty krokov -->
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- Krok 1 -->
+      <div class="group relative overflow-hidden rounded-2xl bg-white border shadow-sm hover:shadow-md transition">
+        <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-[#E8F0FF]"></div>
+        <div class="p-6">
+          <div class="flex items-center gap-3">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#0B6EF3]/10 text-[#0B6EF3] font-semibold">1</span>
+            <h3 class="text-lg font-semibold">Krátky dotazník</h3>
+          </div>
+          <p class="mt-3 text-gray-700">Vyplníte základné údaje — zaberie to približne 2 minúty.</p>
+          <!-- ikona (inline SVG) -->
+          <div class="mt-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#0B6EF3]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <path d="M9 7h6M9 12h6M9 17h3" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="4" y="4" width="16" height="16" rx="2.5"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Krok 2 -->
+      <div class="group relative overflow-hidden rounded-2xl bg-white border shadow-sm hover:shadow-md transition">
+        <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-[#E8FFF6]"></div>
+        <div class="p-6">
+          <div class="flex items-center gap-3">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#0ACF83]/10 text-[#0ACF83] font-semibold">2</span>
+            <h3 class="text-lg font-semibold">Nezáväzná ponuka</h3>
+          </div>
+          <p class="mt-3 text-gray-700">Dostanete ponuku na mieru e-mailom alebo cez WhatsApp.</p>
+          <div class="mt-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#0ACF83]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <path d="M4 6l8 5 8-5" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="4" y="6" width="16" height="12" rx="2.5"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Krok 3 -->
+      <div class="group relative overflow-hidden rounded-2xl bg-white border shadow-sm hover:shadow-md transition">
+        <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-[#FFF6E8]"></div>
+        <div class="p-6">
+          <div class="flex items-center gap-3">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 font-semibold">3</span>
+            <h3 class="text-lg font-semibold">Aktivácia online</h3>
+          </div>
+          <p class="mt-3 text-gray-700">Súhlas potvrdíte online. Krytie aktivujeme bez papierov.</p>
+          <div class="mt-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="3.5" y="4" width="17" height="16" rx="2.5"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-8">
+      <a data-cta="form"
+         class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white font-medium shadow-sm transition
+                bg-gradient-to-r from-[#0B6EF3] to-[#0ACF83] hover:opacity-95">
+        Získať ponuku
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 -mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
 
   <!-- FAQ -->
  <!-- FAQ (parafrázované podľa Colonnade VIVA BIKE) -->
