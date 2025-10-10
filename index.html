@@ -71,22 +71,152 @@
     </div>
   </section>
 
-  <!-- VÝHODY -->
-  <section id="vyhody" class="max-w-7xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-6">
-    <div class="p-6 rounded-2xl border bg-white">
-      <h3 class="font-semibold text-lg">Jednoduchosť</h3>
-      <p class="text-gray-700 mt-2">Dotazník na pár klikov, ponuka e-mailom alebo WhatsApp.</p>
-    </div>
-    <div class="p-6 rounded-2xl border bg-white">
-      <h3 class="font-semibold text-lg">Široké krytie</h3>
-      <p class="text-gray-700 mt-2">Krádež, vandalizmus, havária; voliteľne zodpovednosť za škodu.</p>
-    </div>
-    <div class="p-6 rounded-2xl border bg-white">
-      <h3 class="font-semibold text-lg">Podpora</h3>
-      <p class="text-gray-700 mt-2">Pomoc pri výbere aj pri škodovej udalosti. Rýchla komunikácia.</p>
-    </div>
-  </section>
+  <!-- VÝHODY – moderný pás s maketami + čipy -->
+<section id="vyhody" class="relative overflow-hidden">
+  <!-- jemný gradient pozadia -->
+  <div class="absolute inset-0 bg-gradient-to-b from-[#F7FAFF] via-white to-white pointer-events-none"></div>
 
+  <div class="relative max-w-7xl mx-auto px-4 py-14">
+    <div class="mb-6">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Prečo cez nás</h2>
+      <p class="mt-2 text-gray-600">Poistíme to, čo reálne používate — od bicykla po cyklovozík.</p>
+    </div>
+
+    <!-- 🏁 Pohyblivý pás (marquee) – 5 makiet: bicykel, e-bike, kolobežka, e-kolobežka, cyklovozík -->
+    <div class="relative border rounded-2xl bg-white/70 backdrop-blur p-4 overflow-hidden group">
+      <!-- pás 1 (šírka 200 % kvôli plynulej slučke; obsah je duplikovaný) -->
+      <div class="flex items-center gap-10 whitespace-nowrap will-change-transform marquee">
+        <!-- SET A -->
+        <div class="flex items-center gap-10">
+          <!-- BICYKEL -->
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="14" cy="22" r="8" class="text-gray-300"/>
+              <circle cx="50" cy="22" r="8" class="text-gray-300"/>
+              <path d="M14 22l8-12 8 12m-8-12h12m-4 0l12 12" class="text-[#0B6EF3]"/>
+            </svg>
+            <figcaption class="mt-1 text-xs text-gray-600">Bicykel</figcaption>
+          </figure>
+
+          <!-- ELEKTROBICYKEL (akcent batérie) -->
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="14" cy="22" r="8" class="text-gray-300"/>
+              <circle cx="50" cy="22" r="8" class="text-gray-300"/>
+              <path d="M14 22l8-12 8 12m-8-12h12m-4 0l12 12" class="text-[#0ACF83]"/>
+              <!-- batéria -->
+              <rect x="28" y="7" width="8" height="4" rx="1" class="text-[#0ACF83]" />
+              <path d="M36 8.5h2" class="text-[#0ACF83]" />
+            </svg>
+            <figcaption class="mt-1 text-xs text-gray-600">Elektrobicykel</figcaption>
+          </figure>
+
+          <!-- KOLOBEŽKA -->
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="16" cy="22" r="7" class="text-gray-300"/>
+              <circle cx="48" cy="22" r="7" class="text-gray-300"/>
+              <path d="M20 22h16l4-10h6" class="text-sky-600"/>
+              <path d="M24 12v10" class="text-gray-400"/>
+            </svg>
+            <figcaption class="mt-1 text-xs text-gray-600">Kolobežka</figcaption>
+          </figure>
+
+          <!-- ELEKTROKOLOBEŽKA (baterka blesk) -->
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="16" cy="22" r="7" class="text-gray-300"/>
+              <circle cx="48" cy="22" r="7" class="text-gray-300"/>
+              <path d="M20 22h16l4-10h6" class="text-emerald-600"/>
+              <path d="M24 12v10" class="text-gray-400"/>
+              <!-- blesk/batéria -->
+              <path d="M41 9l-3 5h3l-2 4" class="text-emerald-600"/>
+            </svg>
+            <figcaption class="mt-1 text-xs text-gray-600">Elektrokolobežka</figcaption>
+          </figure>
+
+          <!-- CYKLOVOZÍK -->
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <!-- kolesá: ťahač + vozík -->
+              <circle cx="18" cy="22" r="6.5" class="text-gray-300"/>
+              <circle cx="42" cy="22" r="7.5" class="text-gray-300"/>
+              <!-- oj + rám -->
+              <path d="M12 22h18" class="text-amber-600"/>
+              <path d="M30 22l14-8 6 8" class="text-amber-600"/>
+              <path d="M44 14a6 6 0 0 0-6-6h-6" class="text-amber-600"/>
+            </svg>
+            <figcaption class="mt-1 text-xs text-gray-600">Cyklovozík</figcaption>
+          </figure>
+        </div>
+
+        <!-- SET B (duplicitný pre plynulosť) -->
+        <div class="flex items-center gap-10">
+          <!-- zopakujeme rovnakých 5 -->
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="14" cy="22" r="8" class="text-gray-300"/><circle cx="50" cy="22" r="8" class="text-gray-300"/>
+              <path d="M14 22l8-12 8 12m-8-12h12m-4 0l12 12" class="text-[#0B6EF3]"/>
+            </svg><figcaption class="mt-1 text-xs text-gray-600">Bicykel</figcaption>
+          </figure>
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="14" cy="22" r="8" class="text-gray-300"/><circle cx="50" cy="22" r="8" class="text-gray-300"/>
+              <path d="M14 22l8-12 8 12m-8-12h12m-4 0l12 12" class="text-[#0ACF83]"/>
+              <rect x="28" y="7" width="8" height="4" rx="1" class="text-[#0ACF83]" /><path d="M36 8.5h2" class="text-[#0ACF83]"/>
+            </svg><figcaption class="mt-1 text-xs text-gray-600">Elektrobicykel</figcaption>
+          </figure>
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="16" cy="22" r="7" class="text-gray-300"/><circle cx="48" cy="22" r="7" class="text-gray-300"/>
+              <path d="M20 22h16l4-10h6" class="text-sky-600"/><path d="M24 12v10" class="text-gray-400"/>
+            </svg><figcaption class="mt-1 text-xs text-gray-600">Kolobežka</figcaption>
+          </figure>
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="16" cy="22" r="7" class="text-gray-300"/><circle cx="48" cy="22" r="7" class="text-gray-300"/>
+              <path d="M20 22h16l4-10h6" class="text-emerald-600"/><path d="M24 12v10" class="text-gray-400"/>
+              <path d="M41 9l-3 5h3l-2 4" class="text-emerald-600"/>
+            </svg><figcaption class="mt-1 text-xs text-gray-600">Elektrokolobežka</figcaption>
+          </figure>
+          <figure class="flex flex-col items-center">
+            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="18" cy="22" r="6.5" class="text-gray-300"/><circle cx="42" cy="22" r="7.5" class="text-gray-300"/>
+              <path d="M12 22h18" class="text-amber-600"/><path d="M30 22l14-8 6 8" class="text-amber-600"/><path d="M44 14a6 6 0 0 0-6-6h-6" class="text-amber-600"/>
+            </svg><figcaption class="mt-1 text-xs text-gray-600">Cyklovozík</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- masky po stranách -->
+      <div class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent"></div>
+      <div class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"></div>
+    </div>
+
+    <!-- čipy (kratšie, jasné výhody) -->
+    <div class="mt-8 flex flex-wrap gap-3">
+      <div class="inline-flex items-center gap-2 rounded-full border bg-white px-4 py-2"><span class="h-2 w-2 rounded-full bg-[#0B6EF3]"></span><span class="text-sm">Dotazník na pár klikov</span></div>
+      <div class="inline-flex items-center gap-2 rounded-full border bg-white px-4 py-2"><span class="h-2 w-2 rounded-full bg-[#0ACF83]"></span><span class="text-sm">Krádež, havária, zodpovednosť</span></div>
+      <div class="inline-flex items-center gap-2 rounded-full border bg-white px-4 py-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span><span class="text-sm">Podpora pri škode</span></div>
+    </div>
+  </div>
+
+  <!-- štýly animácie (iba tento blok) -->
+  <style>
+    @keyframes bp-marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee {
+      width: 200%;
+      animation: bp-marquee 22s linear infinite;
+    }
+    .group:hover .marquee { animation-duration: 32s; }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee { animation: none; transform: translateX(0); }
+    }
+  </style>
+</section>
   <!-- AKO TO FUNGUJE -->
   <!-- AKO TO FUNGUJE (moderná sekcia s kartami) -->
 <section id="ako" class="relative">
