@@ -113,7 +113,7 @@
       <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Prečo cez nás</h2>
         <p class="mt-3 text-gray-600">
-          Poistíme to, čo naozaj používate – bicykel, elektrobicykel, kolobežku, elektrokolobežku, cyklovozík aj vašu
+          Poistíme to, čo naozaj používate – bicykel, elektrobicykel, kolobežku, elektrokolobežku, cyklovozík aj Vašu
           <strong>zodpovednosť za škodu</strong>. V jednej zmluve môžete mať až <strong>5 bicyklov</strong>.
           Spolupracujeme s viacerými partnermi a ponuku skladáme podľa <strong>vašich požiadaviek</strong>.
         </p>
@@ -425,6 +425,16 @@
   </footer>
 
   <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+  <!-- Sticky CTA (iba mobil) – vlož tesne pred </body> -->
+<style>
+  @media (max-width: 640px){
+    .sticky-cta{position:fixed;left:0;right:0;bottom:12px;display:flex;justify-content:center;z-index:50}
+    .sticky-cta a{padding:.9rem 1.25rem;border-radius:9999px}
+  }
+</style>
+<div class="sticky-cta">
+  <a data-cta="form" class="btn btn-grad">Získať ponuku</a>
+</div>
 </body>
 </html>
 
