@@ -28,9 +28,7 @@
     .hero-pan{background-size:cover;background-position:0% center}
     @keyframes panX{0%{background-position:0% center}100%{background-position:100% center}}
     .hero-anim{animation:panX 28s ease-in-out infinite alternate}
-    @media (prefers-reduced-motion: reduce){
-      .hero-anim{animation:none}
-    }
+    @media (prefers-reduced-motion: reduce){.hero-anim{animation:none}}
 
     /* Pás ikon – pomalý ping-pong posun */
     .bp-track{width:140%;animation:bp-osc 24s ease-in-out infinite alternate;will-change:transform}
@@ -66,15 +64,16 @@
   <header class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
     <a href="/" class="font-semibold text-lg">Poistenie bicykla</a>
     <nav class="hidden sm:flex gap-6 text-sm">
-      <a href="#vyhody" class="hover:underline">Prečo cez nás</a>
+      <!-- „Prečo cez nás“ odstránené -->
       <a href="#ako" class="hover:underline">Ako to funguje</a>
       <a href="#faq" class="hover:underline">FAQ</a>
       <a href="#clanky" class="hover:underline">Články</a>
-      <a href="#partneri" class="hover:underline">Partneri</a>
+      <!-- „Partneri“ z nav odstránené (CTA ho nahrádza) -->
       <a href="#kontakt" class="hover:underline">Kontakt</a>
     </nav>
-    <a data-cta="form" class="btn btn-grad text-sm md:text-base">
-      Získať ponuku
+    <!-- CTA vpravo hore: nahradené na PARTNERI → /partneri.html -->
+    <a href="/partneri.html" class="btn btn-grad text-sm md:text-base">
+      Partneri
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
         <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -181,7 +180,6 @@
           </figure>
         </div>
 
-        <!-- masky po stranách -->
         <div class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent"></div>
         <div class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"></div>
       </div>
@@ -383,7 +381,7 @@
     </div>
   </section>
 
-  <!-- ================== PARTNERI (privátna sekcia inline na hlavnej) ================== -->
+  <!-- ================== PARTNERI (inline sekcia na hlavnej) ================== -->
   <section id="partneri" class="relative">
     <div class="absolute inset-0 bg-gradient-to-b from-[#F7FAFF] via-white to-white pointer-events-none"></div>
 
@@ -393,22 +391,18 @@
         <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">
           <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#0B6EF3] to-[#0ACF83]">PARTNERI</span>
         </h2>
-        <p class="mt-2 text-gray-600">Materiály a informácie pre spoluprácu (prístup na kód).</p>
+        <!-- podnadpis odstránený podľa zadania -->
       </div>
 
-      <!-- „Vrátka“ na kód -->
-      <section id="partner-gate" class="max-w-md mx-auto mt-8 bg-white border rounded-2xl p-6">
+      <!-- „Vrátka“ na kód (vycentrovaný heading, bez „Tipu“) -->
+      <section id="partner-gate" class="max-w-md mx-auto mt-8 bg-white border rounded-2xl p-6 text-center">
         <h3 class="text-xl font-semibold">Prístupový kód</h3>
-        <p class="mt-1 text-gray-600 text-sm">Zadajte kód, ktorý ste od nás dostali.</p>
-
         <form id="partner-code-form" class="mt-5 space-y-3">
           <input id="partner-code-input" type="password" inputmode="text" autocomplete="off" placeholder="Zadajte kód"
                 class="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"/>
-          <button class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-white font-medium shadow-sm btn-grad">Odomknúť</button>
+          <button class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl text-white font-medium shadow-sm btn-grad">Odomknúť</button>
           <p id="partner-code-err" class="text-sm text-red-600 hidden">Nesprávny kód.</p>
         </form>
-
-        <p class="mt-3 text-xs text-gray-500">Tip: ak máte link s kódom, stačí ho otvoriť: <code>?k=VAS_KOD</code>.</p>
       </section>
 
       <!-- SKRYTÝ OBSAH – zobrazí sa po overení kódu -->
@@ -529,10 +523,8 @@
     function showPartner(){ gateEl?.classList.add("hidden"); contentEl?.classList.remove("hidden"); }
     function lockPartner(){ localStorage.removeItem("bp_partner_ok"); contentEl?.classList.add("hidden"); gateEl?.classList.remove("hidden"); }
 
-    // Ak už odomknuté v tomto prehliadači
     if(localStorage.getItem("bp_partner_ok")==="1"){ showPartner(); }
 
-    // Podpora URL parametra ?k=
     (async () => {
       const p = new URLSearchParams(location.search).get("k");
       if (!p || localStorage.getItem("bp_partner_ok")==="1") return;
@@ -557,7 +549,7 @@
     logoutBtn?.addEventListener("click", lockPartner);
   </script>
 
-  <!-- Sticky CTA (iba mobil) – vlož tesne pred </body> -->
+  <!-- Sticky CTA (iba mobil) -->
   <style>
     @media (max-width: 640px){
       .sticky-cta{position:fixed;left:0;right:0;bottom:12px;display:flex;justify-content:center;z-index:50}
@@ -569,4 +561,3 @@
   </div>
 </body>
 </html>
-
