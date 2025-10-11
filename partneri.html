@@ -3,194 +3,166 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Partneri — prístup</title>
-
-  <!-- nechceme indexovať -->
-  <meta name="robots" content="noindex,nofollow" />
-
-  <!-- základný štýl + Tailwind -->
+  <title>Partneri – prístup a materiály</title>
+  <meta name="description" content="Sekcia pre partnerov: po zadaní prístupového kódu sa zobrazia materiály a tabuľky." />
   <link rel="icon" href="/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
-    /* Grenadier gradient – rovnaký ako CTA na hlavnej */
-    .grad {
-      background-image: linear-gradient(to right, #0B6EF3, #0ACF83);
-    }
-    /* prístupnosť: outline len pri klávesnici */
-    .btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 4px rgba(11,110,243,.5); }
-    .btn {
-      display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
-      color:#fff; border-radius:.75rem; padding:.75rem 1.25rem;
-      box-shadow: 0 1px 2px rgba(0,0,0,.08); transition: opacity .15s ease; text-decoration:none;
-    }
-    .btn:hover { opacity:.95; }
-    /* „skryté“ dokým sa neodomkne */
-    .hidden { display: none !important; }
-    /* jemný tieň pre karty */
-    .card { box-shadow: 0 1px 2px rgba(0,0,0,.04); }
-    /* tabuľky – decentné oddelenie riadkov */
-    .bp-table tr + tr td { border-top: 1px solid #EEF2F7; }
+    .btn {display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border-radius:.75rem;padding:.85rem 1.25rem;
+          color:#fff;text-decoration:none;transition:opacity .15s ease;box-shadow:0 1px 2px rgba(0,0,0,.10)}
+    .btn:hover{opacity:.95}
+    .btn-grad{background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)}
+    .btn:focus-visible{outline:2px solid #fff;outline-offset:2px;box-shadow:0 0 0 4px rgba(11,110,243,.35)}
+    /* jemné orámovanie kariet/tabuliek */
+    .card{border:1px solid rgba(2,6,23,.08)}
   </style>
 </head>
+<body class="min-h-screen text-slate-900"
+      style="background: linear-gradient(180deg,#F0F7FF 0%, #E9F8F1 30%, #ffffff 70%);">
 
-<body class="bg-gray-50 text-gray-900">
+  <!-- NAV (len logo + späť domov) -->
+  <header class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <a href="/" class="font-semibold text-lg text-white/90">
+      <span class="px-2 py-1 rounded-lg" style="background:linear-gradient(90deg,#0B6EF3,#0ACF83);">Bikepoistenie</span>
+    </a>
+    <a href="/" class="text-sm text-slate-700 hover:underline">Späť na úvod</a>
+  </header>
 
-  <!-- Hlavný pás s gradientom + formulár -->
-  <section class="grad">
-    <div class="max-w-5xl mx-auto px-4 py-14">
-      <div class="text-center text-white">
-        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">Partneri</h1>
-        <p class="mt-2 text-white/90">Prístupový kód</p>
-      </div>
+  <!-- Hlavný obsah -->
+  <main class="max-w-5xl mx-auto px-4 py-8 md:py-14">
 
-      <!-- LOCK obrazovka -->
-      <div id="locked" class="mt-8 max-w-xl mx-auto bg-white/10 rounded-2xl p-5 md:p-6 backdrop-blur">
-        <form id="code-form" class="flex flex-col sm:flex-row gap-3">
-          <label for="access-code" class="sr-only">Prístupový kód</label>
-          <input id="access-code" type="password" inputmode="text" autocomplete="off" required
-                 placeholder="Zadajte kód"
-                 class="w-full rounded-xl px-4 py-3 bg-white text-gray-900 placeholder-gray-400 border-0 focus:ring-2 focus:ring-white/70">
-          <button type="submit" class="btn bg-white text-gray-900">
+    <!-- Nadpis -->
+    <h1 class="text-center text-4xl md:text-5xl font-extrabold tracking-tight">
+      <span class="bg-clip-text text-transparent"
+            style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">PARTNERI</span>
+    </h1>
+
+    <!-- PRÍSTUPOVÝ FORM – viditeľný kým nie je odomknuté -->
+    <section id="gate" class="mt-8 md:mt-10 flex justify-center">
+      <div class="w-full max-w-2xl rounded-2xl card bg-white/90 backdrop-blur p-6 md:p-8">
+        <h2 class="text-2xl font-bold mb-1">Prístupový kód</h2>
+        <p class="text-slate-600 mb-5">Zadajte kód, ktorý ste od nás dostali.</p>
+
+        <form id="unlockForm" class="space-y-4">
+          <input id="codeInput" type="password" required
+                 class="w-full rounded-xl border border-slate-200 px-4 py-3 text-base outline-none focus:ring-2 focus:ring-sky-400"
+                 placeholder="••••••••" autocomplete="current-password" />
+          <button type="submit" class="btn btn-grad w-full text-base font-semibold">
             Odomknúť
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 -mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-              <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
           </button>
         </form>
-        <p id="code-error" class="mt-3 text-sm text-red-50"></p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Obsah po odomknutí -->
-  <main id="unlocked" class="hidden">
-    <div class="max-w-6xl mx-auto px-4 py-12">
-      <!-- Úvodný panel po odomknutí -->
-      <div class="bg-white rounded-2xl p-6 card">
-        <h2 class="text-xl md:text-2xl font-semibold">Materiály a informácie pre spoluprácu</h2>
-        <p class="mt-1 text-gray-600">Nižšie nájdete stručné tabuľky. Obsah vieš kedykoľvek dopĺňať/meniť.</p>
+    <!-- OBSAH PO ODOMKNUTÍ – skrytý default -->
+    <section id="content" class="hidden mt-10">
+      <!-- Info panel -->
+      <div class="rounded-2xl card bg-white/90 backdrop-blur p-6 md:p-8">
+        <h2 class="text-2xl font-bold">Materiály pre partnerov</h2>
+        <p class="text-slate-600 mt-2">Nižšie nájdete pracovné tabuľky a prehľady. Rozloženie sa prispôsobí zariadeniu.</p>
       </div>
 
-      <!-- GRID: na mobile 1 stĺpec, od lg: 2×2 + posledná vycentrovaná -->
-      <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- 1) Onboarding -->
-        <div class="bg-white rounded-2xl p-6 card">
-          <h3 class="text-lg font-semibold">Onboarding &amp; kontakt</h3>
-          <table class="mt-4 w-full bp-table">
-            <tbody class="text-sm text-gray-700">
-            <tr><td class="py-2 w-40 text-gray-500">Zmluvy</td><td><a class="text-[#0B6EF3] underline" href="#">Rámcová dohoda (PDF)</a></td></tr>
-            <tr><td class="py-2 text-gray-500">Kontakt</td><td>Ing. Martin Hubáček — <a class="underline" href="mailto:hubacekm26@gmail.com">hubacekm26@gmail.com</a>, <a class="underline" href="tel:+421905874100">+421&nbsp;905&nbsp;874&nbsp;100</a></td></tr>
-            <tr><td class="py-2 text-gray-500">NBS (PFA)</td><td>Registrácia: <strong>287587</strong></td></tr>
+      <!-- GRID: 2×2 + 1 centrovaná dole -->
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Tabuľka 1 -->
+        <div class="rounded-2xl card bg-white/95 p-5">
+          <h3 class="text-lg font-semibold mb-3">Základné podmienky</h3>
+          <table class="w-full text-sm">
+            <tbody class="divide-y">
+              <tr><td class="py-2 text-slate-600">Územná platnosť</td><td class="py-2 text-right font-medium">SR + EÚ</td></tr>
+              <tr><td class="py-2 text-slate-600">Max. hodnota / kus</td><td class="py-2 text-right font-medium">10 000 €</td></tr>
+              <tr><td class="py-2 text-slate-600">Počet kusov v zmluve</td><td class="py-2 text-right font-medium">do 5 ks</td></tr>
+              <tr><td class="py-2 text-slate-600">Zodpovednosť</td><td class="py-2 text-right font-medium">voliteľná (do 750 000 €)</td></tr>
             </tbody>
           </table>
         </div>
 
-        <!-- 2) Produkty/partneri -->
-        <div class="bg-white rounded-2xl p-6 card">
-          <h3 class="text-lg font-semibold">Produkty &amp; partneri</h3>
-          <table class="mt-4 w-full bp-table">
-            <tbody class="text-sm text-gray-700">
-            <tr><td class="py-2 w-40 text-gray-500">Poistenie bicyklov</td><td>viacerí partneri (SR + EÚ) – výber podľa požiadaviek</td></tr>
-            <tr><td class="py-2 text-gray-500">Rozsah</td><td>krádež/lúpež, vandalizmus, havária, živly; voliteľná zodpovednosť</td></tr>
-            <tr><td class="py-2 text-gray-500">Max. na kus</td><td>do 10&nbsp;000&nbsp;€ (spolu do 50&nbsp;000&nbsp;€ / zmluva)</td></tr>
+        <!-- Tabuľka 2 -->
+        <div class="rounded-2xl card bg-white/95 p-5">
+          <h3 class="text-lg font-semibold mb-3">Kryté riziká</h3>
+          <table class="w-full text-sm">
+            <tbody class="divide-y">
+              <tr><td class="py-2">Krádež vlámaním / lúpež</td><td class="py-2 text-right font-medium">áno</td></tr>
+              <tr><td class="py-2">Poškodenie (pád, havária)</td><td class="py-2 text-right font-medium">áno</td></tr>
+              <tr><td class="py-2">Živly / vandalizmus</td><td class="py-2 text-right font-medium">áno</td></tr>
+              <tr><td class="py-2">Preteky</td><td class="py-2 text-right font-medium">nie (štandardne vylúčené)</td></tr>
             </tbody>
           </table>
         </div>
 
-        <!-- 3) Proces & leady -->
-        <div class="bg-white rounded-2xl p-6 card">
-          <h3 class="text-lg font-semibold">Proces &amp; leady</h3>
-          <table class="mt-4 w-full bp-table">
-            <tbody class="text-sm text-gray-700">
-            <tr><td class="py-2 w-40 text-gray-500">Dotazník</td><td><a class="text-[#0B6EF3] underline" href="https://forms.gle/rNYBGAVB1dkxyL3g6" target="_blank" rel="noopener">Google Form</a> (UTM parametre prenášame)</td></tr>
-            <tr><td class="py-2 text-gray-500">Doručenie</td><td>ponuka e-mailom alebo WhatsApp, aktivácia online</td></tr>
-            <tr><td class="py-2 text-gray-500">Shop/ID</td><td>voliteľné pole pre identifikáciu prevádzky/partnera</td></tr>
+        <!-- Tabuľka 3 -->
+        <div class="rounded-2xl card bg-white/95 p-5">
+          <h3 class="text-lg font-semibold mb-3">Zabezpečenie (minimum)</h3>
+          <table class="w-full text-sm">
+            <tbody class="divide-y">
+              <tr><td class="py-2">U-zámok</td><td class="py-2 text-right font-medium">strmeň ≥ 8 mm</td></tr>
+              <tr><td class="py-2">Reťaz/kábel</td><td class="py-2 text-right font-medium">oceľ ≥ 8 mm</td></tr>
+              <tr><td class="py-2">Skladací zámok</td><td class="py-2 text-right font-medium">plát ≥ 5×10 mm</td></tr>
+              <tr><td class="py-2">Technika</td><td class="py-2 text-right font-medium">rám + koleso k pevnému bodu</td></tr>
             </tbody>
           </table>
         </div>
 
-        <!-- 4) Marketing -->
-        <div class="bg-white rounded-2xl p-6 card">
-          <h3 class="text-lg font-semibold">Marketing &amp; materiály</h3>
-          <table class="mt-4 w-full bp-table">
-            <tbody class="text-sm text-gray-700">
-            <tr><td class="py-2 w-40 text-gray-500">Vizuality</td><td><a class="text-[#0B6EF3] underline" href="#">Roll-up (PDF)</a>, <a class="text-[#0B6EF3] underline" href="#">leták (AI/PDF)</a></td></tr>
-            <tr><td class="py-2 text-gray-500">CTA QR</td><td>generujeme QR na dotazník s UTM (obchod/partner)</td></tr>
-            <tr><td class="py-2 text-gray-500">Obsah</td><td>odporúčaný text a obrázky pre e-shop/web</td></tr>
+        <!-- Tabuľka 4 -->
+        <div class="rounded-2xl card bg-white/95 p-5">
+          <h3 class="text-lg font-semibold mb-3">Proces & kontakt</h3>
+          <table class="w-full text-sm">
+            <tbody class="divide-y">
+              <tr><td class="py-2">Dopyt</td><td class="py-2 text-right font-medium">web formulár / e-mail</td></tr>
+              <tr><td class="py-2">Ponuka</td><td class="py-2 text-right font-medium">do 1–2 pracovných dní</td></tr>
+              <tr><td class="py-2">Aktivácia</td><td class="py-2 text-right font-medium">online bez papierov</td></tr>
+              <tr><td class="py-2">Podpora</td><td class="py-2 text-right font-medium">pri škode aj výbere</td></tr>
             </tbody>
           </table>
         </div>
 
-        <!-- 5) Claim & podpora – SPODNÝ STRED -->
-        <div class="lg:col-span-2">
-          <div class="bg-white rounded-2xl p-6 card max-w-3xl mx-auto">
-            <h3 class="text-lg font-semibold">Škodové udalosti &amp; podpora</h3>
-            <table class="mt-4 w-full bp-table">
-              <tbody class="text-sm text-gray-700">
-              <tr><td class="py-2 w-48 text-gray-500">Krádež/lúpež</td><td>okamžite kontaktovať políciu; zdokumentovať zámok/zabezpečenie</td></tr>
-              <tr><td class="py-2 text-gray-500">Havária/škoda</td><td>foto, popis, doklad o kúpe/servis; asistujeme s podaním</td></tr>
-              <tr><td class="py-2 text-gray-500">Kontakt na pomoc</td><td><a class="underline" href="mailto:hubacekm26@gmail.com">hubacekm26@gmail.com</a>, <a class="underline" href="tel:+421905874100">+421&nbsp;905&nbsp;874&nbsp;100</a></td></tr>
+        <!-- Tabuľka 5 – vlastný rad, centrovaná -->
+        <div class="md:col-span-2 flex justify-center">
+          <div class="w-full max-w-2xl rounded-2xl card bg-white/95 p-5">
+            <h3 class="text-lg font-semibold mb-3">Marketing & materiály</h3>
+            <table class="w-full text-sm">
+              <tbody class="divide-y">
+                <tr><td class="py-2">Logo & brand</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">balík (zip)</a></td></tr>
+                <tr><td class="py-2">Letáky / stojany</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">PDF/A4</a></td></tr>
+                <tr><td class="py-2">Bannery na web</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">JPG/PNG</a></td></tr>
+                <tr><td class="py-2">FAQ pre personál</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">prehľad</a></td></tr>
               </tbody>
             </table>
-            <div class="mt-4">
-              <a href="/" class="inline-flex text-[#0B6EF3] underline">Späť na hlavnú stránku</a>
-            </div>
           </div>
         </div>
-      </div> <!-- /grid -->
-    </div>
+
+      </div>
+    </section>
   </main>
 
-  <!-- Overenie kódu (verzia B: SHA-256 hash) -->
   <script>
-    // === ZMEŇ len hash, ak chceš nové heslo ===
-    // SHA-256("bike321!@") = b78718b45008af27f9ccd1a8fc877d9ba7457ca94b73ea3486346786b0a38625
-    const PARTNER_CODE_HASH = "b78718b45008af27f9ccd1a8fc877d9ba7457ca94b73ea3486346786b0a38625";
+    // === Jednoduchá ochrana prístupovým kódom (frontend) ===
+    const ACCESS_CODE = "bike321!@"; // <- zmeň sem, keď chceš nové heslo
 
-    async function sha256Hex(text){
-      const data = new TextEncoder().encode(text.trim());
-      const buf = await crypto.subtle.digest("SHA-256", data);
-      return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,"0")).join("");
-    }
+    // ak prišli s ?k=KOD, skús odomknúť
+    const urlK = new URLSearchParams(location.search).get("k");
+    if (urlK) tryUnlock(urlK);
 
-    async function verify(code){
-      return (await sha256Hex(code)) === PARTNER_CODE_HASH;
-    }
-
-    // Odoslanie formulára
-    document.getElementById("code-form").addEventListener("submit", async (e) => {
+    document.getElementById("unlockForm").addEventListener("submit", (e)=>{
       e.preventDefault();
-      const code = document.getElementById("access-code").value;
-      const err = document.getElementById("code-error");
-      try {
-        const ok = await verify(code);
-        if (ok){
-          document.getElementById("locked").classList.add("hidden");
-          document.getElementById("unlocked").classList.remove("hidden");
-          err.textContent = "";
-          // voliteľné: vyčistiť hash v URL a doplniť fragment
-          history.replaceState({}, "", location.pathname + "#ok");
-        } else {
-          err.textContent = "Nesprávny kód. Skúste znova.";
-        }
-      } catch(ex){
-        err.textContent = "Nepodarilo sa overiť kód. Skúste ešte raz.";
-      }
+      const code = document.getElementById("codeInput").value.trim();
+      tryUnlock(code);
     });
 
-    // Voliteľné: auto-odomknutie cez ?k=...
-    (async function autoUnlockFromUrl(){
-      const k = new URLSearchParams(location.search).get("k");
-      if (!k) return;
-      const err = document.getElementById("code-error");
-      if (await verify(k)){
-        document.getElementById("locked").classList.add("hidden");
-        document.getElementById("unlocked").classList.remove("hidden");
-        err.textContent = "";
-        history.replaceState({}, "", location.pathname + "#ok");
+    function tryUnlock(code){
+      if (code === ACCESS_CODE){
+        document.getElementById("gate").classList.add("hidden");
+        document.getElementById("content").classList.remove("hidden");
+        // odstráň kód z URL (ak bol v query)
+        if (location.search.includes("k=")){
+          const u = new URL(location.href); u.searchParams.delete("k"); history.replaceState({}, "", u.toString());
+        }
+      } else {
+        alert("Nesprávny kód. Skúste znova.");
       }
-    })();
+    }
   </script>
 </body>
 </html>
+
