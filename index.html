@@ -18,9 +18,9 @@
 
   <style>
     /* Tlačidlá + prístupnosť */
-    .btn {display:inline-flex;align-items:center;gap:.5rem;border-radius:.75rem;padding:.75rem 1.25rem;
-          color:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);transition:opacity .15s ease;text-decoration:none}
-    .btn-grad {background-image:linear-gradient(to right,#0B6EF3,#0ACF83)}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:.75rem;padding:.75rem 1.25rem;
+         color:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);transition:opacity .15s ease;text-decoration:none}
+    .btn-grad{background-image:linear-gradient(to right,#0B6EF3,#0ACF83)}
     .btn:hover{opacity:.95}
     .btn:focus-visible{outline:2px solid #fff;outline-offset:2px;box-shadow:0 0 0 4px rgba(11,110,243,.5)}
 
@@ -35,9 +35,15 @@
     @keyframes bp-osc{0%{transform:translateX(0)}100%{transform:translateX(-40%)}}
     .group:hover .bp-track{animation-duration:32s}
     @media (prefers-reduced-motion: reduce){.bp-track{animation:none;transform:translateX(0)}}
+
+    /* Sticky CTA len pre mobil */
+    @media (max-width:640px){
+      .sticky-cta{position:fixed;left:0;right:0;bottom:12px;display:flex;justify-content:center;z-index:50}
+      .sticky-cta a{padding:.9rem 1.25rem;border-radius:9999px}
+    }
   </style>
 
-  <!-- CTA/konfigurácia -->
+  <!-- CTA/konfigurácia (formular, tel, email) -->
   <script>
     const PHONE = "+421 905 874 100";
     const EMAIL = "hubacekm26@gmail.com";
@@ -64,14 +70,13 @@
   <header class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
     <a href="/" class="font-semibold text-lg">Poistenie bicykla</a>
     <nav class="hidden sm:flex gap-6 text-sm">
-      <!-- „Prečo cez nás“ odstránené -->
+      <!-- odstránené: Prečo cez nás -->
       <a href="#ako" class="hover:underline">Ako to funguje</a>
       <a href="#faq" class="hover:underline">FAQ</a>
       <a href="#clanky" class="hover:underline">Články</a>
-      <!-- „Partneri“ z nav odstránené (CTA ho nahrádza) -->
       <a href="#kontakt" class="hover:underline">Kontakt</a>
     </nav>
-    <!-- CTA vpravo hore: nahradené na PARTNERI → /partneri.html -->
+    <!-- jediné CTA v lište: Partneri -->
     <a href="/partneri.html" class="btn btn-grad text-sm md:text-base">
       Partneri
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
@@ -105,7 +110,7 @@
     </div>
   </section>
 
-  <!-- PREČO CEZ NÁS -->
+  <!-- PREČO CEZ NÁS (vizuálny pás ikon) -->
   <section id="vyhody" class="relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-b from-[#F7FAFF] via-white to-white pointer-events-none"></div>
 
@@ -113,13 +118,11 @@
       <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Prečo cez nás</h2>
         <p class="mt-3 text-gray-600">
-          Poistíme to, čo naozaj používate – bicykel, elektrobicykel, kolobežku, elektrokolobežku, cyklovozík aj Vašu
+          Poistíme to, čo naozaj používate – bicykel, elektrobicykel, kolobežku, elektrokolobežku, cyklovozík aj vašu
           <strong>zodpovednosť za škodu</strong>. V jednej zmluve môžete mať až <strong>5 bicyklov</strong>.
-          Spolupracujeme s viacerými partnermi a ponuku skladáme podľa <strong>vašich požiadaviek</strong>.
         </p>
       </div>
 
-      <!-- pomalý „ping-pong“ pás makiet -->
       <div class="group relative mt-8 overflow-hidden rounded-2xl border bg-white/70 backdrop-blur p-4">
         <div class="bp-track flex items-center gap-10 md:gap-14">
           <!-- bicykel -->
@@ -131,7 +134,6 @@
             </svg>
             <figcaption class="mt-1 text-xs text-gray-600">Bicykel</figcaption>
           </figure>
-
           <!-- e-bike -->
           <figure class="flex flex-col items-center">
             <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
@@ -143,7 +145,6 @@
             </svg>
             <figcaption class="mt-1 text-xs text-gray-600">Elektrobicykel</figcaption>
           </figure>
-
           <!-- kolobežka -->
           <figure class="flex flex-col items-center">
             <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
@@ -154,7 +155,6 @@
             </svg>
             <figcaption class="mt-1 text-xs text-gray-600">Kolobežka</figcaption>
           </figure>
-
           <!-- e-kolobežka -->
           <figure class="flex flex-col items-center">
             <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
@@ -166,7 +166,6 @@
             </svg>
             <figcaption class="mt-1 text-xs text-gray-600">Elektrokolobežka</figcaption>
           </figure>
-
           <!-- cyklovozík -->
           <figure class="flex flex-col items-center">
             <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
@@ -260,7 +259,7 @@
         <details class="rounded-xl border bg-white p-4">
           <summary class="flex cursor-pointer list-none items-center justify-between">
             <span class="font-medium">Kto a čo si môže poistiť?</span>
-            <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9l6 6 6-6"/></svg>
           </summary>
           <p class="mt-2 text-gray-700">Poistiť si viete až <strong>5 kusov</strong> (bicykle, e-biky, kolobežky, cyklovozíky) do <strong>10&nbsp;000&nbsp;€ na kus</strong>, spolu do <strong>50&nbsp;000&nbsp;€</strong>. Územne platí <strong>Slovensko + Európa</strong>.</p>
         </details>
@@ -381,88 +380,59 @@
     </div>
   </section>
 
-  <!-- ================== PARTNERI (inline sekcia na hlavnej) ================== -->
-  <section id="partneri" class="relative">
-    <div class="absolute inset-0 bg-gradient-to-b from-[#F7FAFF] via-white to-white pointer-events-none"></div>
+  <!-- PARTNERI – čistá verzia aj na domovskej stránke -->
+  <section id="partneri" class="max-w-7xl mx-auto px-4 py-14">
+    <h2 class="text-center text-4xl md:text-5xl font-extrabold">
+      <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#0B6EF3] to-[#0ACF83]">PARTNERI</span>
+    </h2>
 
-    <div class="relative max-w-7xl mx-auto px-4 py-14">
-      <!-- Nadpis v CTA gradiente -->
-      <div class="text-center">
-        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">
-          <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#0B6EF3] to-[#0ACF83]">PARTNERI</span>
-        </h2>
-        <!-- podnadpis odstránený podľa zadania -->
+    <!-- Vrátka na kód – čisté -->
+    <section id="partner-gate" class="max-w-2xl mx-auto mt-10 bg-white border rounded-3xl p-8 md:p-10">
+      <h3 class="text-2xl md:text-3xl font-semibold text-gray-900 text-center">Prístupový kód</h3>
+      <p class="mt-2 text-gray-600 text-center">Zadajte kód, ktorý ste od nás dostali.</p>
+
+      <form id="partner-code-form" class="mt-6 space-y-4">
+        <input id="partner-code-input" type="password" autocomplete="off" placeholder="Zadajte kód"
+               class="w-full rounded-2xl border px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500">
+        <button class="w-full btn btn-grad text-base font-semibold">Odomknúť</button>
+        <p id="partner-code-err" class="text-sm text-red-600 hidden text-center">Nesprávny kód.</p>
+      </form>
+      <div class="mt-6 text-center">
+        <a href="/partneri.html" class="text-sm underline text-gray-600">Otvoriť na samostatnej stránke</a>
       </div>
+    </section>
 
-      <!-- „Vrátka“ na kód (vycentrovaný heading, bez „Tipu“) -->
-      <section id="partner-gate" class="max-w-md mx-auto mt-8 bg-white border rounded-2xl p-6 text-center">
-        <h3 class="text-xl font-semibold">Prístupový kód</h3>
-        <form id="partner-code-form" class="mt-5 space-y-3">
-          <input id="partner-code-input" type="password" inputmode="text" autocomplete="off" placeholder="Zadajte kód"
-                class="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"/>
-          <button class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl text-white font-medium shadow-sm btn-grad">Odomknúť</button>
-          <p id="partner-code-err" class="text-sm text-red-600 hidden">Nesprávny kód.</p>
-        </form>
-      </section>
+    <!-- SKRYTÝ OBSAH (po overení kódu) -->
+    <section id="partner-content" class="hidden mt-10">
+      <div class="bg-white border rounded-3xl p-8 md:p-10">
+        <h3 class="text-2xl font-semibold">Základné informácie o spolupráci</h3>
+        <p class="mt-2 text-gray-700">Obsah budeme postupne dopĺňať.</p>
 
-      <!-- SKRYTÝ OBSAH – zobrazí sa po overení kódu -->
-      <section id="partner-content" class="hidden mt-10">
-        <div class="bg-white border rounded-2xl p-6">
-          <h3 class="text-lg font-semibold">Základné informácie o spolupráci</h3>
-          <p class="mt-2 text-gray-700">Toto je úvodná verzia. Obsah budeme postupne dopĺňať a meniť.</p>
-
-          <div class="mt-6 grid gap-4 sm:grid-cols-2">
-            <div class="rounded-xl border p-4">
-              <h4 class="font-semibold">1) Model spolupráce</h4>
-              <ul class="mt-2 text-sm text-gray-700 list-disc list-inside">
-                <li>Registrácia partnera (PFA/prevádzka/eshop).</li>
-                <li>Štartovacie materiály + rýchly tréning (30 min online).</li>
-                <li>Odmeňovanie podľa výkonu (mesačné vyúčtovanie).</li>
-              </ul>
-            </div>
-
-            <div class="rounded-xl border p-4">
-              <h4 class="font-semibold">2) Podmienky a nastavenia</h4>
-              <ul class="mt-2 text-sm text-gray-700 list-disc list-inside">
-                <li>Čisté odovzdanie údajov cez dotazník (GDPR safe).</li>
-                <li>Komunikácia: e-mail / WhatsApp / telefón podľa potreby.</li>
-                <li>Schvaľovanie ponúk pred odoslaním klientovi (na požiadanie).</li>
-              </ul>
-            </div>
-
-            <div class="rounded-xl border p-4">
-              <h4 class="font-semibold">3) Materiály</h4>
-              <ul class="mt-2 text-sm text-gray-700 list-disc list-inside">
-                <li>Brand podklady (logo, CTA, farby).</li>
-                <li>Checklist uzamykania (PDF) – pre klientov.</li>
-                <li>Mini manuál: ako ponúkať (5 min čítanie).</li>
-              </ul>
-            </div>
-
-            <div class="rounded-xl border p-4">
-              <h4 class="font-semibold">4) Kontakty</h4>
-              <p class="mt-2 text-sm text-gray-700">Ing. Martin Hubáček – M&amp;F Consulting s.r.o.<br>
-                Tel: <a class="underline" href="tel:+421905874100">+421 905 874 100</a> ·
-                E-mail: <a class="underline" href="mailto:hubacekm26@gmail.com">hubacekm26@gmail.com</a></p>
-            </div>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <div class="rounded-xl border p-4">
+            <h4 class="font-semibold">Model spolupráce</h4>
+            <ul class="mt-2 text-sm text-gray-700 list-disc list-inside">
+              <li>Registrácia partnera (PFA/prevádzka/eshop).</li>
+              <li>Štartovacie materiály + rýchly tréning.</li>
+              <li>Odmeňovanie podľa výkonu (mesačne).</li>
+            </ul>
           </div>
-
-          <div class="mt-6 grid gap-4 sm:grid-cols-2">
-            <a class="block rounded-xl border p-4 hover:shadow" href="#" target="_blank" rel="noopener">Onboarding formulár</a>
-            <a class="block rounded-xl border p-4 hover:shadow" href="#" target="_blank" rel="noopener">Brand &amp; podklady (Drive)</a>
+          <div class="rounded-xl border p-4">
+            <h4 class="font-semibold">Podmienky</h4>
+            <ul class="mt-2 text-sm text-gray-700 list-disc list-inside">
+              <li>Bezpečné odovzdanie údajov (GDPR).</li>
+              <li>Komunikácia: e-mail / WhatsApp / tel.</li>
+              <li>Schvaľovanie ponúk na požiadanie.</li>
+            </ul>
           </div>
-
-          <div class="mt-8 flex items-center gap-3">
-            <button id="partner-logout" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl border bg-white">Zamknúť</button>
-            <a href="/partneri.html" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-white btn-grad">Otvoriť v novom okne</a>
-          </div>
-
-          <p class="mt-6 text-xs text-gray-500">Pozn.: Táto sekcia je skrytá jednoduchým kódom na strane klienta (nie je to „bankové“ heslo). Na základné skrytie obsahu to stačí.</p>
         </div>
-      </section>
-    </div>
+
+        <div class="mt-8">
+          <button id="partner-logout" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl border bg-white">Zamknúť</button>
+        </div>
+      </div>
+    </section>
   </section>
-  <!-- ================== /PARTNERI ================== -->
 
   <!-- SPROSTREDKOVANIE / PRÁVNE INFO -->
   <section class="max-w-7xl mx-auto px-4 py-12">
@@ -506,12 +476,11 @@
     </div>
   </footer>
 
-  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
-
-  <!-- PARTNERI – overenie kódu (bike321!@) -->
   <script>
-    // SHA-256 hash pre kód: bike321!@
-    const PARTNER_CODE_HASH = "b78718b45008af27f9ccd1a8fc877d9ba7457ca94b73ea3486346786b0a38625";
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    // PARTNER gate na domovskej stránke (rovnaký hash ako na /partneri.html)
+    const PARTNER_CODE_HASH = "b78718b45008af27f9ccd1a8fc877d9ba7457ca94b73ea3486346786b0a38625"; // bike321!@
 
     const gateEl    = document.getElementById("partner-gate");
     const contentEl = document.getElementById("partner-content");
@@ -523,21 +492,7 @@
     function showPartner(){ gateEl?.classList.add("hidden"); contentEl?.classList.remove("hidden"); }
     function lockPartner(){ localStorage.removeItem("bp_partner_ok"); contentEl?.classList.add("hidden"); gateEl?.classList.remove("hidden"); }
 
-    if(localStorage.getItem("bp_partner_ok")==="1"){ showPartner(); }
-
-    (async () => {
-      const p = new URLSearchParams(location.search).get("k");
-      if (!p || localStorage.getItem("bp_partner_ok")==="1") return;
-      const ok = await verifyPartner(p);
-      if(ok){ localStorage.setItem("bp_partner_ok","1"); showPartner(); }
-    })();
-
-    async function sha256(txt){
-      const buf = new TextEncoder().encode(txt);
-      const hash = await crypto.subtle.digest("SHA-256", buf);
-      return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
-    }
-    async function verifyPartner(code){ return (await sha256(code)) === PARTNER_CODE_HASH; }
+    if (localStorage.getItem("bp_partner_ok")==="1") showPartner();
 
     codeForm?.addEventListener("submit", async (e)=>{
       e.preventDefault();
@@ -546,18 +501,21 @@
       if(ok){ localStorage.setItem("bp_partner_ok","1"); showPartner(); }
       else { errEl?.classList.remove("hidden"); codeInput.focus(); }
     });
+
     logoutBtn?.addEventListener("click", lockPartner);
+
+    async function verifyPartner(code){
+      const enc = new TextEncoder().encode(code);
+      const h = await crypto.subtle.digest("SHA-256", enc);
+      const hex = [...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,"0")).join("");
+      return hex === PARTNER_CODE_HASH;
+    }
   </script>
 
-  <!-- Sticky CTA (iba mobil) -->
-  <style>
-    @media (max-width: 640px){
-      .sticky-cta{position:fixed;left:0;right:0;bottom:12px;display:flex;justify-content:center;z-index:50}
-      .sticky-cta a{padding:.9rem 1.25rem;border-radius:9999px}
-    }
-  </style>
+  <!-- Sticky CTA (mobil) – ponechané -->
   <div class="sticky-cta">
     <a data-cta="form" class="btn btn-grad">Získať ponuku</a>
   </div>
 </body>
 </html>
+
