@@ -70,6 +70,7 @@
       <a href="#ako" class="hover:underline">Ako to funguje</a>
       <a href="#faq" class="hover:underline">FAQ</a>
       <a href="#clanky" class="hover:underline">Články</a>
+      <a href="#partneri" class="hover:underline">Partneri</a>
       <a href="#kontakt" class="hover:underline">Kontakt</a>
     </nav>
     <a data-cta="form" class="btn btn-grad text-sm md:text-base">
@@ -382,6 +383,93 @@
     </div>
   </section>
 
+  <!-- ================== PARTNERI (privátna sekcia inline na hlavnej) ================== -->
+  <section id="partneri" class="relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#F7FAFF] via-white to-white pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 py-14">
+      <!-- Nadpis v CTA gradiente -->
+      <div class="text-center">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#0B6EF3] to-[#0ACF83]">PARTNERI</span>
+        </h2>
+        <p class="mt-2 text-gray-600">Materiály a informácie pre spoluprácu (prístup na kód).</p>
+      </div>
+
+      <!-- „Vrátka“ na kód -->
+      <section id="partner-gate" class="max-w-md mx-auto mt-8 bg-white border rounded-2xl p-6">
+        <h3 class="text-xl font-semibold">Prístupový kód</h3>
+        <p class="mt-1 text-gray-600 text-sm">Zadajte kód, ktorý ste od nás dostali.</p>
+
+        <form id="partner-code-form" class="mt-5 space-y-3">
+          <input id="partner-code-input" type="password" inputmode="text" autocomplete="off" placeholder="Zadajte kód"
+                class="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"/>
+          <button class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-white font-medium shadow-sm btn-grad">Odomknúť</button>
+          <p id="partner-code-err" class="text-sm text-red-600 hidden">Nesprávny kód.</p>
+        </form>
+
+        <p class="mt-3 text-xs text-gray-500">Tip: ak máte link s kódom, stačí ho otvoriť: <code>?k=VAS_KOD</code>.</p>
+      </section>
+
+      <!-- SKRYTÝ OBSAH – zobrazí sa po overení kódu -->
+      <section id="partner-content" class="hidden mt-10">
+        <div class="bg-white border rounded-2xl p-6">
+          <h3 class="text-lg font-semibold">Základné informácie o spolupráci</h3>
+          <p class="mt-2 text-gray-700">Toto je úvodná verzia. Obsah budeme postupne dopĺňať a meniť.</p>
+
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <div class="rounded-xl border p-4">
+              <h4 class="font-semibold">1) Model spolupráce</h4>
+              <ul class="mt-2 text-sm text-gray-700 list-disc list-inside">
+                <li>Registrácia partnera (PFA/prevádzka/eshop).</li>
+                <li>Štartovacie materiály + rýchly tréning (30 min online).</li>
+                <li>Odmeňovanie podľa výkonu (mesačné vyúčtovanie).</li>
+              </ul>
+            </div>
+
+            <div class="rounded-xl border p-4">
+              <h4 class="font-semibold">2) Podmienky a nastavenia</h4>
+              <ul class="mt-2 text-sm text-gray-700 list-disc list-inside">
+                <li>Čisté odovzdanie údajov cez dotazník (GDPR safe).</li>
+                <li>Komunikácia: e-mail / WhatsApp / telefón podľa potreby.</li>
+                <li>Schvaľovanie ponúk pred odoslaním klientovi (na požiadanie).</li>
+              </ul>
+            </div>
+
+            <div class="rounded-xl border p-4">
+              <h4 class="font-semibold">3) Materiály</h4>
+              <ul class="mt-2 text-sm text-gray-700 list-disc list-inside">
+                <li>Brand podklady (logo, CTA, farby).</li>
+                <li>Checklist uzamykania (PDF) – pre klientov.</li>
+                <li>Mini manuál: ako ponúkať (5 min čítanie).</li>
+              </ul>
+            </div>
+
+            <div class="rounded-xl border p-4">
+              <h4 class="font-semibold">4) Kontakty</h4>
+              <p class="mt-2 text-sm text-gray-700">Ing. Martin Hubáček – M&amp;F Consulting s.r.o.<br>
+                Tel: <a class="underline" href="tel:+421905874100">+421 905 874 100</a> ·
+                E-mail: <a class="underline" href="mailto:hubacekm26@gmail.com">hubacekm26@gmail.com</a></p>
+            </div>
+          </div>
+
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <a class="block rounded-xl border p-4 hover:shadow" href="#" target="_blank" rel="noopener">Onboarding formulár</a>
+            <a class="block rounded-xl border p-4 hover:shadow" href="#" target="_blank" rel="noopener">Brand &amp; podklady (Drive)</a>
+          </div>
+
+          <div class="mt-8 flex items-center gap-3">
+            <button id="partner-logout" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl border bg-white">Zamknúť</button>
+            <a href="/partneri.html" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-white btn-grad">Otvoriť v novom okne</a>
+          </div>
+
+          <p class="mt-6 text-xs text-gray-500">Pozn.: Táto sekcia je skrytá jednoduchým kódom na strane klienta (nie je to „bankové“ heslo). Na základné skrytie obsahu to stačí.</p>
+        </div>
+      </section>
+    </div>
+  </section>
+  <!-- ================== /PARTNERI ================== -->
+
   <!-- SPROSTREDKOVANIE / PRÁVNE INFO -->
   <section class="max-w-7xl mx-auto px-4 py-12">
     <div class="p-6 rounded-2xl border bg-gray-50 text-sm text-gray-700 leading-6">
@@ -425,16 +513,60 @@
   </footer>
 
   <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+
+  <!-- PARTNERI – overenie kódu (bike321!@) -->
+  <script>
+    // SHA-256 hash pre kód: bike321!@
+    const PARTNER_CODE_HASH = "b78718b45008af27f9ccd1a8fc877d9ba7457ca94b73ea3486346786b0a38625";
+
+    const gateEl    = document.getElementById("partner-gate");
+    const contentEl = document.getElementById("partner-content");
+    const errEl     = document.getElementById("partner-code-err");
+    const codeForm  = document.getElementById("partner-code-form");
+    const codeInput = document.getElementById("partner-code-input");
+    const logoutBtn = document.getElementById("partner-logout");
+
+    function showPartner(){ gateEl?.classList.add("hidden"); contentEl?.classList.remove("hidden"); }
+    function lockPartner(){ localStorage.removeItem("bp_partner_ok"); contentEl?.classList.add("hidden"); gateEl?.classList.remove("hidden"); }
+
+    // Ak už odomknuté v tomto prehliadači
+    if(localStorage.getItem("bp_partner_ok")==="1"){ showPartner(); }
+
+    // Podpora URL parametra ?k=
+    (async () => {
+      const p = new URLSearchParams(location.search).get("k");
+      if (!p || localStorage.getItem("bp_partner_ok")==="1") return;
+      const ok = await verifyPartner(p);
+      if(ok){ localStorage.setItem("bp_partner_ok","1"); showPartner(); }
+    })();
+
+    async function sha256(txt){
+      const buf = new TextEncoder().encode(txt);
+      const hash = await crypto.subtle.digest("SHA-256", buf);
+      return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
+    }
+    async function verifyPartner(code){ return (await sha256(code)) === PARTNER_CODE_HASH; }
+
+    codeForm?.addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      errEl?.classList.add("hidden");
+      const ok = await verifyPartner(codeInput.value.trim());
+      if(ok){ localStorage.setItem("bp_partner_ok","1"); showPartner(); }
+      else { errEl?.classList.remove("hidden"); codeInput.focus(); }
+    });
+    logoutBtn?.addEventListener("click", lockPartner);
+  </script>
+
   <!-- Sticky CTA (iba mobil) – vlož tesne pred </body> -->
-<style>
-  @media (max-width: 640px){
-    .sticky-cta{position:fixed;left:0;right:0;bottom:12px;display:flex;justify-content:center;z-index:50}
-    .sticky-cta a{padding:.9rem 1.25rem;border-radius:9999px}
-  }
-</style>
-<div class="sticky-cta">
-  <a data-cta="form" class="btn btn-grad">Získať ponuku</a>
-</div>
+  <style>
+    @media (max-width: 640px){
+      .sticky-cta{position:fixed;left:0;right:0;bottom:12px;display:flex;justify-content:center;z-index:50}
+      .sticky-cta a{padding:.9rem 1.25rem;border-radius:9999px}
+    }
+  </style>
+  <div class="sticky-cta">
+    <a data-cta="form" class="btn btn-grad">Získať ponuku</a>
+  </div>
 </body>
 </html>
 
