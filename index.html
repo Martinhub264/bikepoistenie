@@ -459,6 +459,103 @@
   <div class="sticky-cta">
     <a data-cta="form" class="btn btn-grad">Získať ponuku</a>
   </div>
+<!-- ===== Floating nudge: bike + banner (insert before </body>) ===== -->
+<style>
+  @keyframes wheelSpin { to { transform: rotate(360deg); } }
+  @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-2px) } }
+  @keyframes slideIn { from { transform: translateX(110%); opacity: 0 } to { transform: translateX(0); opacity: 1 } }
+  @keyframes slideOut { to { transform: translateX(110%); opacity: 0 } }
+
+  /* rešpektuj znížený pohyb */
+  @media (prefers-reduced-motion: reduce) {
+    #bike-nudge, #bike-nudge * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div id="bike-nudge"
+     class="fixed right-3 sm:right-6 z-[60] max-w-[92vw] sm:max-w-md
+            translate-x-full opacity-0 pointer-events-auto"
+     role="region" aria-live="polite" aria-label="Informácia">
+  <div class="flex items-center gap-3 sm:gap-4
+              rounded-2xl border border-slate-200 shadow-lg
+              bg-white/95 backdrop-blur px-3 py-2 sm:px-4 sm:py-3">
+
+    <!-- „cyklista“ (ľahký inline SVG) -->
+    <svg class="h-10 w-14 sm:h-12 sm:w-16 shrink-0" viewBox="0 0 88 48" fill="none" stroke="currentColor" stroke-width="2">
+      <!-- kolesá -->
+      <circle cx="24" cy="34" r="10" class="text-slate-300"
+              style="transform-origin:24px 34px; animation: wheelSpin 3s linear infinite;"></circle>
+      <circle cx="64" cy="34" r="10" class="text-slate-300"
+              style="transform-origin:64px 34px; animation: wheelSpin 3s linear infinite;"></circle>
+      <!-- rám / jazdec -->
+      <path d="M24 34l10-16 10 16M34 18h15M49 18l16 16" class="text-sky-600"
+            style="animation:bob 2.6s ease-in-out infinite;"></path>
+      <circle cx="46" cy="10" r="4" class="text-sky-600"></circle>
+    </svg>
+
+    <!-- banner text -->
+    <div class="text-sm sm:text-base text-slate-800 pr-2">
+      Zaťiaľ čo čítaš stránku, <strong>ukradli 1 bicykel</strong>.
+    </div>
+
+    <!-- zavrieť -->
+    <button id="bike-nudge-close"
+            class="ml-1 inline-flex items-center justify-center rounded-full p-1
+                   text-slate-500 hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-400"
+            aria-label="Zavrieť">
+      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 6l12 12M18 6l-12 12" stroke-linecap="round"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    // *** NASTAVENIA ***
+    const SHOW_AFTER_MS = 60000;               // 60 s
+    const STORAGE_KEY = "bikeNudgeShown";      // session-only (len 1× za reláciu)
+
+    // umiestnenie tak, aby neprekryl sticky CTA na mobile
+    function positionNudge() {
+      const el = document.getElementById("bike-nudge");
+      if (!el) return;
+      const mobile = window.matchMedia("(max-width: 640px)").matches;
+      // ak máš na mobile sticky CTA ~48–56px nad spodkom, posuň sa nad neho
+      el.style.bottom = mobile ? "76px" : "24px";
+      el.style.animation = "slideIn .6s ease-out forwards";
+    }
+
+    function showNudge() {
+      // už sme ukázali? (v rámci session)
+      if (sessionStorage.getItem(STORAGE_KEY) === "1") return;
+      positionNudge();
+      sessionStorage.setItem(STORAGE_KEY, "1");
+    }
+
+    // časovač
+    let timer = setTimeout(showNudge, SHOW_AFTER_MS);
+
+    // ak používateľ minimalizuje/prefokusuje, posuň časovač (nekvapni v neaktívnej karte)
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) { clearTimeout(timer); }
+      else { timer = setTimeout(showNudge, 8000); } // po návrate ukáž o chvíľu
+    });
+
+    // zavrieť
+    document.getElementById("bike-nudge-close")?.addEventListener("click", () => {
+      const el = document.getElementById("bike-nudge");
+      if (!el) return;
+      el.style.animation = "slideOut .4s ease-in forwards";
+    });
+
+    // pre istotu reposition pri zmene veľkosti (kvôli sticky CTA)
+    window.addEventListener("resize", () => {
+      if (sessionStorage.getItem(STORAGE_KEY) === "1") positionNudge();
+    });
+  })();
+</script>
+<!-- ===== /Floating nudge ===== -->
 </body>
 </html>
 
