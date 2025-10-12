@@ -41,7 +41,6 @@
     .popup.hide{ animation: slideOut .4s ease forwards }
     @keyframes slideIn{ to{ transform: translateX(0); opacity:1 } }
     @keyframes slideOut{ to{ transform: translateX(120%); opacity:0 } }
-
     @media (max-width: 480px){
       .popup{ left:12px; right:12px; bottom:12px; max-width: none; }
     }
@@ -203,7 +202,7 @@
     </section>
   </main>
 
-  <!-- POPUP – po 30 s od ODOMKNUTIA (nie od načítania stránky) -->
+  <!-- POPUP – po 30 s od ODOMKNUTIA -->
   <aside id="qrPopup" class="popup" role="dialog" aria-modal="false" aria-live="polite" aria-label="Vytvoriť QR kód – ponuka">
     <div class="p-4">
       <div class="flex items-start gap-3">
@@ -232,35 +231,78 @@
   </aside>
 
   <script>
-    // === Konfigurácia ===
-    const ACCESS_CODE = "bike321!@"; // zmeň tu ak potrebuješ
-    const LOADING_MS  = 6500;        // 5–7 s
+    // === KONFIGURÁCIA ===
+    const ACCESS_CODE = "bike321!@"; // zmeň sem, keď chceš nové heslo
+    const LOADING_MS  = 6500;        // 5–7 s načítavanie
     const POPUP_DELAY = 30000;       // 30 s po odomknutí
     const FORM_QR_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdLwcHHQwPyvLWpQdBqbb92iMH86-yQUOHb7XCtlQVdOwansw/viewform?usp=header";
 
-    // ak prišli s ?k=KOD, skús odomknúť
-    const urlK = new URLSearchParams(location.search).get("k");
-    if (urlK) tryUnlock(urlK);
+    document.addEventListener("DOMContentLoaded", () => {
+      const gateEl    = document.getElementById("gate");
+      const loadEl    = document.getElementById("loading");
+      const contentEl = document.getElementById("content");
+      const formEl    = document.getElementById("unlockForm");
+      const inputEl   = document.getElementById("codeInput");
 
-    document.getElementById("unlockForm").addEventListener("submit", (e)=>{
-      e.preventDefault();
-      const code = document.getElementById("codeInput").value.trim();
-      tryUnlock(code);
+      const popup     = document.getElementById("qrPopup");
+      const qrBtn     = document.getElementById("qrBtn");
+      const qrClose   = document.getElementById("qrClose");
+
+      if (!gateEl || !loadEl || !contentEl || !formEl || !inputEl) {
+        console.warn("Chýba niektorý z prvkov #gate, #loading, #content, #unlockForm, #codeInput.");
+        return;
+      }
+
+      // URL parameter ?k= pre pohodlné odomknutie
+      const urlK = new URLSearchParams(location.search).get("k");
+      if (urlK) tryUnlock(urlK);
+
+      // Submit formulára
+      formEl.addEventListener("submit", (e) => {
+        e.preventDefault();
+        tryUnlock(inputEl.value);
+      });
+
+      function tryUnlock(raw) {
+        const code = String(raw || "").trim();
+        if (code !== ACCESS_CODE) {
+          alert("Nesprávny kód. Skúste znova.");
+          inputEl.focus();
+          return;
+        }
+
+        // gate -> loading
+        gateEl.classList.add("hidden");
+        loadEl.classList.remove("hidden");
+
+        // po čase loading -> content, spusti popup timer
+        window.setTimeout(() => {
+          loadEl.classList.add("hidden");
+          contentEl.classList.remove("hidden");
+
+          // zruš ?k= v URL
+          if (location.search.includes("k=")) {
+            const u = new URL(location.href);
+            u.searchParams.delete("k");
+            history.replaceState({}, "", u.toString());
+          }
+
+          // nastav link a spusti timer na popup
+          if (qrBtn) qrBtn.href = FORM_QR_URL;
+          if (popup) window.setTimeout(() => popup.classList.add("show"), POPUP_DELAY);
+
+        }, LOADING_MS);
+      }
+
+      // zavretie popupu
+      if (qrClose && popup) {
+        qrClose.addEventListener("click", () => {
+          popup.classList.remove("show");
+          popup.classList.add("hide");
+        });
+      }
     });
-
-    function tryUnlock(code){
-      if (code === ACCESS_CODE){
-        // schovaj bránu, ukáž loading
-        document.getElementById("gate").classList.add("hidden");
-        document.getElementById("loading").classList.remove("hidden");
-
-        // po čase skry loading a ukáž obsah
-        setTimeout(()=>{
-          document.getElementById("loading").classList.add("hidden");
-          document.getElementById("content").classList.remove("hidden");
-
-          // štartni časovanie popupu (až po odomknutí)
-          startPopupTimer();
-
-          // odstráň kód z UR
+  </script>
+</body>
+</html>
 
