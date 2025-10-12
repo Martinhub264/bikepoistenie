@@ -371,48 +371,74 @@
     </details>
   </section>
 
-  <!-- ČLÁNKY (3 ks) -->
+  <!-- ČLÁNKY (4 karty s dátumami + CTA v každej) -->
   <section id="clanky" class="bg-white">
     <div class="max-w-7xl mx-auto px-4 py-12">
       <h2 class="text-2xl font-bold">Články</h2>
 
-      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        <!-- Elektrobicykel -->
-        <a href="/clanky/elektrobicykel-pre-koho-preco-zmysel.html" class="block rounded-2xl overflow-hidden border bg-white hover:shadow h-full">
-          <img class="w-full h-44 object-cover" src="/assets/elektrobike.png" alt="Elektrobicykel" loading="lazy">
-          <div class="p-4">
-            <h3 class="font-semibold">Elektrobicykel: pre koho a prečo</h3>
-            <p class="text-sm text-gray-600 mt-1">10 dôvodov „pre“, čo si postrážiť a poistenie.</p>
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Poistenie bicykla -->
+        <article class="rounded-2xl overflow-hidden border bg-white flex flex-col">
+          <a href="/clanky/poistenie-bicykla-co-kryje.html" class="block">
+            <img class="w-full h-44 object-cover" src="/assets/article-bike-cover.jpg" alt="Poistenie bicykla – čo kryje" loading="lazy" onerror="this.src='/hero2.png'">
+          </a>
+          <div class="p-4 flex-1 flex flex-col">
+            <div class="text-xs text-gray-500">Publikované: <time datetime="2025-10-12">12. 10. 2025 (ne)</time></div>
+            <a href="/clanky/poistenie-bicykla-co-kryje.html" class="mt-1 font-semibold hover:underline">Poistenie bicykla: čo kryje a kedy plní</a>
+            <p class="text-sm text-gray-600 mt-1 flex-1">Praktický prehľad krytia, výluk a zabezpečenia.</p>
+            <div class="mt-4">
+              <a data-cta="form" class="btn btn-grad w-full">Získať nezáväznú ponuku</a>
+            </div>
           </div>
-        </a>
+        </article>
+
+        <!-- E-bike -->
+        <article class="rounded-2xl overflow-hidden border bg-white flex flex-col">
+          <a href="/clanky/elektrobicykel-pre-koho-preco-zmysel.html" class="block">
+            <img class="w-full h-44 object-cover" src="/assets/elektrobike.png" alt="Elektrobicykel" loading="lazy" onerror="this.src='/hero2.png'">
+          </a>
+          <div class="p-4 flex-1 flex flex-col">
+            <div class="text-xs text-gray-500">Publikované: <time datetime="2025-09-21">21. 09. 2025 (ne)</time></div>
+            <a href="/clanky/elektrobicykel-pre-koho-preco-zmysel.html" class="mt-1 font-semibold hover:underline">Elektrobicykel: pre koho a prečo</a>
+            <p class="text-sm text-gray-600 mt-1 flex-1">10 dôvodov „pre“, čo si postrážiť a poistenie.</p>
+            <div class="mt-4">
+              <a data-cta="form" class="btn btn-grad w-full">Získať nezáväznú ponuku</a>
+            </div>
+          </div>
+        </article>
 
         <!-- Turiec -->
-        <a href="/clanky/turiec-horska-cyklistika.html" class="block rounded-2xl overflow-hidden border bg-white hover:shadow h-full">
-          <img class="w-full h-44 object-cover" src="/turiec-hero.png" alt="Turiec – MTB tipy" loading="lazy">
-          <div class="p-4">
-            <h3 class="font-semibold">Turiec: tipy na horskú cyklistiku</h3>
-            <p class="text-sm text-gray-600 mt-1">Overené trasy, praktické rady a bezpečnosť.</p>
+        <article class="rounded-2xl overflow-hidden border bg-white flex flex-col">
+          <a href="/clanky/turiec-horska-cyklistika.html" class="block">
+            <img class="w-full h-44 object-cover" src="/assets/turiec-hero.png" alt="Turiec – MTB tipy" loading="lazy" onerror="this.src='/hero2.png'">
+          </a>
+          <div class="p-4 flex-1 flex flex-col">
+            <div class="text-xs text-gray-500">Publikované: <time datetime="2025-08-24">24. 08. 2025 (ne)</time></div>
+            <a href="/clanky/turiec-horska-cyklistika.html" class="mt-1 font-semibold hover:underline">Turiec: tipy na horskú cyklistiku</a>
+            <p class="text-sm text-gray-600 mt-1 flex-1">Overené trasy, praktické rady a bezpečnosť.</p>
+            <div class="mt-4">
+              <a data-cta="form" class="btn btn-grad w-full">Získať nezáväznú ponuku</a>
+            </div>
           </div>
-        </a>
+        </article>
 
-        <!-- Bezpečnostné zámky -->
-        <a href="/clanky/bezpecnostne-zamky-na-bicykel.html" class="block rounded-2xl overflow-hidden border bg-white hover:shadow h-full">
-          <img class="w-full h-44 object-cover" src="https://images.unsplash.com/photo-1541625602330-2277a4c46182?q=80&w=1400&auto=format&fit=crop" alt="Bezpečnostné zámky" loading="lazy">
-          <div class="p-4">
-            <h3 class="font-semibold">Bezpečnostné zámky: návod na 100&nbsp;% krytie</h3>
-            <p class="text-sm text-gray-600 mt-1">Techniky uzamknutia a minimá pre uznanie poistky.</p>
+        <!-- Zámky -->
+        <article class="rounded-2xl overflow-hidden border bg-white flex flex-col">
+          <a href="/clanky/bezpecnostne-zamky-na-bicykel.html" class="block">
+            <img class="w-full h-44 object-cover" src="/assets/article-locks-cover.jpg" alt="Bezpečnostné zámky" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1541625602330-2277a4c46182?q=80&w=1200&auto=format&fit=crop'">
+          </a>
+          <div class="p-4 flex-1 flex flex-col">
+            <div class="text-xs text-gray-500">Publikované: <time datetime="2025-07-27">27. 07. 2025 (ne)</time></div>
+            <a href="/clanky/bezpecnostne-zamky-na-bicykel.html" class="mt-1 font-semibold hover:underline">Bezpečnostné zámky: návod na 100&nbsp;% krytie</a>
+            <p class="text-sm text-gray-600 mt-1 flex-1">Techniky uzamknutia a minimá pre uznanie poistky.</p>
+            <div class="mt-4">
+              <a data-cta="form" class="btn btn-grad w-full">Získať nezáväznú ponuku</a>
+            </div>
           </div>
-        </a>
+        </article>
+
       </div>
     </div>
-
-    <a href="/clanky/poistenie-bicykla-co-kryje.html" class="block rounded-2xl overflow-hidden border bg-white hover:shadow h-full">
-  <img class="w-full h-44 object-cover" src="/assets/article-bike-cover.jpg" alt="Poistenie bicykla – čo kryje" loading="lazy">
-  <div class="p-4">
-    <h3 class="font-semibold">Poistenie bicykla: čo kryje a kedy plní</h3>
-    <p class="text-sm text-gray-600 mt-1">Praktický prehľad krytia, výluk a zabezpečenia.</p>
-  </div>
-</a>
   </section>
 
   <!-- SPROSTREDKOVANIE / PRÁVNE INFO -->
@@ -674,4 +700,3 @@
   </script>
 </body>
 </html>
-
