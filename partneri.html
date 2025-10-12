@@ -15,7 +15,7 @@
     .btn:focus-visible{outline:2px solid #fff;outline-offset:2px;box-shadow:0 0 0 4px rgba(11,110,243,.35)}
     .card{border:1px solid rgba(2,6,23,.08)}
 
-    /* === LOADING – rotujúce grenadier guličky === */
+    /* LOADING – rotujúce grenadier guličky */
     .spinner-dots{display:inline-flex;gap:.5rem;align-items:center;justify-content:center}
     .spinner-dots span{
       width:.72rem;height:.72rem;border-radius:9999px;display:inline-block;
@@ -27,6 +27,23 @@
     @keyframes pulse{
       0%, 80%, 100%{transform:scale(1);opacity:.7}
       40%{transform:scale(1.35);opacity:1}
+    }
+
+    /* POPUP – slider z pravej strany */
+    .popup{
+      position: fixed; right: 16px; bottom: 16px; z-index: 70;
+      max-width: 22rem; color:#fff; border-radius: 1rem;
+      box-shadow: 0 10px 20px rgba(2,6,23,.18);
+      transform: translateX(120%); opacity: 0;
+      background-image:linear-gradient(90deg,#0B6EF3,#0ACF83);
+    }
+    .popup.show{ animation: slideIn .6s ease forwards }
+    .popup.hide{ animation: slideOut .4s ease forwards }
+    @keyframes slideIn{ to{ transform: translateX(0); opacity:1 } }
+    @keyframes slideOut{ to{ transform: translateX(120%); opacity:0 } }
+
+    @media (max-width: 480px){
+      .popup{ left:12px; right:12px; bottom:12px; max-width: none; }
     }
   </style>
 </head>
@@ -54,7 +71,6 @@
     <section id="gate" class="mt-8 md:mt-10 flex justify-center">
       <div class="w-full max-w-2xl rounded-2xl card bg-white/90 backdrop-blur p-6 md:p-8">
         <h2 class="text-2xl font-bold mb-1">Prístupový kód</h2>
-        
         <form id="unlockForm" class="space-y-4">
           <input id="codeInput" type="password" required
                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-base outline-none focus:ring-2 focus:ring-sky-400"
@@ -66,15 +82,12 @@
       </div>
     </section>
 
-    <!-- LOADING – zobrazi sa po správnom kóde, 7.5 s -->
+    <!-- LOADING – zobrazi sa po správnom kóde, ~6.5 s -->
     <section id="loading" class="hidden mt-10">
       <div class="rounded-2xl card bg-white/90 backdrop-blur p-6 md:p-8 flex flex-col items-center text-center" aria-live="polite">
-        <!-- spinner -->
         <div class="spinner-dots" aria-hidden="true">
           <span></span><span></span><span></span>
         </div>
-
-        <!-- oznam karta v grenadier farbe -->
         <div class="mt-5 w-full max-w-2xl rounded-xl text-white p-5"
              style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">
           <div class="text-sm md:text-base leading-relaxed">
@@ -82,8 +95,6 @@
             <br/>Len spokojný klient sa vráti a prinesie firme zisk. <em>Nerozmýšľajte dlho.</em>
           </div>
         </div>
-
-        <!-- drobná nápoveda -->
         <p class="mt-4 text-xs text-slate-500">Načítavame vaše materiály…</p>
       </div>
     </section>
@@ -96,23 +107,23 @@
         <p class="text-slate-600 mt-2">Nižšie nájdete pracovné tabuľky a prehľady.</p>
       </div>
 
-      <!-- GRID: 2×2 + 1 centrovaná dole -->
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- GRID: mobil 1, md 2, xl 3 stĺpce (spolu 6 kariet) -->
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
-        <!-- Tabuľka 1 -->
+        <!-- 1) Základné podmienky -->
         <div class="rounded-2xl card bg-white/95 p-5">
           <h3 class="text-lg font-semibold mb-3">Základné podmienky</h3>
           <table class="w-full text-sm">
             <tbody class="divide-y">
               <tr><td class="py-2 text-slate-600">Územná platnosť</td><td class="py-2 text-right font-medium">SR + EÚ/CH</td></tr>
-              <tr><td class="py-2 text-slate-600">Hodnota / kus</td><td class="py-2 text-right font-medium">500 - 10 000 €</td></tr>
+              <tr><td class="py-2 text-slate-600">Hodnota / kus</td><td class="py-2 text-right font-medium">500 – 10 000 €</td></tr>
               <tr><td class="py-2 text-slate-600">Počet kusov v zmluve</td><td class="py-2 text-right font-medium">do 5 ks</td></tr>
-              <tr><td class="py-2 text-slate-600">Zodpovednosť za nehodu </td><td class="py-2 text-right font-medium">odporúčana od 50 000 do 750 000 €</td></tr>
+              <tr><td class="py-2 text-slate-600">Zodpovednosť za škodu</td><td class="py-2 text-right font-medium">50 000 – 750 000 €</td></tr>
             </tbody>
           </table>
         </div>
 
-        <!-- Tabuľka 2 -->
+        <!-- 2) Kryté riziká -->
         <div class="rounded-2xl card bg-white/95 p-5">
           <h3 class="text-lg font-semibold mb-3">Kryté riziká</h3>
           <table class="w-full text-sm">
@@ -121,12 +132,12 @@
               <tr><td class="py-2">Poškodenie (pád, havária)</td><td class="py-2 text-right font-medium">áno</td></tr>
               <tr><td class="py-2">Živly / vandalizmus</td><td class="py-2 text-right font-medium">áno</td></tr>
               <tr><td class="py-2">Preteky</td><td class="py-2 text-right font-medium">nie (štandardne vylúčené)</td></tr>
-              <tr><td class="py-2"><strong> Krádež vlámaním a lúpež musí byť vždy hlásená polícii.</strong></td></tr>
+              <tr><td class="py-2" colspan="2"><strong>Pozn.: Krádež/lúpež vždy hlásiť polícii.</strong></td></tr>
             </tbody>
           </table>
         </div>
 
-        <!-- Tabuľka 3 -->
+        <!-- 3) Zabezpečenie (minimum) -->
         <div class="rounded-2xl card bg-white/95 p-5">
           <h3 class="text-lg font-semibold mb-3">Zabezpečenie (minimum)</h3>
           <table class="w-full text-sm">
@@ -135,13 +146,13 @@
               <tr><td class="py-2">Reťaz/kábel</td><td class="py-2 text-right font-medium">oceľ ≥ 8 mm</td></tr>
               <tr><td class="py-2">Skladací zámok</td><td class="py-2 text-right font-medium">plát ≥ 5×10 mm</td></tr>
               <tr><td class="py-2">Technika</td><td class="py-2 text-right font-medium">rám + koleso k pevnému bodu</td></tr>
-              <td class="py-2">Uzamknutý priestor</td><td class="py-2 text-right font-medium">krytie 100% (garáž / byt / hotel)</td></tr>
-            <tr><td class="py-2">Voľne položený bicykel</td><td class="py-2 text-right font-medium">rám + koleso k pevnému bodu</td></tr>
+              <tr><td class="py-2">Uzamknutý priestor</td><td class="py-2 text-right font-medium">100% krytie (garáž/byt/hotel)</td></tr>
+              <tr><td class="py-2">Voľne položený bicykel</td><td class="py-2 text-right font-medium">povinne k pevnému bodu</td></tr>
             </tbody>
           </table>
         </div>
 
-        <!-- Tabuľka 4 -->
+        <!-- 4) Proces & kontakt -->
         <div class="rounded-2xl card bg-white/95 p-5">
           <h3 class="text-lg font-semibold mb-3">Proces & kontakt</h3>
           <table class="w-full text-sm">
@@ -154,29 +165,78 @@
           </table>
         </div>
 
-        <!-- Tabuľka 5 – vlastný rad, centrovaná -->
-        <div class="md:col-span-2 flex justify-center">
-          <div class="w-full max-w-2xl rounded-2xl card bg-white/95 p-5">
-            <h3 class="text-lg font-semibold mb-3">Marketing & materiály</h3>
-            <table class="w-full text-sm">
-              <tbody class="divide-y">
-                <tr><td class="py-2">Logo & brand</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">balík (zip)</a></td></tr>
-                <tr><td class="py-2">Letáky / stojany</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">PDF/A4</a></td></tr>
-                <tr><td class="py-2">Bannery na web</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">JPG/PNG</a></td></tr>
-                <tr><td class="py-2">FAQ pre personál</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">prehľad</a></td></tr>
-              </tbody>
-            </table>
-          </div>
+        <!-- 5) Marketing & materiály -->
+        <div class="rounded-2xl card bg-white/95 p-5">
+          <h3 class="text-lg font-semibold mb-3">Marketing & materiály</h3>
+          <table class="w-full text-sm">
+            <tbody class="divide-y">
+              <tr><td class="py-2">Logo & brand</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">balík (zip)</a></td></tr>
+              <tr><td class="py-2">Letáky / stojany</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">PDF/A4</a></td></tr>
+              <tr><td class="py-2">Bannery na web</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">JPG/PNG</a></td></tr>
+              <tr><td class="py-2">FAQ pre personál</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">prehľad</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 6) Podmienky spolupráce (NOVÁ karta) -->
+        <div class="rounded-2xl card bg-white/95 p-5">
+          <h3 class="text-lg font-semibold mb-3">Podmienky spolupráce</h3>
+          <table class="w-full text-sm">
+            <tbody class="divide-y">
+              <tr>
+                <td class="py-2">QR kód</td>
+                <td class="py-2 text-right font-medium">jedinečný pre každú prevádzku</td>
+              </tr>
+              <tr>
+                <td class="py-2">Výplata provízie</td>
+                <td class="py-2 text-right font-medium">kvartálne / faktúra</td>
+              </tr>
+              <tr>
+                <td class="py-2">Provízia</td>
+                <td class="py-2 text-right font-medium">do 50% z manažérskej provízie</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
       </div>
     </section>
   </main>
 
+  <!-- POPUP – po 30 s od ODOMKNUTIA (nie od načítania stránky) -->
+  <aside id="qrPopup" class="popup" role="dialog" aria-modal="false" aria-live="polite" aria-label="Vytvoriť QR kód – ponuka">
+    <div class="p-4">
+      <div class="flex items-start gap-3">
+        <div class="shrink-0 mt-1" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+            <path d="M14 14h7M14 18h3M18 18v3M21 14v7" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-semibold text-base leading-tight">Potrebujete vlastný QR kód?</h3>
+          <p class="text-sm mt-1 opacity-90">Pošleme vám QR kód jedinečný pre vašu prevádzku.</p>
+          <div class="mt-3">
+            <a id="qrBtn" href="#" class="btn btn-grad w-full text-sm font-semibold">Vytvoriť QR kód</a>
+          </div>
+        </div>
+        <button id="qrClose" class="ml-1 opacity-80 hover:opacity-100" aria-label="Zavrieť">
+          <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
   <script>
-    // === Jednoduchá ochrana prístupovým kódom (frontend) ===
-    const ACCESS_CODE = "bike321!@"; // <- zmeň sem, keď chceš nové heslo
-    const LOADING_MS = 6500;        // ~6.5 s (medzi 5–7)
+    // === Konfigurácia ===
+    const ACCESS_CODE = "bike321!@"; // zmeň tu ak potrebuješ
+    const LOADING_MS  = 6500;        // 5–7 s
+    const POPUP_DELAY = 30000;       // 30 s po odomknutí
+    const FORM_QR_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdLwcHHQwPyvLWpQdBqbb92iMH86-yQUOHb7XCtlQVdOwansw/viewform?usp=header";
 
     // ak prišli s ?k=KOD, skús odomknúť
     const urlK = new URLSearchParams(location.search).get("k");
@@ -199,17 +259,8 @@
           document.getElementById("loading").classList.add("hidden");
           document.getElementById("content").classList.remove("hidden");
 
-          // odstráň kód z URL (ak bol v query)
-          if (location.search.includes("k=")){
-            const u = new URL(location.href); u.searchParams.delete("k"); history.replaceState({}, "", u.toString());
-          }
-        }, LOADING_MS);
+          // štartni časovanie popupu (až po odomknutí)
+          startPopupTimer();
 
-      } else {
-        alert("Nesprávny kód. Skúste znova.");
-      }
-    }
-  </script>
-</body>
-</html>
+          // odstráň kód z UR
 
