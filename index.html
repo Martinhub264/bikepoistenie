@@ -17,20 +17,20 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* Tlačidlá + prístupnosť (gradient = „grenadier“) */
+    /* Tlačidlá (grenadier) */
     .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:.75rem;padding:.75rem 1.25rem;
          color:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);transition:opacity .15s ease;text-decoration:none}
     .btn-grad{background-image:linear-gradient(to right,#0B6EF3,#0ACF83)}
     .btn:hover{opacity:.95}
     .btn:focus-visible{outline:2px solid #fff;outline-offset:2px;box-shadow:0 0 0 4px rgba(11,110,243,.5)}
 
-    /* HERO – pomalé „ping-pong“ panorámovanie */
+    /* HERO – panorámovanie */
     .hero-pan{background-size:cover;background-position:0% center}
     @keyframes panX{0%{background-position:0% center}100%{background-position:100% center}}
     .hero-anim{animation:panX 28s ease-in-out infinite alternate}
     @media (prefers-reduced-motion: reduce){.hero-anim{animation:none}}
 
-    /* Pás ikon – pomalý ping-pong posun */
+    /* Pás ikon – ping-pong posun */
     .bp-track{width:140%;animation:bp-osc 24s ease-in-out infinite alternate;will-change:transform}
     @keyframes bp-osc{0%{transform:translateX(0)}100%{transform:translateX(-40%)}}
     .group:hover .bp-track{animation-duration:32s}
@@ -40,6 +40,12 @@
     @media (max-width:640px){
       .sticky-cta{position:fixed;left:0;right:0;bottom:12px;display:flex;justify-content:center;z-index:50}
       .sticky-cta a{padding:.9rem 1.25rem;border-radius:9999px}
+    }
+
+    /* COOKIE BAR – na mobile hore, aby nič neprekrýval */
+    @media (max-width:640px){
+      #cookieBar{top:0 !important; bottom:auto !important;}
+      #cookieBar .cookie-card{margin:0 !important;border-radius:0 !important;}
     }
   </style>
 
@@ -75,7 +81,6 @@
       <a href="#clanky" class="hover:underline"><strong>Články</strong></a>
       <a href="#kontakt" class="hover:underline"><strong>Kontakt</strong></a>
     </nav>
-    <!-- jediné CTA v hlavičke -->
     <a href="/partneri.html" class="btn btn-grad text-sm md:text-base">
       Partneri
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
@@ -84,7 +89,7 @@
     </a>
   </header>
 
-  <!-- HERO (pohyblivý obrázok) -->
+  <!-- HERO -->
   <section class="relative">
     <div class="hero-pan hero-anim w-full h-[360px] md:h-[460px]" style="background-image:url('/hero2.png')"></div>
     <div class="absolute inset-0 bg-black/35"></div>
@@ -109,7 +114,7 @@
     </div>
   </section>
 
-  <!-- PREČO CEZ NÁS (vizuálny pás ikon) -->
+  <!-- PREČO CEZ NÁS -->
   <section id="vyhody" class="relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-b from-[#F7FAFF] via-white to-white pointer-events-none"></div>
 
@@ -182,14 +187,13 @@
           </figure>
         </div>
 
-        <!-- masky po stranách -->
         <div class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent"></div>
         <div class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"></div>
       </div>
     </div>
   </section>
 
-  <!-- AKO TO FUNGUJE (karty) -->
+  <!-- AKO TO FUNGUJE -->
   <section id="ako" class="relative">
     <div class="absolute inset-0 bg-gradient-to-b from-[#F0F7FF] via-white to-white pointer-events-none"></div>
 
@@ -197,18 +201,6 @@
       <div class="max-w-2xl mx-auto text-center">
         <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Ako to funguje</h2>
         <p class="mt-2 text-gray-600">Tri krátke kroky. Bez papierovania.</p>
-      </div>
-
-      <!-- EU ROTÁTOR – vycentrovaná karta pod nadpisom -->
-      <div class="mt-6 flex justify-center">
-        <div class="rounded-2xl bg-white border shadow-sm px-5 py-4 text-center">
-          <div class="text-sm text-gray-600">Poistenie je platné:</div>
-          <div class="mt-1 text-2xl md:text-3xl font-extrabold tracking-tight
-                      bg-clip-text text-transparent"
-               style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">
-            <span id="eu-rotator" aria-live="polite">Európa</span>
-          </div>
-        </div>
       </div>
 
       <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -263,10 +255,22 @@
           </svg>
         </a>
       </div>
+
+      <!-- EU ROTÁTOR – pod CTA -->
+      <div class="mt-6 flex justify-center">
+        <div class="rounded-2xl bg-white border shadow-sm px-5 py-4 text-center">
+          <div class="text-sm text-gray-600">Poistenie je platné:</div>
+          <div class="mt-1 text-2xl md:text-3xl font-extrabold tracking-tight
+                      bg-clip-text text-transparent"
+               style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">
+            <span id="eu-rotator" aria-live="polite">Európa</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- FAQ (master -> vnorené otázky) -->
+  <!-- FAQ -->
   <section id="faq" class="max-w-7xl mx-auto px-4 py-12">
     <h2 class="text-2xl font-bold">Časté otázky</h2>
 
@@ -279,33 +283,22 @@
       </summary>
 
       <div class="mt-4 space-y-3">
-        <!-- Q1 -->
         <details class="rounded-xl border bg-white p-4">
           <summary class="flex cursor-pointer list-none items-center justify-between">
             <span class="font-medium">Kto a čo si môže poistiť?</span>
             <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9l6 6 6-6"/></svg>
           </summary>
-          <p class="mt-2 text-gray-700">
-            Poistiť si viete až <strong>5 kusov</strong> (bicykle, e-biky, kolobežky, cyklovozíky) do
-            <strong>10&nbsp;000&nbsp;€ na kus</strong>, spolu do <strong>50&nbsp;000&nbsp;€</strong>.
-            Územne platí <strong>Slovensko + Európa</strong>.
-          </p>
+          <p class="mt-2 text-gray-700">Poistiť si viete až <strong>5 kusov</strong> (bicykle, e-biky, kolobežky, cyklovozíky) do <strong>10&nbsp;000&nbsp;€ na kus</strong>, spolu do <strong>50&nbsp;000&nbsp;€</strong>. Územne platí <strong>Slovensko + Európa</strong>.</p>
         </details>
 
-        <!-- Q2 -->
         <details class="rounded-xl border bg-white p-4">
           <summary class="flex cursor-pointer list-none items-center justify-between">
             <span class="font-medium">Aké riziká sú kryté?</span>
             <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9l6 6 6-6"/></svg>
           </summary>
-          <p class="mt-2 text-gray-700">
-            <strong>Poškodenie pri páde/nehode</strong>, <strong>živly</strong>, <strong>vandalizmus</strong>,
-            <strong> krádež vlámaním/lúpež</strong>, škody pri dopravnej nehode.
-            (Preteky a niektoré špecifické situácie môžu byť vylúčené.)
-          </p>
+          <p class="mt-2 text-gray-700"><strong>Poškodenie pri páde/nehode</strong>, <strong>živly</strong>, <strong>vandalizmus</strong>, <strong>krádež vlámaním/lúpež</strong>, škody pri dopravnej nehode. (Preteky a niektoré špecifické situácie môžu byť vylúčené.)</p>
         </details>
 
-        <!-- Q3 -->
         <details class="rounded-xl border bg-white p-4">
           <summary class="flex cursor-pointer list-none items-center justify-between">
             <span class="font-medium">Ako musím bicykel zabezpečiť proti krádeži?</span>
@@ -322,7 +315,6 @@
           </div>
         </details>
 
-        <!-- Q4 -->
         <details class="rounded-xl border bg-white p-4">
           <summary class="flex cursor-pointer list-none items-center justify-between">
             <span class="font-medium">Platí poistenie aj mimo domova a v zahraničí?</span>
@@ -331,7 +323,6 @@
           <p class="mt-2 text-gray-700">Áno, platí <strong>mimo domova</strong>, na adrese aj na cestách, s územnou platnosťou <strong>Slovensko + Európa</strong>.</p>
         </details>
 
-        <!-- Q5 -->
         <details class="rounded-xl border bg-white p-4">
           <summary class="flex cursor-pointer list-none items-center justify-between">
             <span class="font-medium">Kryje aj zodpovednosť za škodu?</span>
@@ -340,7 +331,6 @@
           <p class="mt-2 text-gray-700">Voliteľné poistenie <strong>zodpovednosti</strong> s limitmi až do <strong>750&nbsp;000&nbsp;€</strong> (Európa). Nevzťahuje sa na vozidlá s povinným PZP.</p>
         </details>
 
-        <!-- Q6 -->
         <details class="rounded-xl border bg-white p-4">
           <summary class="flex cursor-pointer list-none items-center justify-between">
             <span class="font-medium">Dá sa poistiť aj starší bicykel?</span>
@@ -349,7 +339,6 @@
           <p class="mt-2 text-gray-700">Áno. Rozhoduje <strong>technický stav</strong>, nie formálny vek kusu.</p>
         </details>
 
-        <!-- Q7 -->
         <details class="rounded-xl border bg-white p-4">
           <summary class="flex cursor-pointer list-none items-center justify-between">
             <span class="font-medium">Ako sa vypláca škoda (nová vs. časová cena)?</span>
@@ -361,7 +350,6 @@
           </ul>
         </details>
 
-        <!-- Q8 -->
         <details class="rounded-xl border bg-white p-4">
           <summary class="flex cursor-pointer list-none items-center justify-between">
             <span class="font-medium">Bicykel na firmu (IČO) – je to možné?</span>
@@ -370,21 +358,15 @@
           <p class="mt-2 text-gray-700">Áno, ak bicykel <strong>neslúži na podnikanie</strong> (predaj, požičiavanie). Poistený je vlastník (firma).</p>
         </details>
 
-        <!-- Q9 -->
         <details class="rounded-xl border bg-white p-4">
           <summary class="flex cursor-pointer list-none items-center justify-between">
             <span class="font-medium">Čo robiť pri poistnej udalosti?</span>
             <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9l6 6 6-6"/></svg>
           </summary>
-          <p class="mt-2 text-gray-700">
-            Pri krádeži/lúpeži kontaktujte políciu a nahláste udalosť poisťovni. Pripravte doklad o vlastníctve,
-            fotky zabezpečenia a popis udalosti. Pomôžeme vám s postupom.
-          </p>
+          <p class="mt-2 text-gray-700">Pri krádeži/lúpeži kontaktujte políciu a nahláste udalosť poisťovni. Pripravte doklad o vlastníctve, fotky zabezpečenia a popis udalosti. Pomôžeme vám s postupom.</p>
         </details>
 
-        <p class="px-1 pt-2 text-xs text-gray-500">
-          Pozn.: Informácie sú informatívne. Presné podmienky vyplývajú z dokumentácie konkrétneho produktu.
-        </p>
+        <p class="px-1 pt-2 text-xs text-gray-500">Pozn.: Informácie sú informatívne. Presné podmienky vyplývajú z dokumentácie konkrétneho produktu.</p>
       </div>
     </details>
   </section>
@@ -452,7 +434,6 @@
   <!-- FOOTER -->
   <footer class="bg-white border-t">
     <div class="max-w-7xl mx-auto px-4 py-10 text-sm text-gray-700">
-      <!-- horný riadok -->
       <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
         <div class="font-semibold">M&F Consulting s.r.o.</div>
         <div class="text-gray-500">PFA pod SFA Finportal, a.s. • Registrácia v NBS: <strong>287587</strong></div>
@@ -461,7 +442,6 @@
 
       <hr class="my-6 border-gray-200" />
 
-      <!-- právne texty -->
       <div class="space-y-3 leading-6 text-gray-700">
         <p>
           Táto webová stránka je v súkromnom vlastníctve prevádzkovateľa
@@ -506,9 +486,9 @@
       </div>
     </div>
 
-    <!-- Cookie bar (odkazy len na tvoje /privacy.html a /terms.html) -->
+    <!-- Cookie bar (mobil hore) -->
     <div id="cookieBar" class="fixed inset-x-0 bottom-0 z-40 hidden">
-      <div class="max-w-7xl mx-auto m-3 rounded-2xl shadow-lg text-sm text-white"
+      <div class="cookie-card max-w-7xl mx-auto m-3 rounded-2xl shadow-lg text-sm text-white"
            style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">
         <div class="px-4 py-4 md:py-5 flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
           <p class="flex-1 leading-6">
@@ -530,12 +510,10 @@
     </div>
   </footer>
 
-  <!-- Footer skripty (rok + cookies) -->
+  <!-- Rok + cookies -->
   <script>
-    // rok vo footeri
     document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-    // jednoduchá cookie lišta
     (function () {
       const KEY = 'bp_cookie_consent';
       const bar = document.getElementById('cookieBar');
@@ -559,15 +537,15 @@
     })();
   </script>
 
-  <!-- EU ROTÁTOR skript (náhodné poradie, bez Ruska a Kazachstanu) -->
+  <!-- EU ROTÁTOR (0,6 s; náhodné; bez Ruska a Kazachstanu) -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const el = document.getElementById("eu-rotator");
       if (!el) return;
 
       let COUNTRIES = [
-        "Albánsko","Andorra","Arménsko","Rakúsko",
-        "Bielorusko","Belgicko","Bosna a Hercegovina","Bulgarsko","Chorvátsko",
+        "Albánsko","Andorra","Arménsko","Rakúsko","Azerbajdžan",
+        "Bielorusko","Belgicko","Bosna a Hercegovina","Bulharsko","Chorvátsko",
         "Cyprus","Česko","Dánsko","Estónsko","Fínsko","Francúzsko","Nemecko",
         "Grécko","Maďarsko","Island","Írsko","Taliansko","Kosovo","Lotyšsko",
         "Lichtenštajnsko","Litva","Luxembursko","Malta","Moldavsko","Monako",
@@ -576,9 +554,6 @@
         "Španielsko","Švédsko","Švajčiarsko","Turecko (eur.)","Ukrajina",
         "Spojené kráľovstvo","Vatikán"
       ];
-
-      // oprava preklepu "Bulgarsko" -> "Bulharsko"
-      COUNTRIES = COUNTRIES.map(c => c === "Bulgarsko" ? "Bulharsko" : c);
 
       function shuffle(arr){
         for (let i = arr.length - 1; i > 0; i--) {
@@ -601,36 +576,32 @@
       }
 
       nextLabel();
-      setInterval(nextLabel, 450); // ~0.3 s; ak chceš spomaliť: 400–600
+      setInterval(nextLabel, 600); // 0,6 s
     });
   </script>
 
-  <!-- Sticky CTA (MOBIL) – ponechané -->
+  <!-- Sticky CTA (MOBIL) -->
   <div class="sticky-cta">
     <a data-cta="form" class="btn btn-grad">Získať ponuku</a>
   </div>
 
-  <!-- ===== Floating nudge (grenadier look) ===== -->
+  <!-- Floating nudge -->
   <style>
     @keyframes wheelSpin { to { transform: rotate(360deg); } }
     @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-2px) } }
     @keyframes slideIn { from { transform: translateX(110%); opacity: 0 } to { transform: translateX(0); opacity: 1 } }
     @keyframes slideOut { to { transform: translateX(110%); opacity: 0 } }
-
     @media (prefers-reduced-motion: reduce) {
       #bike-nudge, #bike-nudge * { animation: none !important; transition: none !important; }
     }
   </style>
 
   <div id="bike-nudge"
-      class="fixed right-3 sm:right-6 z-[60] max-w-[92vw] sm:max-w-md
+       class="fixed right-3 sm:right-6 z-[60] max-w-[92vw] sm:max-w-md
               translate-x-full opacity-0 pointer-events-auto"
-      role="region" aria-live="polite" aria-label="Informácia">
-    <div
-      class="flex items-center gap-3 sm:gap-4 rounded-2xl shadow-lg px-3 py-2 sm:px-4 sm:py-3 text-white
-            bg-gradient-to-r from-[#0B6EF3] to-[#0ACF83]">
-
-      <!-- cyklista -->
+       role="region" aria-live="polite" aria-label="Informácia">
+    <div class="flex items-center gap-3 sm:gap-4 rounded-2xl shadow-lg px-3 py-2 sm:px-4 sm:py-3 text-white
+                bg-gradient-to-r from-[#0B6EF3] to-[#0ACF83]">
       <svg class="h-10 w-14 sm:h-12 sm:w-16 shrink-0" viewBox="0 0 88 48" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="24" cy="34" r="10" class="text-white/50"
                 style="transform-origin:24px 34px; animation: wheelSpin 3s linear infinite;"></circle>
@@ -641,15 +612,13 @@
         <circle cx="46" cy="10" r="4" class="text-white"></circle>
       </svg>
 
-      <!-- text -->
       <div class="text-sm sm:text-base pr-2 leading-snug">
         Zaťiaľ čo čítaš stránku, <strong>ukradli niekomu bicykel</strong>.
       </div>
 
-      <!-- zavrieť -->
       <button id="bike-nudge-close"
               class="ml-1 inline-flex items-center justify-center rounded-full p-1
-                    text-white/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/70"
+                      text-white/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/70"
               aria-label="Zavrieť">
         <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 6l12 12M18 6l-12 12" stroke-linecap="round"></path>
@@ -660,14 +629,14 @@
 
   <script>
     (function () {
-      const SHOW_AFTER_MS = 60000;          // 60 s
-      const STORAGE_KEY = "bikeNudgeShown"; // len raz za reláciu
+      const SHOW_AFTER_MS = 60000;
+      const STORAGE_KEY = "bikeNudgeShown";
 
       function positionNudge() {
         const el = document.getElementById("bike-nudge");
         if (!el) return;
         const mobile = window.matchMedia("(max-width: 640px)").matches;
-        el.style.bottom = mobile ? "76px" : "24px"; // nech neprekryje sticky CTA
+        el.style.bottom = mobile ? "76px" : "24px"; // nad sticky CTA
         el.style.animation = "slideIn .6s ease-out forwards";
       }
 
@@ -695,8 +664,6 @@
       });
     })();
   </script>
-  <!-- ===== /Floating nudge ===== -->
-
 </body>
 </html>
 
