@@ -13,8 +13,21 @@
     .btn:hover{opacity:.95}
     .btn-grad{background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)}
     .btn:focus-visible{outline:2px solid #fff;outline-offset:2px;box-shadow:0 0 0 4px rgba(11,110,243,.35)}
-    /* jemné orámovanie kariet/tabuliek */
     .card{border:1px solid rgba(2,6,23,.08)}
+
+    /* === LOADING – rotujúce grenadier guličky === */
+    .spinner-dots{display:inline-flex;gap:.5rem;align-items:center;justify-content:center}
+    .spinner-dots span{
+      width:.72rem;height:.72rem;border-radius:9999px;display:inline-block;
+      background: linear-gradient(90deg,#0B6EF3,#0ACF83);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    .spinner-dots span:nth-child(2){animation-delay:.15s}
+    .spinner-dots span:nth-child(3){animation-delay:.30s}
+    @keyframes pulse{
+      0%, 80%, 100%{transform:scale(1);opacity:.7}
+      40%{transform:scale(1.35);opacity:1}
+    }
   </style>
 </head>
 <body class="min-h-screen text-slate-900"
@@ -51,6 +64,28 @@
             Odomknúť
           </button>
         </form>
+      </div>
+    </section>
+
+    <!-- LOADING – zobrazi sa po správnom kóde, 6.5 s -->
+    <section id="loading" class="hidden mt-10">
+      <div class="rounded-2xl card bg-white/90 backdrop-blur p-6 md:p-8 flex flex-col items-center text-center" aria-live="polite">
+        <!-- spinner -->
+        <div class="spinner-dots" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+
+        <!-- oznam karta v grenadier farbe -->
+        <div class="mt-5 w-full max-w-2xl rounded-xl text-white p-5"
+             style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">
+          <div class="text-sm md:text-base leading-relaxed">
+            <strong>Konkurencia nespí a rozširuje svoje služby.</strong>
+            <br/>Len spokojný klient sa vráti a prinesie firme zisk. <em>Nerozmýšľajte dlho.</em>
+          </div>
+        </div>
+
+        <!-- drobná nápoveda -->
+        <p class="mt-4 text-xs text-slate-500">Načítavame vaše materiály…</p>
       </div>
     </section>
 
@@ -139,6 +174,7 @@
   <script>
     // === Jednoduchá ochrana prístupovým kódom (frontend) ===
     const ACCESS_CODE = "bike321!@"; // <- zmeň sem, keď chceš nové heslo
+    const LOADING_MS = 6500;        // ~6.5 s (medzi 5–7)
 
     // ak prišli s ?k=KOD, skús odomknúť
     const urlK = new URLSearchParams(location.search).get("k");
@@ -152,12 +188,21 @@
 
     function tryUnlock(code){
       if (code === ACCESS_CODE){
+        // schovaj bránu, ukáž loading
         document.getElementById("gate").classList.add("hidden");
-        document.getElementById("content").classList.remove("hidden");
-        // odstráň kód z URL (ak bol v query)
-        if (location.search.includes("k=")){
-          const u = new URL(location.href); u.searchParams.delete("k"); history.replaceState({}, "", u.toString());
-        }
+        document.getElementById("loading").classList.remove("hidden");
+
+        // po čase skry loading a ukáž obsah
+        setTimeout(()=>{
+          document.getElementById("loading").classList.add("hidden");
+          document.getElementById("content").classList.remove("hidden");
+
+          // odstráň kód z URL (ak bol v query)
+          if (location.search.includes("k=")){
+            const u = new URL(location.href); u.searchParams.delete("k"); history.replaceState({}, "", u.toString());
+          }
+        }, LOADING_MS);
+
       } else {
         alert("Nesprávny kód. Skúste znova.");
       }
