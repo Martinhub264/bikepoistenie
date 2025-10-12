@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Poistenie bicykla na Slovensku: čo kryje, kedy plní a na čo si dať pozor</title>
+  <meta name="description" content="Zhrnutie poistenia bicyklov na Slovensku: čo je poistené, kedy poisťovňa plní, výluky, zabezpečenie proti krádeži a praktické tipy.">
+  <link rel="icon" href="/favicon.ico" />
+  <meta property="og:title" content="Poistenie bicykla na Slovensku: čo kryje, kedy plní a na čo si dať pozor">
+  <meta property="og:description" content="Čitateľný prehľad: krytie, plnenie, výluky, zabezpečenie, rozdiel krádež vs. lúpež a rýchla kontrola pred jazdou.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://bikepoistenie.sk/clanky/poistenie-bicykla-co-kryje.html">
+  <meta property="og:image" content="https://bikepoistenie.sk/assets/article-bike-cover.jpg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:.75rem;padding:.7rem 1.15rem;color:#fff;text-decoration:none;box-shadow:0 1px 2px rgba(0,0,0,.08);transition:opacity .15s}
+    .btn-grad{background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)}
+    .btn:hover{opacity:.95}
+    .prose h2{scroll-margin-top:96px}
+  </style>
+  <script>
+    // Recyklujeme CTA parametre ako na hlavnej stránke
+    const PHONE = "+421 905 874 100";
+    const EMAIL = "hubacekm26@gmail.com";
+    const FORM_URL = "https://forms.gle/rNYBGAVB1dkxyL3g6";
+    function carryParams(){
+      const q = new URLSearchParams(location.search);
+      const d = new URLSearchParams({utm_source:"web",utm_medium:"article",utm_campaign:"bike"});
+      for (const [k,v] of q.entries()) d.set(k,v);
+      const withParams = (u)=>u+(u.includes("?")?"&":"?")+d.toString();
+      document.querySelectorAll("a[data-cta='form']").forEach(a=>a.href=withParams(FORM_URL));
+      document.querySelectorAll("[data-bind='phone']").forEach(el=>el.textContent=PHONE);
+      document.querySelectorAll("[data-bind='email']").forEach(el=>el.textContent=EMAIL);
+      document.querySelectorAll("a[href^='tel:']").forEach(a=>a.href="tel:"+PHONE.replace(/\s+/g,''));
+      document.querySelectorAll("a[href^='mailto:']").forEach(a=>a.href="mailto:"+EMAIL);
+    }
+    document.addEventListener("DOMContentLoaded", carryParams);
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <!-- Header minimalisticky, konzistentný s webom -->
+  <header class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <a href="/" class="font-semibold text-lg">Poistenie bicykla</a>
+    <nav class="hidden sm:flex items-center gap-6 text-[15px] md:text-base">
+      <a href="/#ako" class="hover:underline"><strong>Ako to funguje</strong></a>
+      <a href="/#faq" class="hover:underline"><strong>FAQ</strong></a>
+      <a href="/#clanky" class="hover:underline"><strong>Články</strong></a>
+      <a href="/#kontakt" class="hover:underline"><strong>Kontakt</strong></a>
+    </nav>
+    <a href="/partneri.html" class="btn btn-grad text-sm md:text-base">
+      Partneri
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </header>
+
+  <!-- Hero článku -->
+  <section class="relative">
+    <div class="w-full h-[180px] md:h-[240px] bg-[url('/assets/article-bike-cover.jpg')] bg-cover bg-center"></div>
+    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="absolute inset-0 flex items-center">
+      <div class="max-w-4xl mx-auto px-4">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-white">Poistenie bicykla na Slovensku: čo kryje, kedy plní a na čo si dať pozor</h1>
+        <p class="mt-2 text-white/90 text-sm md:text-base">Čitateľný prehľad pre rekreačných jazdcov aj dojižďačov • cca 3 min čítania</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Obsah článku -->
+  <main class="max-w-4xl mx-auto px-4 py-8 md:py-12">
+    <article class="prose prose-slate max-w-none">
+      <p>Ak jazdíš často, poistenie bicykla je skôr základná hygiena než luxus. Nižšie nájdeš zrozumiteľné zhrnutie: čo je poistené, kedy poisťovňa plní, aké sú výluky a ako musí byť bicykel zabezpečený, aby si o plnenie neprišiel.</p>
+
+      <h2 id="co-je-poistene">Čo je poistené a kde platí</h2>
+      <p>Poistiť sa dajú bicykle (aj e-biky a bicykle s pomocným motorčekom), kolobežky (aj s pomocným motorčekom) a detské cyklovozíky/prívesy uvedené v zmluve – vo vlastníctve teba alebo členov tvojej domácnosti. Krytie platí na území Európy.</p>
+
+      <h2 id="ake-udalosti">Aké udalosti sú kryté</h2>
+      <ul>
+        <li><strong>Krádež vlámaním a lúpež</strong>, <strong>vandalizmus</strong>, <strong>dopravná nehoda</strong>.</li>
+        <li><strong>Živly</strong> (vietor, krupobitie, povodeň/záplava…), <strong>požiar</strong>, <strong>blesk</strong>, pád predmetov.</li>
+        <li>Pri <strong>e-bikoch</strong> aj poškodenie spôsobené <strong>skratom</strong> (v rozsahu podmienok).</li>
+      </ul>
+      <p>Prakticky: ak ti bicykel ukradnú zo zamknutého priestoru alebo uzamknutý od pevného bodu, alebo ho poškodíš pri páde/nehode, máš základ pre plnenie.</p>
+
+      <h2 id="ako-plni">Ako sa vypláca škoda</h2>
+      <ul>
+        <li><strong>Oprava je ekonomická</strong> → plní sa v <strong>novej cene</strong> (podľa cien nových dielov).</li>
+        <li><strong>Totálna škoda/krádež</strong> → plní sa <strong>časová cena</strong> (zohľadní sa opotrebenie).</li>
+        <li><strong>Pneumatiky</strong> sa zvyčajne plnia v <strong>časovej cene</strong>.</li>
+      </ul>
+      <p>Sleduj <strong>ročný limit plnenia</strong> a <strong>spoluúčasť</strong> podľa zmluvy.</p>
+
+      <h2 id="zabezpecenie">Zabezpečenie proti krádeži (kľúčové!)</h2>
+      <p>Aby bola <strong>krádež vlámaním</strong> uznaná, bicykel musí byť:</p>
+      <ul>
+        <li>v <strong>uzamknutom priestore</strong> (byt, pivnica, hotelová izba…) s dverami s cylindrickou vložkou, alebo</li>
+        <li>vonku <strong>uzamknutý rámom k pevnému bodu</strong> (stojan, zábradlie, stĺp…) vhodným zámkom:
+          <ul>
+            <li><strong>U-zámok</strong> z kalenej ocele, priemer strmeňa min. <strong>8 mm</strong>,</li>
+            <li><strong>kábel/lanko/reťaz</strong> z ocele min. <strong>8 mm</strong>,</li>
+            <li><strong>skladací zámok</strong> z tvrdenej ocele, <strong>plát ≥ 5 mm</strong> a <strong>šírka ≥ 10 mm</strong>.</li>
+          </ul>
+        </li>
+      </ul>
+      <p>Možné je aj uzamknutie k <strong>homologovanému nosiču na vozidle</strong>. Pri krádeži/lúpeži je potrebné <strong>bezodkladne kontaktovať políciu</strong>.</p>
+
+      <h2 id="vyluky">Časté výluky (kedy poistenie neplní)</h2>
+      <ul>
+        <li><strong>Profesionálne/podnikateľské</strong> využitie bicykla (kurýr, požičovňa, preteky).</li>
+        <li><strong>Príslušenstvo</strong> (svetlá, tachometre a pod.), ak nie je výslovne uvedené v zmluve.</li>
+        <li><strong>Estetické škody</strong> bez vplyvu na funkčnosť (škrabance laku).</li>
+        <li><strong>Samostatné poškodenie pneumatík</strong> bez ďalšej škody.</li>
+        <li>Niektoré <strong>škody pri nabíjaní batérie krátkym skratom</strong> (pozri podmienky).</li>
+        <li>Udalosti <strong>nenahlásené polícii</strong> (pri krádeži/lúpeži/vandalizme).</li>
+      </ul>
+
+      <h2 id="kradez-lupez">Krádež vs. lúpež – stručne podľa slovenského práva</h2>
+      <p><strong>Krádež (krádež vlámaním)</strong>: páchateľ sa zmocní cudzej veci; pri krádeži vlámaním ešte aj <em>prekoná prekážku</em> (zámok, dvere).<br>
+      <strong>Lúpež</strong>: zmocnenie sa veci s <em>použitím násilia</em> alebo <em>pohrôžkou bezprostredného násilia</em> voči osobe.</p>
+      <p>Príklad: bicykel zmizne z uzamknutej pivnice → <strong>krádež vlámaním</strong>. Zhodia ťa a vezmú bicykel → <strong>lúpež</strong>.</p>
+
+      <h2 id="checklist">Rýchla kontrola pred jazdou</h2>
+      <ol>
+        <li><strong>Zámok + pevný bod</strong>: rám aj koleso, parametre zámku podľa vyššie.</li>
+        <li><strong>Doklad o vlastníctve + fotky</strong>: účtenka/faktúra, fotka uzamknutia bicykla.</li>
+        <li><strong>Pri udalosti – polícia hneď</strong>, nie „zajtra“.</li>
+        <li><strong>Nepodnikáš s bicyklom</strong>: ak jazdíš za odplatu, krytie sa zvyčajne nevzťahuje.</li>
+      </ol>
+
+      <hr>
+
+      <p><strong>Záver:</strong> Poistenie bicykla vie pomôcť pri krádeži vlámaním, lúpeži, vandalizme, nehodách aj živloch — <em>ak</em> máš bicykel zabezpečený podľa podmienok a správne nahlásiš udalosť. Menšie škody sa zvyčajne opravia „na novú cenu“, pri krádeži či totálke sa počíta <strong>časová cena</strong>. Ak jazdíš rekreačne alebo do práce a dodržíš jednoduché pravidlá, poistenie vie pokryť výraznú časť reálnej straty.</p>
+
+      <p class="text-sm text-gray-600">Pozn.: Pre finálne znenie a detaily sa vždy riaď dokumentáciou priloženou k tvojej konkrétnej zmluve (limity, spoluúčasť, definície a výluky).</p>
+    </article>
+
+    <!-- CTA blok -->
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a data-cta="form" class="btn btn-grad">
+        Získať nezáväznú ponuku
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 -mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="/partneri.html" class="btn btn-grad" style="background-image:linear-gradient(90deg,#0ACF83,#0B6EF3)">
+        Pre predajcov / partnerov
+      </a>
+    </div>
+
+    <p class="mt-6 text-xs text-gray-500">Publikované: <time datetime="2025-10-12">12. 10. 2025</time> • Autor: M&amp;F Consulting s.r.o.</p>
+  </main>
+
+  <!-- Footer stručný (odkazuje na tvoje právne stránky) -->
+  <footer class="bg-white border-t">
+    <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-gray-700">
+      <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
+        <div class="font-semibold">M&F Consulting s.r.o.</div>
+        <div class="text-gray-500">PFA pod SFA Finportal, a.s. • Registrácia v NBS: <strong>287587</strong></div>
+        <div class="md:ml-auto text-gray-500">© <span id="footerYear"></span> M&F Consulting s.r.o.</div>
+      </div>
+      <hr class="my-6 border-gray-200" />
+      <div class="text-gray-600">
+        <a class="underline" href="/privacy.html">Ochrana súkromia</a> •
+        <a class="underline" href="/terms.html">Podmienky používania</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- sticky CTA len mobil -->
+  <style>
+    @media (max-width:640px){
+      .sticky-cta{position:fixed;left:0;right:0;bottom:12px;display:flex;justify-content:center;z-index:50}
+      .sticky-cta a{padding:.9rem 1.25rem;border-radius:9999px}
+    }
+  </style>
+  <div class="sticky-cta">
+    <a data-cta="form" class="btn btn-grad">Získať ponuku</a>
+  </div>
+
+  <script>
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- (voliteľné) Štruktúrované dáta Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Poistenie bicykla na Slovensku: čo kryje, kedy plní a na čo si dať pozor",
+    "author": {"@type": "Organization","name": "M&F Consulting s.r.o."},
+    "publisher": {"@type": "Organization","name": "M&F Consulting s.r.o."},
+    "datePublished": "2025-10-12",
+    "image": "https://bikepoistenie.sk/assets/article-bike-cover.jpg",
+    "mainEntityOfPage": "https://bikepoistenie.sk/clanky/poistenie-bicykla-co-kryje.html"
+  }
+  </script>
+</body>
+</html>
