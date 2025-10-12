@@ -164,20 +164,7 @@
           </table>
         </div>
 
-        <!-- 5) Marketing & materiály -->
-        <div class="rounded-2xl card bg-white/95 p-5">
-          <h3 class="text-lg font-semibold mb-3">Marketing & materiály</h3>
-          <table class="w-full text-sm">
-            <tbody class="divide-y">
-              <tr><td class="py-2">Logo & brand</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">balík (zip)</a></td></tr>
-              <tr><td class="py-2">Letáky / stojany</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">PDF/A4</a></td></tr>
-              <tr><td class="py-2">Bannery na web</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">JPG/PNG</a></td></tr>
-              <tr><td class="py-2">FAQ pre personál</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">prehľad</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- 6) Podmienky spolupráce -->
+        <!-- 5) Podmienky spolupráce (PRESUNUTÉ HORE) -->
         <div class="rounded-2xl card bg-white/95 p-5">
           <h3 class="text-lg font-semibold mb-3">Podmienky spolupráce</h3>
           <table class="w-full text-sm">
@@ -202,11 +189,24 @@
           </table>
         </div>
 
+        <!-- 6) Marketing & materiály (PRESUNUTÉ NIŽŠIE) -->
+        <div class="rounded-2xl card bg-white/95 p-5">
+          <h3 class="text-lg font-semibold mb-3">Marketing & materiály</h3>
+          <table class="w-full text-sm">
+            <tbody class="divide-y">
+              <tr><td class="py-2">Logo & brand</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">balík (zip)</a></td></tr>
+              <tr><td class="py-2">Letáky / stojany</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">PDF/A4</a></td></tr>
+              <tr><td class="py-2">Bannery na web</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">JPG/PNG</a></td></tr>
+              <tr><td class="py-2">FAQ pre personál</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">prehľad</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </section>
   </main>
 
-  <!-- POPUP – po 30 s od ODOMKNUTIA -->
+  <!-- POPUP – po 30 s od ODOMKNUTIA (s podmienkou „8s nečinnosť“) -->
   <aside id="qrPopup" class="popup" role="dialog" aria-modal="false" aria-live="polite" aria-label="Vytvoriť QR kód – ponuka">
     <div class="p-4">
       <div class="flex items-start gap-3">
@@ -240,6 +240,8 @@
     const LOADING_MS  = 6500;        // 5–7 s načítavanie
     const POPUP_DELAY = 30000;       // 30 s po odomknutí
     const REAPPEAR_MS = 20000;       // 20 s po zavretí (jednorazové znovuzobrazenie)
+    const IDLE_MS     = 8000;        // 8 s „nečinnosť“ potrebná na zobrazenie
+    const CHECK_MS    = 3000;        // každé 3 s sa skontroluje, či už je user v kľude
     const FORM_QR_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdLwcHHQwPyvLWpQdBqbb92iMH86-yQUOHb7XCtlQVdOwansw/viewform?usp=header";
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -256,6 +258,12 @@
       // stav v sessionStorage
       const KEY_SUPPRESS = "qr_popup_suppress";   // "1" ak user klikol CTA
       const KEY_RESPAWN  = "qr_popup_respawned";  // "1" ak už bol re-show
+
+      // sledovanie aktivity kvôli „neprekážaniu“ pri čítaní
+      let lastActivity = Date.now();
+      ["scroll","keydown","pointerdown","touchstart","wheel"].forEach(ev=>{
+        window.addEventListener(ev, ()=>{ lastActivity = Date.now(); }, {passive:true});
+      });
 
       // URL parameter ?k= pre pohodlné odomknutie
       const urlK = new URLSearchParams(location.search).get("k");
@@ -300,7 +308,18 @@
 
       function startInitialPopupTimer() {
         if (sessionStorage.getItem(KEY_SUPPRESS) === "1") return; // už neotvárať
-        window.setTimeout(() => showPopup(), POPUP_DELAY);
+        window.setTimeout(() => tryShowPopupWhenIdle(), POPUP_DELAY);
+      }
+
+      function tryShowPopupWhenIdle() {
+        if (sessionStorage.getItem(KEY_SUPPRESS) === "1") return;
+        const idleFor = Date.now() - lastActivity;
+        if (idleFor >= IDLE_MS) {
+          showPopup();
+        } else {
+          // skús znova po CHECK_MS
+          window.setTimeout(tryShowPopupWhenIdle, CHECK_MS);
+        }
       }
 
       function showPopup() {
@@ -316,7 +335,7 @@
         popup.classList.add("hide");
       }
 
-      // zavretie krížikom -> po 20 s ukáž znovu (iba raz za session)
+      // zavretie krížikom -> po 20 s ukáž znovu (iba raz za session), tiež rešpektuj idle
       if (qrClose) {
         qrClose.addEventListener("click", () => {
           hidePopup();
@@ -325,8 +344,16 @@
             sessionStorage.getItem(KEY_RESPAWN) !== "1"
           ) {
             window.setTimeout(() => {
-              sessionStorage.setItem(KEY_RESPAWN, "1");
-              showPopup();
+              // pred re-show skontroluj nečinnosť, nech neprekáža
+              const attempt = () => {
+                if (Date.now() - lastActivity >= IDLE_MS) {
+                  sessionStorage.setItem(KEY_RESPAWN, "1");
+                  showPopup();
+                } else {
+                  window.setTimeout(attempt, CHECK_MS);
+                }
+              };
+              attempt();
             }, REAPPEAR_MS);
           }
         });
