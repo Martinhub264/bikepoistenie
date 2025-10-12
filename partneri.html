@@ -254,8 +254,8 @@
       const qrClose   = document.getElementById("qrClose");
 
       // stav v sessionStorage
-      const KEY_SUPPRESS = "qr_popup_suppress"; // (string) "1" ak user klikol CTA
-      const KEY_RESPAWN  = "qr_popup_respawned"; // (string) "1" ak už bol re-show
+      const KEY_SUPPRESS = "qr_popup_suppress";   // "1" ak user klikol CTA
+      const KEY_RESPAWN  = "qr_popup_respawned";  // "1" ak už bol re-show
 
       // URL parameter ?k= pre pohodlné odomknutie
       const urlK = new URLSearchParams(location.search).get("k");
@@ -320,6 +320,27 @@
       if (qrClose) {
         qrClose.addEventListener("click", () => {
           hidePopup();
-          // reappear len ak ešte nebol jednorazový re-spawn a nie je suppress
-          if (sessionStorage.getItem(KEY_SUPPRESS) !== "1" &&
-              sessionStorage.getItem(KEY_RE_
+          if (
+            sessionStorage.getItem(KEY_SUPPRESS) !== "1" &&
+            sessionStorage.getItem(KEY_RESPAWN) !== "1"
+          ) {
+            window.setTimeout(() => {
+              sessionStorage.setItem(KEY_RESPAWN, "1");
+              showPopup();
+            }, REAPPEAR_MS);
+          }
+        });
+      }
+
+      // klik na CTA -> potlač ďalšie zobrazovanie
+      if (qrBtn) {
+        qrBtn.addEventListener("click", () => {
+          sessionStorage.setItem(KEY_SUPPRESS, "1");
+          hidePopup();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
+
