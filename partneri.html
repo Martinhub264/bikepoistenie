@@ -91,7 +91,7 @@
              style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">
           <div class="text-sm md:text-base leading-relaxed">
             <strong>Konkurencia nespí a rozširuje svoje služby.</strong>
-            <br/>Len spokojný klient sa vráti a prinesie firme zisk. <em>Nerozmýšľajte dlho.</em>
+            <br/>Len spokojný klient sa vráti a prinesie firme zisk. <em><strong>Nerozmýšľajte dlho.</strong></em>
           </div>
         </div>
         <p class="mt-4 text-xs text-slate-500">Načítavame vaše materiály…</p>
@@ -117,7 +117,7 @@
               <tr><td class="py-2 text-slate-600">Územná platnosť</td><td class="py-2 text-right font-medium">SR + EÚ/CH</td></tr>
               <tr><td class="py-2 text-slate-600">Hodnota / kus</td><td class="py-2 text-right font-medium">500 – 10 000 €</td></tr>
               <tr><td class="py-2 text-slate-600">Počet kusov v zmluve</td><td class="py-2 text-right font-medium">do 5 ks</td></tr>
-              <tr><td class="py-2 text-slate-600">Zodpovednosť za škodu</td><td class="py-2 text-right font-medium">50 000 – 750 000 €</td></tr>
+              <tr><td class="py-2 text-slate-600">Zodpovednosť za škodu</td><td class="py-2 text-right font-medium"> <strong>ž do 750 000 €</strong></td></tr>
             </tbody>
           </table>
         </div>
@@ -146,7 +146,7 @@
               <tr><td class="py-2">Skladací zámok</td><td class="py-2 text-right font-medium">plát ≥ 5×10 mm</td></tr>
               <tr><td class="py-2">Technika</td><td class="py-2 text-right font-medium">rám + koleso k pevnému bodu</td></tr>
               <tr><td class="py-2">Uzamknutý priestor</td><td class="py-2 text-right font-medium">100% krytie (garáž/byt/hotel)</td></tr>
-              <tr><td class="py-2">Voľne položený bicykel</td><td class="py-2 text-right font-medium">povinne k pevnému bodu</td></tr>
+              <tr><td class="py-2">Voľne položený bicykel</td><td class="py-2 text-right font-medium">neuzamknutý na Vašom <strong>uzamknutom</strong> pozemku pri dome </td></tr>
             </tbody>
           </table>
         </div>
@@ -156,7 +156,7 @@
           <h3 class="text-lg font-semibold mb-3">Proces & kontakt</h3>
           <table class="w-full text-sm">
             <tbody class="divide-y">
-              <tr><td class="py-2">Dopyt</td><td class="py-2 text-right font-medium">web formulár / e-mail</td></tr>
+              <tr><td class="py-2">Dopyt</td><td class="py-2 text-right font-medium">QR kód / e-mail</td></tr>
               <tr><td class="py-2">Ponuka</td><td class="py-2 text-right font-medium">do 1–2 pracovných dní</td></tr>
               <tr><td class="py-2">Aktivácia</td><td class="py-2 text-right font-medium">online bez papierov</td></tr>
               <tr><td class="py-2">Podpora</td><td class="py-2 text-right font-medium">pri škode aj výbere</td></tr>
@@ -177,7 +177,7 @@
           </table>
         </div>
 
-        <!-- 6) Podmienky spolupráce (NOVÁ karta) -->
+        <!-- 6) Podmienky spolupráce -->
         <div class="rounded-2xl card bg-white/95 p-5">
           <h3 class="text-lg font-semibold mb-3">Podmienky spolupráce</h3>
           <table class="w-full text-sm">
@@ -193,6 +193,10 @@
               <tr>
                 <td class="py-2">Provízia</td>
                 <td class="py-2 text-right font-medium">do 50% z manažérskej provízie</td>
+              </tr>
+              <tr>
+                <td class="py-2">Informovanosť</td>
+                <td class="py-2 text-right font-medium">mesačný report</td>
               </tr>
             </tbody>
           </table>
@@ -232,9 +236,10 @@
 
   <script>
     // === KONFIGURÁCIA ===
-    const ACCESS_CODE = "bike321!@"; // zmeň sem, keď chceš nové heslo
+    const ACCESS_CODE = "bike321!@"; // zmeň tu, ak chceš nové heslo
     const LOADING_MS  = 6500;        // 5–7 s načítavanie
     const POPUP_DELAY = 30000;       // 30 s po odomknutí
+    const REAPPEAR_MS = 20000;       // 20 s po zavretí (jednorazové znovuzobrazenie)
     const FORM_QR_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdLwcHHQwPyvLWpQdBqbb92iMH86-yQUOHb7XCtlQVdOwansw/viewform?usp=header";
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -248,10 +253,9 @@
       const qrBtn     = document.getElementById("qrBtn");
       const qrClose   = document.getElementById("qrClose");
 
-      if (!gateEl || !loadEl || !contentEl || !formEl || !inputEl) {
-        console.warn("Chýba niektorý z prvkov #gate, #loading, #content, #unlockForm, #codeInput.");
-        return;
-      }
+      // stav v sessionStorage
+      const KEY_SUPPRESS = "qr_popup_suppress"; // (string) "1" ak user klikol CTA
+      const KEY_RESPAWN  = "qr_popup_respawned"; // (string) "1" ak už bol re-show
 
       // URL parameter ?k= pre pohodlné odomknutie
       const urlK = new URLSearchParams(location.search).get("k");
@@ -289,20 +293,33 @@
 
           // nastav link a spusti timer na popup
           if (qrBtn) qrBtn.href = FORM_QR_URL;
-          if (popup) window.setTimeout(() => popup.classList.add("show"), POPUP_DELAY);
+          startInitialPopupTimer();
 
         }, LOADING_MS);
       }
 
-      // zavretie popupu
-      if (qrClose && popup) {
-        qrClose.addEventListener("click", () => {
-          popup.classList.remove("show");
-          popup.classList.add("hide");
-        });
+      function startInitialPopupTimer() {
+        if (sessionStorage.getItem(KEY_SUPPRESS) === "1") return; // už neotvárať
+        window.setTimeout(() => showPopup(), POPUP_DELAY);
       }
-    });
-  </script>
-</body>
-</html>
 
+      function showPopup() {
+        if (!popup) return;
+        if (sessionStorage.getItem(KEY_SUPPRESS) === "1") return;
+        popup.classList.remove("hide");
+        popup.classList.add("show");
+      }
+
+      function hidePopup() {
+        if (!popup) return;
+        popup.classList.remove("show");
+        popup.classList.add("hide");
+      }
+
+      // zavretie krížikom -> po 20 s ukáž znovu (iba raz za session)
+      if (qrClose) {
+        qrClose.addEventListener("click", () => {
+          hidePopup();
+          // reappear len ak ešte nebol jednorazový re-spawn a nie je suppress
+          if (sessionStorage.getItem(KEY_SUPPRESS) !== "1" &&
+              sessionStorage.getItem(KEY_RE_
