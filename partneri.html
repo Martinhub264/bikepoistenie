@@ -45,12 +45,12 @@
       .popup{ left:12px; right:12px; bottom:12px; max-width: none; }
     }
 
-    /* NUDGE – ľavý horný roh (biela -> červená) */
+    /* NUDGE – ľavý horný roh (jemná plná červená) */
     .nudge{
       position: fixed; left: 16px; top: 16px; z-index: 80;
       max-width: 26rem; color:#fff; border-radius: 1rem;
       box-shadow: 0 10px 20px rgba(2,6,23,.18);
-      background-image: linear-gradient(90deg,#ffffff,#ef4444);
+      background:#ef4444; /* soft red */
       padding: .875rem 1rem;
       transform: translateY(-120%); opacity: 0;
     }
@@ -60,7 +60,7 @@
     @keyframes nudgeOut{ to{ transform: translateY(-120%); opacity:0 } }
     .nudge p{margin:0; line-height:1.35}
     .nudge .nudge-close{
-      appearance:none;border:0;background:transparent;color:#fff;opacity:.85;
+      appearance:none;border:0;background:transparent;color:#fff;opacity:.9;
       display:inline-flex;align-items:center;justify-content:center;
       width:28px;height:28px;border-radius:9999px;
     }
@@ -188,32 +188,20 @@
           </table>
         </div>
 
-        <!-- 5) Podmienky spolupráce (PRESUNUTÉ HORE) -->
+        <!-- 5) Podmienky spolupráce -->
         <div class="rounded-2xl card bg-white/95 p-5">
           <h3 class="text-lg font-semibold mb-3">Podmienky spolupráce</h3>
           <table class="w-full text-sm">
             <tbody class="divide-y">
-              <tr>
-                <td class="py-2">QR kód</td>
-                <td class="py-2 text-right font-medium">jedinečný pre každú prevádzku</td>
-              </tr>
-              <tr>
-                <td class="py-2">Výplata provízie</td>
-                <td class="py-2 text-right font-medium">kvartálne / faktúra</td>
-              </tr>
-              <tr>
-                <td class="py-2">Provízia</td>
-                <td class="py-2 text-right font-medium">do 50% z manažérskej provízie</td>
-              </tr>
-              <tr>
-                <td class="py-2">Informovanosť</td>
-                <td class="py-2 text-right font-medium">mesačný report</td>
-              </tr>
+              <tr><td class="py-2">QR kód</td><td class="py-2 text-right font-medium">jedinečný pre každú prevádzku</td></tr>
+              <tr><td class="py-2">Výplata provízie</td><td class="py-2 text-right font-medium">kvartálne / faktúra</td></tr>
+              <tr><td class="py-2">Provízia</td><td class="py-2 text-right font-medium">do 50% z manažérskej provízie</td></tr>
+              <tr><td class="py-2">Informovanosť</td><td class="py-2 text-right font-medium">mesačný report</td></tr>
             </tbody>
           </table>
         </div>
 
-        <!-- 6) Marketing & materiály (PRESUNUTÉ NIŽŠIE) -->
+        <!-- 6) Marketing & materiály -->
         <div class="rounded-2xl card bg-white/95 p-5">
           <h3 class="text-lg font-semibold mb-3">Marketing & materiály</h3>
           <table class="w-full text-sm">
@@ -230,7 +218,7 @@
     </section>
   </main>
 
-  <!-- POPUP – po 30 s od ODOMKNUTIA (s podmienkou „2s nečinnosť“) -->
+  <!-- POPUP – po 30 s od ODOMKNUTIA (s podmienkou „nečinnosť“) -->
   <aside id="qrPopup" class="popup" role="dialog" aria-modal="false" aria-live="polite" aria-label="Vytvoriť QR kód – ponuka">
     <div class="p-4">
       <div class="flex items-start gap-3">
@@ -257,7 +245,7 @@
     </div>
   </aside>
 
-  <!-- NUDGE – po kliknutí na X (6 s) -->
+  <!-- NUDGE – po kliknutí na X (10 s), potom sa znovu ukáže hlavný popup -->
   <aside id="qrNudge" class="nudge" role="status" aria-live="polite" aria-label="Pripomenutie spolupráce">
     <div class="flex items-start gap-3">
       <div class="flex-1">
@@ -276,10 +264,9 @@
     const ACCESS_CODE = "bike321!@"; // zmeň tu, ak chceš nové heslo
     const LOADING_MS  = 6500;        // 5–7 s načítavanie
     const POPUP_DELAY = 30000;       // 30 s po odomknutí
-    const REAPPEAR_MS = 20000;       // 20 s po zavretí (jednorazové znovuzobrazenie)
     const IDLE_MS     = 8000;        // 8 s „nečinnosť“ potrebná na zobrazenie
     const CHECK_MS    = 3000;        // každé 3 s sa skontroluje, či už je user v kľude
-    const NUDGE_MS    = 6000;        // 6 s zobrazenie nudge
+    const NUDGE_MS    = 10000;       // 10 s zobrazenie nudge
     const FORM_QR_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdLwcHHQwPyvLWpQdBqbb92iMH86-yQUOHb7XCtlQVdOwansw/viewform?usp=header";
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -297,9 +284,7 @@
       const nudgeClose= document.getElementById("nudgeClose");
 
       // stav v sessionStorage
-      const KEY_SUPPRESS = "qr_popup_suppress";   // "1" ak user klikol CTA
-      const KEY_RESPAWN  = "qr_popup_respawned";  // "1" ak už bol re-show
-      const KEY_NUDGE    = "qr_popup_nudge_shown";// "1" ak už bol nudge zobrazený
+      const KEY_SUPPRESS = "qr_popup_suppress";   // "1" ak user klikol CTA (už viac nezobrazovať)
 
       // sledovanie aktivity kvôli „neprekážaniu“ pri čítaní
       let lastActivity = Date.now();
@@ -377,54 +362,39 @@
         popup.classList.add("hide");
       }
 
-      // NUDGE: zobraziť raz za session, na 6 s
-      function showNudgeOnce() {
+      // NUDGE: ukáž na 10 s, potom skry a znovu ukáž hlavný popup
+      function showNudgeThenReshowPopup() {
         if (!nudge) return;
-        if (sessionStorage.getItem(KEY_NUDGE) === "1") return;
-        sessionStorage.setItem(KEY_NUDGE, "1");
+        if (sessionStorage.getItem(KEY_SUPPRESS) === "1") return;
+
+        // zobraz nudge
         nudge.classList.remove("hide");
         nudge.classList.add("show");
-        // auto-hide po NUDGE_MS
-        window.setTimeout(()=>hideNudge(), NUDGE_MS);
+
+        // po 10 s skry nudge a znova ukáž hlavný popup (bez kontroly idle; explicitne)
+        window.setTimeout(() => {
+          hideNudge();
+          showPopup();
+        }, NUDGE_MS);
       }
+
       function hideNudge() {
         if (!nudge) return;
         nudge.classList.remove("show");
         nudge.classList.add("hide");
       }
+
       nudgeClose?.addEventListener("click", hideNudge);
 
-      // zavretie krížikom -> okamžite nudge (6 s), potom (nezmenené) re-show po REAPPEAR_MS, s kontrolou idle
+      // zavretie krížikom -> hneď nudge (10 s) -> potom sa znovu ukáže popup „provízie“
       if (qrClose) {
         qrClose.addEventListener("click", () => {
           hidePopup();
-
-          // Jemný nudge – hneď po X, len raz za session
-          if (sessionStorage.getItem(KEY_SUPPRESS) !== "1") {
-            showNudgeOnce();
-          }
-
-          // Jednorazový re-spawn hlavného popu po REAPPEAR_MS (pôvodná logika)
-          if (
-            sessionStorage.getItem(KEY_SUPPRESS) !== "1" &&
-            sessionStorage.getItem(KEY_RESPAWN) !== "1"
-          ) {
-            window.setTimeout(() => {
-              const attempt = () => {
-                if (Date.now() - lastActivity >= IDLE_MS) {
-                  sessionStorage.setItem(KEY_RESPAWN, "1");
-                  showPopup();
-                } else {
-                  window.setTimeout(attempt, CHECK_MS);
-                }
-              };
-              attempt();
-            }, REAPPEAR_MS);
-          }
+          showNudgeThenReshowPopup();
         });
       }
 
-      // klik na CTA -> potlač ďalšie zobrazovanie
+      // klik na CTA -> potlač ďalšie zobrazovanie (ani popup ani nudge)
       if (qrBtn) {
         qrBtn.addEventListener("click", () => {
           sessionStorage.setItem(KEY_SUPPRESS, "1");
@@ -436,4 +406,5 @@
   </script>
 </body>
 </html>
+
 
