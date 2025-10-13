@@ -21,7 +21,31 @@
   /* GA4 konfigurácia – anonymizácia IP je v GA4 štandardne, nechávame ju zapnutú */
   gtag('config', 'G-Z3KZ3Y4739', { send_page_view: true });
 </script>
+  <script>
+  (function () {
+    const KEY = 'bp_cookie_consent';
+    const v = localStorage.getItem(KEY);
 
+    // ak už má návštevník rozhodnutie z inej stránky:
+    if (v === 'accepted') {
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+      // pre istotu kopni jeden page_view, aby sa ukázal v Reálnom čase
+      gtag('event', 'page_view');
+    } else if (v === 'rejected') {
+      gtag('consent', 'update', { analytics_storage: 'denied' });
+    }
+
+    // anonymné meranie klikov na CTA → bez PII
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[data-cta="form"]');
+      if (!a) return;
+      gtag('event', 'cta_form_click', {
+        link_url: a.href || '(built later by JS)',
+        position: 'homepage' // prípadne si meníš podľa stránky
+      });
+    });
+  })();
+</script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Poistenie bicykla a e-biku – rýchlo, férovo, online</title>
