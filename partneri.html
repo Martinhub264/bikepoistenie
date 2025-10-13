@@ -44,6 +44,30 @@
     @media (max-width: 480px){
       .popup{ left:12px; right:12px; bottom:12px; max-width: none; }
     }
+
+    /* NUDGE – ľavý horný roh (biela -> červená) */
+    .nudge{
+      position: fixed; left: 16px; top: 16px; z-index: 80;
+      max-width: 26rem; color:#fff; border-radius: 1rem;
+      box-shadow: 0 10px 20px rgba(2,6,23,.18);
+      background-image: linear-gradient(90deg,#ffffff,#ef4444);
+      padding: .875rem 1rem;
+      transform: translateY(-120%); opacity: 0;
+    }
+    .nudge.show{ animation: nudgeIn .45s ease-out forwards }
+    .nudge.hide{ animation: nudgeOut .25s ease-in forwards }
+    @keyframes nudgeIn{ to{ transform: translateY(0); opacity:1 } }
+    @keyframes nudgeOut{ to{ transform: translateY(-120%); opacity:0 } }
+    .nudge p{margin:0; line-height:1.35}
+    .nudge .nudge-close{
+      appearance:none;border:0;background:transparent;color:#fff;opacity:.85;
+      display:inline-flex;align-items:center;justify-content:center;
+      width:28px;height:28px;border-radius:9999px;
+    }
+    .nudge .nudge-close:hover{opacity:1}
+    @media (max-width: 480px){
+      .nudge{ left:12px; right:12px; max-width:none }
+    }
   </style>
 </head>
 <body class="min-h-screen text-slate-900"
@@ -233,6 +257,20 @@
     </div>
   </aside>
 
+  <!-- NUDGE – po kliknutí na X (6 s) -->
+  <aside id="qrNudge" class="nudge" role="status" aria-live="polite" aria-label="Pripomenutie spolupráce">
+    <div class="flex items-start gap-3">
+      <div class="flex-1">
+        <p><strong>Klikol si X?</strong> Dajme tomu ešte jednu šancu — spolupráce nám pomáhajú rásť.</p>
+      </div>
+      <button class="nudge-close" id="nudgeClose" aria-label="Skryť upozornenie">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9">
+          <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </aside>
+
   <script>
     // === KONFIGURÁCIA ===
     const ACCESS_CODE = "bike321!@"; // zmeň tu, ak chceš nové heslo
@@ -241,6 +279,7 @@
     const REAPPEAR_MS = 20000;       // 20 s po zavretí (jednorazové znovuzobrazenie)
     const IDLE_MS     = 8000;        // 8 s „nečinnosť“ potrebná na zobrazenie
     const CHECK_MS    = 3000;        // každé 3 s sa skontroluje, či už je user v kľude
+    const NUDGE_MS    = 6000;        // 6 s zobrazenie nudge
     const FORM_QR_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdLwcHHQwPyvLWpQdBqbb92iMH86-yQUOHb7XCtlQVdOwansw/viewform?usp=header";
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -254,9 +293,13 @@
       const qrBtn     = document.getElementById("qrBtn");
       const qrClose   = document.getElementById("qrClose");
 
+      const nudge     = document.getElementById("qrNudge");
+      const nudgeClose= document.getElementById("nudgeClose");
+
       // stav v sessionStorage
       const KEY_SUPPRESS = "qr_popup_suppress";   // "1" ak user klikol CTA
       const KEY_RESPAWN  = "qr_popup_respawned";  // "1" ak už bol re-show
+      const KEY_NUDGE    = "qr_popup_nudge_shown";// "1" ak už bol nudge zobrazený
 
       // sledovanie aktivity kvôli „neprekážaniu“ pri čítaní
       let lastActivity = Date.now();
@@ -334,16 +377,39 @@
         popup.classList.add("hide");
       }
 
-      // zavretie krížikom -> po 20 s ukáž znovu (iba raz za session), tiež rešpektuj idle
+      // NUDGE: zobraziť raz za session, na 6 s
+      function showNudgeOnce() {
+        if (!nudge) return;
+        if (sessionStorage.getItem(KEY_NUDGE) === "1") return;
+        sessionStorage.setItem(KEY_NUDGE, "1");
+        nudge.classList.remove("hide");
+        nudge.classList.add("show");
+        // auto-hide po NUDGE_MS
+        window.setTimeout(()=>hideNudge(), NUDGE_MS);
+      }
+      function hideNudge() {
+        if (!nudge) return;
+        nudge.classList.remove("show");
+        nudge.classList.add("hide");
+      }
+      nudgeClose?.addEventListener("click", hideNudge);
+
+      // zavretie krížikom -> okamžite nudge (6 s), potom (nezmenené) re-show po REAPPEAR_MS, s kontrolou idle
       if (qrClose) {
         qrClose.addEventListener("click", () => {
           hidePopup();
+
+          // Jemný nudge – hneď po X, len raz za session
+          if (sessionStorage.getItem(KEY_SUPPRESS) !== "1") {
+            showNudgeOnce();
+          }
+
+          // Jednorazový re-spawn hlavného popu po REAPPEAR_MS (pôvodná logika)
           if (
             sessionStorage.getItem(KEY_SUPPRESS) !== "1" &&
             sessionStorage.getItem(KEY_RESPAWN) !== "1"
           ) {
             window.setTimeout(() => {
-              // pred re-show skontroluj nečinnosť, nech neprekáža
               const attempt = () => {
                 if (Date.now() - lastActivity >= IDLE_MS) {
                   sessionStorage.setItem(KEY_RESPAWN, "1");
@@ -363,6 +429,7 @@
         qrBtn.addEventListener("click", () => {
           sessionStorage.setItem(KEY_SUPPRESS, "1");
           hidePopup();
+          hideNudge();
         });
       }
     });
