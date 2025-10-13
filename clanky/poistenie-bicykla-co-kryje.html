@@ -1,19 +1,27 @@
 <!doctype html>
 <html lang="sk">
 <head>
-  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll("a[data-cta='form']").forEach(a => {
-      a.addEventListener('click', () => {
-        gtag('event', 'click_form_link', {
-          destination: a.href,
-          link_text: a.textContent.trim()
-        });
-        // tip: nič neblokujeme, odchod je okamžitý, GA4 to stíha poslať cez beacon
-      });
-    });
+ <!-- GA4 – základ + Consent Mode (iba analytika po súhlase) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3KZ3Y4739"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+
+  /* Default: nič bez súhlasu (EÚ/EEA) */
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    region: ['SK','CZ','AT','DE','HU','PL','EU'] // stačí takto
   });
+
+  gtag('js', new Date());
+
+  /* GA4 konfigurácia – anonymizácia IP je v GA4 štandardne, nechávame ju zapnutú */
+  gtag('config', 'G-Z3KZ3Y4739', { send_page_view: true });
 </script>
+
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
