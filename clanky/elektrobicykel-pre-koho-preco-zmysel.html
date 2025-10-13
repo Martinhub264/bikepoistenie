@@ -1,4 +1,18 @@
 <!doctype html><html lang="sk"><head>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll("a[data-cta='form']").forEach(a => {
+      a.addEventListener('click', () => {
+        gtag('event', 'click_form_link', {
+          destination: a.href,
+          link_text: a.textContent.trim()
+        });
+        // tip: nič neblokujeme, odchod je okamžitý, GA4 to stíha poslať cez beacon
+      });
+    });
+  });
+</script>
+
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Elektrobicykel: pre koho je, prečo dáva zmysel a čo si postrážiť</title>
 <meta name="description" content="E-bike nie je skratka pre lenivých. 10 dôvodov „pre“, čo si postrážiť, trh a ceny, poistenie doma aj v zahraničí.">
