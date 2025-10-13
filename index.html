@@ -591,30 +591,40 @@
 
   <!-- Rok + cookies -->
   <script>
-    document.getElementById('footerYear').textContent = new Date().getFullYear();
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-    (function () {
-      const KEY = 'bp_cookie_consent';
-      const bar = document.getElementById('cookieBar');
-      const a = document.getElementById('cookieAccept');
-      const r = document.getElementById('cookieReject');
-      if (!bar || !a || !r) return;
+  (function () {
+    const KEY = 'bp_cookie_consent';
+    const bar = document.getElementById('cookieBar');
+    const a = document.getElementById('cookieAccept');
+    const r = document.getElementById('cookieReject');
+    if (!bar || !a || !r) return;
 
-      const val = localStorage.getItem(KEY);
-      if (val !== 'accepted' && val !== 'rejected') {
-        bar.classList.remove('hidden');
+    const val = localStorage.getItem(KEY);
+    if (val !== 'accepted' && val !== 'rejected') {
+      bar.classList.remove('hidden');
+    }
+
+    a.addEventListener('click', () => {
+      localStorage.setItem(KEY, 'accepted');
+      bar.classList.add('hidden');
+      // povol analytiku hneď
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+        gtag('event', 'page_view'); // okamžite uvidíš návštevu v Reálnom čase
       }
+    });
 
-      a.addEventListener('click', () => {
-        localStorage.setItem(KEY, 'accepted');
-        bar.classList.add('hidden');
-      });
-      r.addEventListener('click', () => {
-        localStorage.setItem(KEY, 'rejected');
-        bar.classList.add('hidden');
-      });
-    })();
-  </script>
+    r.addEventListener('click', () => {
+      localStorage.setItem(KEY, 'rejected');
+      bar.classList.add('hidden');
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', { analytics_storage: 'denied' });
+      }
+    });
+  })();
+</script>
+
 
   <!-- EU ROTÁTOR (0,6 s; náhodné; bez Ruska a Kazachstanu) -->
   <script>
@@ -623,7 +633,7 @@
       if (!el) return;
 
       let COUNTRIES = [
-        "Albánsko","Andorra","Arménsko","Rakúsko","Azerbajdžan",
+        "Albánsko","Andorra","Arménsko","Rakúsko",
         "Bielorusko","Belgicko","Bosna a Hercegovina","Bulharsko","Chorvátsko",
         "Cyprus","Česko","Dánsko","Estónsko","Fínsko","Francúzsko","Nemecko",
         "Grécko","Maďarsko","Island","Írsko","Taliansko","Kosovo","Lotyšsko",
