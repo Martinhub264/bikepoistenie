@@ -2,32 +2,31 @@
 <html lang="sk">
 <head>
   <!-- GA4 – základ + Consent Mode (iba analytika po súhlase) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3KZ3Y4739"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3KZ3Y4739"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
 
-  /* Default: nič bez súhlasu (EÚ/EEA) */
-  gtag('consent', 'default', {
-    ad_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-    analytics_storage: 'denied',
-    region: ['SK','CZ','AT','DE','HU','PL','EU'] // stačí takto
-  });
+    /* Default: nič bez súhlasu (EÚ/EEA) */
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      region: ['SK','CZ','AT','DE','HU','PL','EU']
+    });
 
-  gtag('js', new Date());
-
-  /* GA4 konfigurácia – anonymizácia IP je v GA4 štandardne, nechávame ju zapnutú */
-  gtag('config', 'G-Z3KZ3Y4739', { send_page_view: true });
-</script>
+    gtag('js', new Date());
+    gtag('config', 'G-Z3KZ3Y4739', { send_page_view: true });
+  </script>
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Partneri – prístup a materiály</title>
-  <meta name="description" content="Sekcia pre partnerov: po zadaní prístupového kódu sa zobrazia materiály a tabuľky." />
+  <meta name="description" content="Sekcia pre partnerov: po zadaní prístupového kódu sa zobrazia materiály, návody a marketingové podklady." />
   <link rel="icon" href="/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     .btn {display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border-radius:.75rem;padding:.85rem 1.25rem;
           color:#fff;text-decoration:none;transition:opacity .15s ease;box-shadow:0 1px 2px rgba(0,0,0,.10)}
@@ -50,7 +49,7 @@
       40%{transform:scale(1.35);opacity:1}
     }
 
-    /* POPUP – slider z pravej strany */
+    /* POPUP – slider vpravo dole (provízie) */
     .popup{
       position: fixed; right: 16px; bottom: 16px; z-index: 70;
       max-width: 22rem; color:#fff; border-radius: 1rem;
@@ -62,17 +61,15 @@
     .popup.hide{ animation: slideOut .4s ease forwards }
     @keyframes slideIn{ to{ transform: translateX(0); opacity:1 } }
     @keyframes slideOut{ to{ transform: translateX(120%); opacity:0 } }
-    @media (max-width: 480px){
-      .popup{ left:12px; right:12px; bottom:12px; max-width: none; }
-    }
+    @media (max-width: 480px){ .popup{ left:12px; right:12px; bottom:12px; max-width: none; } }
 
-    /* NUDGE – ľavý horný roh (jemná plná červená) */
+    /* NUDGE – ľavý horný roh (jemná oranžovo-žltá) */
     .nudge{
       position: fixed; left: 16px; top: 16px; z-index: 80;
       max-width: 26rem; color:#fff; border-radius: 1rem;
       box-shadow: 0 10px 20px rgba(2,6,23,.18);
-      background:#f59e0b; /* soft red */
-      padding: .875rem 1rem;
+      background:#f59e0b; /* soft amber */
+      padding:.875rem 1rem;
       transform: translateY(-120%); opacity: 0;
     }
     .nudge.show{ animation: nudgeIn .45s ease-out forwards }
@@ -86,15 +83,14 @@
       width:28px;height:28px;border-radius:9999px;
     }
     .nudge .nudge-close:hover{opacity:1}
-    @media (max-width: 480px){
-      .nudge{ left:12px; right:12px; max-width:none }
-    }
+    @media (max-width: 480px){ .nudge{ left:12px; right:12px; max-width:none } }
   </style>
 </head>
+
 <body class="min-h-screen text-slate-900"
       style="background: linear-gradient(180deg,#F0F7FF 0%, #E9F8F1 30%, #ffffff 70%);">
 
-  <!-- NAV (len logo + späť domov) -->
+  <!-- NAV -->
   <header class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
     <a href="/" class="font-semibold text-lg text-white/90">
       <span class="px-2 py-1 rounded-lg" style="background:linear-gradient(90deg,#0B6EF3,#0ACF83);">Bikepoistenie</span>
@@ -102,16 +98,13 @@
     <a href="/" class="text-sm text-slate-700 hover:underline">Späť na úvod</a>
   </header>
 
-  <!-- Hlavný obsah -->
+  <!-- MAIN -->
   <main class="max-w-5xl mx-auto px-4 py-8 md:py-14">
-
-    <!-- Nadpis -->
     <h1 class="text-center text-4xl md:text-5xl font-extrabold tracking-tight">
-      <span class="bg-clip-text text-transparent"
-            style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">PARTNERI</span>
+      <span class="bg-clip-text text-transparent" style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">PARTNERI</span>
     </h1>
 
-    <!-- PRÍSTUPOVÝ FORM – viditeľný kým nie je odomknuté -->
+    <!-- Gate -->
     <section id="gate" class="mt-8 md:mt-10 flex justify-center">
       <div class="w-full max-w-2xl rounded-2xl card bg-white/90 backdrop-blur p-6 md:p-8">
         <h2 class="text-2xl font-bold mb-1">Prístupový kód</h2>
@@ -119,19 +112,15 @@
           <input id="codeInput" type="password" required
                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-base outline-none focus:ring-2 focus:ring-sky-400"
                  placeholder="••••••••" autocomplete="current-password" />
-          <button type="submit" class="btn btn-grad w-full text-base font-semibold">
-            Odomknúť
-          </button>
+          <button type="submit" class="btn btn-grad w-full text-base font-semibold">Odomknúť</button>
         </form>
       </div>
     </section>
 
-    <!-- LOADING – zobrazi sa po správnom kóde, ~6.5 s -->
+    <!-- Loading -->
     <section id="loading" class="hidden mt-10">
       <div class="rounded-2xl card bg-white/90 backdrop-blur p-6 md:p-8 flex flex-col items-center text-center" aria-live="polite">
-        <div class="spinner-dots" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </div>
+        <div class="spinner-dots" aria-hidden="true"><span></span><span></span><span></span></div>
         <div class="mt-5 w-full max-w-2xl rounded-xl text-white p-5"
              style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">
           <div class="text-sm md:text-base leading-relaxed">
@@ -143,17 +132,14 @@
       </div>
     </section>
 
-    <!-- OBSAH PO ODOMKNUTÍ – skrytý default -->
+    <!-- Content -->
     <section id="content" class="hidden mt-10">
-      <!-- Info panel -->
       <div class="rounded-2xl card bg-white/90 backdrop-blur p-6 md:p-8">
         <h2 class="text-2xl font-bold">Materiály pre partnerov</h2>
-        <p class="text-slate-600 mt-2">Nižšie nájdete pracovné tabuľky a prehľady.</p>
+        <p class="text-slate-600 mt-2">Nižšie nájdete prehľady, parametre a marketingové podklady.</p>
       </div>
 
-      <!-- GRID: mobil 1, md 2, xl 3 stĺpce (spolu 6 kariet) -->
       <div class="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-
         <!-- 1) Základné podmienky -->
         <div class="rounded-2xl card bg-white/95 p-5">
           <h3 class="text-lg font-semibold mb-3">Základné podmienky</h3>
@@ -162,7 +148,7 @@
               <tr><td class="py-2 text-slate-600">Územná platnosť</td><td class="py-2 text-right font-medium">SR + EÚ/CH</td></tr>
               <tr><td class="py-2 text-slate-600">Hodnota / kus</td><td class="py-2 text-right font-medium">500 – 10 000 €</td></tr>
               <tr><td class="py-2 text-slate-600">Počet kusov v zmluve</td><td class="py-2 text-right font-medium">do 5 ks</td></tr>
-              <tr><td class="py-2 text-slate-600">Zodpovednosť za škodu</td><td class="py-2 text-right font-medium"> <strong>až do 750 000 €</strong></td></tr>
+              <tr><td class="py-2 text-slate-600">Zodpovednosť za škodu</td><td class="py-2 text-right font-medium"><strong>až do 750 000 €</strong></td></tr>
             </tbody>
           </table>
         </div>
@@ -191,7 +177,7 @@
               <tr><td class="py-2">Skladací zámok</td><td class="py-2 text-right font-medium">plát ≥ 5×10 mm</td></tr>
               <tr><td class="py-2">Technika</td><td class="py-2 text-right font-medium">rám + koleso k pevnému bodu</td></tr>
               <tr><td class="py-2">Uzamknutý priestor</td><td class="py-2 text-right font-medium">100% krytie (garáž/byt/hotel)</td></tr>
-              <tr><td class="py-2">Voľne položený bicykel</td><td class="py-2 text-right font-medium">neuzamknutý na Vašom <strong>uzamknutom</strong> pozemku pri dome </td></tr>
+              <tr><td class="py-2">Voľne položený bicykel</td><td class="py-2 text-right font-medium">neuzamknutý na vašom <strong>uzamknutom</strong> pozemku</td></tr>
             </tbody>
           </table>
         </div>
@@ -227,24 +213,41 @@
           <h3 class="text-lg font-semibold mb-3">Marketing & materiály</h3>
           <table class="w-full text-sm">
             <tbody class="divide-y">
-              <tr><td class="py-2">Logo & brand</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline"
-   href="/partnery/seo-na-web-stranku-bicykel.pdf"
-   target="_blank" rel="noopener">PDF na stiahnutie</a></td></tr>
-              <tr><td class="py-2">Letáky / stojany</td><td class="py-2 text-right font-medium"><!-- Leták pre predajňu (A4) / informačný materiál -->
-<a class="text-sky-700 hover:underline"
-   href="/partnery/ochrana-bicykla-informacny-material.pdf"
-   target="_blank" rel="noopener">PDF na stiahnutie</a></td></tr>
+
+              <!-- SEO sprievodca (PDF) -->
+              <tr>
+                <td class="py-2">SEO sprievodca (texty na web)</td>
+                <td class="py-2 text-right font-medium">
+                  <!-- Nahraj: /partnery/seo-na-web-stranku-bicykel.pdf -->
+                  <a class="text-sky-700 hover:underline"
+                     href="/partnery/seo-na-web-stranku-bicykel.pdf"
+                     download
+                     target="_blank" rel="noopener">PDF na stiahnutie</a>
+                </td>
+              </tr>
+
+              <!-- Leták / informačný materiál (PDF) -->
+              <tr>
+                <td class="py-2">Leták do predajne (A4)</td>
+                <td class="py-2 text-right font-medium">
+                  <!-- Nahraj: /partnery/ochrana-bicykla-informacny-material.pdf -->
+                  <a class="text-sky-700 hover:underline"
+                     href="/partnery/ochrana-bicykla-informacny-material.pdf"
+                     download
+                     target="_blank" rel="noopener">PDF na stiahnutie</a>
+                </td>
+              </tr>
+
               <tr><td class="py-2">Bannery na web</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">JPG/PNG</a></td></tr>
               <tr><td class="py-2">FAQ pre personál</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">prehľad</a></td></tr>
             </tbody>
           </table>
         </div>
-
       </div>
     </section>
   </main>
 
-  <!-- POPUP – po 30 s od ODOMKNUTIA (s podmienkou „nečinnosť“) -->
+  <!-- POPUP – provízie -->
   <aside id="qrPopup" class="popup" role="dialog" aria-modal="false" aria-live="polite" aria-label="Vytvoriť QR kód – ponuka">
     <div class="p-4">
       <div class="flex items-start gap-3">
@@ -271,7 +274,7 @@
     </div>
   </aside>
 
-  <!-- NUDGE – po kliknutí na X (10 s), potom sa znovu ukáže hlavný popup -->
+  <!-- NUDGE – po kliknutí na X (10 s), potom späť popup -->
   <aside id="qrNudge" class="nudge" role="status" aria-live="polite" aria-label="Pripomenutie spolupráce">
     <div class="flex items-start gap-3">
       <div class="flex-1">
@@ -287,12 +290,12 @@
 
   <script>
     // === KONFIGURÁCIA ===
-    const ACCESS_CODE = "bike321!@"; // zmeň tu, ak chceš nové heslo
-    const LOADING_MS  = 6500;        // 5–7 s načítavanie
-    const POPUP_DELAY = 30000;       // 30 s po odomknutí
-    const IDLE_MS     = 8000;        // 8 s „nečinnosť“ potrebná na zobrazenie
-    const CHECK_MS    = 3000;        // každé 3 s sa skontroluje, či už je user v kľude
-    const NUDGE_MS    = 10000;       // 10 s zobrazenie nudge
+    const ACCESS_CODE = "bike321!@";  // prístupový kód
+    const LOADING_MS  = 6500;         // loading
+    const POPUP_DELAY = 10000;        // 10 s po odomknutí
+    const IDLE_MS     = 8000;         // 8 s nečinnosť
+    const CHECK_MS    = 3000;         // kontrola nečinnosti
+    const NUDGE_MS    = 10000;        // nudge 10 s
     const FORM_QR_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdLwcHHQwPyvLWpQdBqbb92iMH86-yQUOHb7XCtlQVdOwansw/viewform?usp=header";
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -310,19 +313,19 @@
       const nudgeClose= document.getElementById("nudgeClose");
 
       // stav v sessionStorage
-      const KEY_SUPPRESS = "qr_popup_suppress";   // "1" ak user klikol CTA (už viac nezobrazovať)
+      const KEY_SUPPRESS = "qr_popup_suppress";   // "1" ak user klikol CTA
 
-      // sledovanie aktivity kvôli „neprekážaniu“ pri čítaní
+      // sledovanie aktivity (neprekážať pri čítaní)
       let lastActivity = Date.now();
       ["scroll","keydown","pointerdown","touchstart","wheel"].forEach(ev=>{
         window.addEventListener(ev, ()=>{ lastActivity = Date.now(); }, {passive:true});
       });
 
-      // URL parameter ?k= pre pohodlné odomknutie
+      // ?k=auto-unlock
       const urlK = new URLSearchParams(location.search).get("k");
       if (urlK) tryUnlock(urlK);
 
-      // Submit formulára
+      // Submit
       formEl.addEventListener("submit", (e) => {
         e.preventDefault();
         tryUnlock(inputEl.value);
@@ -335,44 +338,34 @@
           inputEl.focus();
           return;
         }
-
-        // gate -> loading
         gateEl.classList.add("hidden");
         loadEl.classList.remove("hidden");
 
-        // po čase loading -> content, spusti popup timer
         window.setTimeout(() => {
           loadEl.classList.add("hidden");
           contentEl.classList.remove("hidden");
 
-          // zruš ?k= v URL
           if (location.search.includes("k=")) {
             const u = new URL(location.href);
             u.searchParams.delete("k");
             history.replaceState({}, "", u.toString());
           }
 
-          // nastav link a spusti timer na popup
           if (qrBtn) qrBtn.href = FORM_QR_URL;
           startInitialPopupTimer();
-
         }, LOADING_MS);
       }
 
       function startInitialPopupTimer() {
-        if (sessionStorage.getItem(KEY_SUPPRESS) === "1") return; // už neotvárať
+        if (sessionStorage.getItem(KEY_SUPPRESS) === "1") return;
         window.setTimeout(() => tryShowPopupWhenIdle(), POPUP_DELAY);
       }
 
       function tryShowPopupWhenIdle() {
         if (sessionStorage.getItem(KEY_SUPPRESS) === "1") return;
         const idleFor = Date.now() - lastActivity;
-        if (idleFor >= IDLE_MS) {
-          showPopup();
-        } else {
-          // skús znova po CHECK_MS
-          window.setTimeout(tryShowPopupWhenIdle, CHECK_MS);
-        }
+        if (idleFor >= IDLE_MS) showPopup();
+        else window.setTimeout(tryShowPopupWhenIdle, CHECK_MS);
       }
 
       function showPopup() {
@@ -388,16 +381,12 @@
         popup.classList.add("hide");
       }
 
-      // NUDGE: ukáž na 10 s, potom skry a znovu ukáž hlavný popup
+      // NUDGE: 10 s, potom späť hlavný popup
       function showNudgeThenReshowPopup() {
         if (!nudge) return;
         if (sessionStorage.getItem(KEY_SUPPRESS) === "1") return;
-
-        // zobraz nudge
         nudge.classList.remove("hide");
         nudge.classList.add("show");
-
-        // po 10 s skry nudge a znova ukáž hlavný popup (bez kontroly idle; explicitne)
         window.setTimeout(() => {
           hideNudge();
           showPopup();
@@ -412,25 +401,19 @@
 
       nudgeClose?.addEventListener("click", hideNudge);
 
-      // zavretie krížikom -> hneď nudge (10 s) -> potom sa znovu ukáže popup „provízie“
-      if (qrClose) {
-        qrClose.addEventListener("click", () => {
-          hidePopup();
-          showNudgeThenReshowPopup();
-        });
-      }
+      // zavretie hlavného popupu = ukáž nudge, potom zas hlavný popup
+      qrClose?.addEventListener("click", () => {
+        hidePopup();
+        showNudgeThenReshowPopup();
+      });
 
-      // klik na CTA -> potlač ďalšie zobrazovanie (ani popup ani nudge)
-      if (qrBtn) {
-        qrBtn.addEventListener("click", () => {
-          sessionStorage.setItem(KEY_SUPPRESS, "1");
-          hidePopup();
-          hideNudge();
-        });
-      }
+      // klik na CTA = už nezobrazovať nič
+      qrBtn?.addEventListener("click", () => {
+        sessionStorage.setItem(KEY_SUPPRESS, "1");
+        hidePopup();
+        hideNudge();
+      });
     });
   </script>
 </body>
 </html>
-
-
