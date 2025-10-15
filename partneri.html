@@ -7,7 +7,6 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
 
-    /* Default: nič bez súhlasu (EÚ/EEA) */
     gtag('consent', 'default', {
       ad_storage: 'denied',
       ad_user_data: 'denied',
@@ -23,7 +22,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Partneri – prístup a materiály</title>
-  <meta name="description" content="Sekcia pre partnerov: po zadaní prístupového kódu sa zobrazia materiály, návody a marketingové podklady." />
+  <meta name="description" content="Sekcia pre partnerov: po zadaní prístupového kódu sa zobrazia materiály a tabuľky." />
   <link rel="icon" href="/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -35,7 +34,7 @@
     .btn:focus-visible{outline:2px solid #fff;outline-offset:2px;box-shadow:0 0 0 4px rgba(11,110,243,.35)}
     .card{border:1px solid rgba(2,6,23,.08)}
 
-    /* LOADING – rotujúce grenadier guličky */
+    /* LOADING – rotujúce guličky */
     .spinner-dots{display:inline-flex;gap:.5rem;align-items:center;justify-content:center}
     .spinner-dots span{
       width:.72rem;height:.72rem;border-radius:9999px;display:inline-block;
@@ -44,12 +43,9 @@
     }
     .spinner-dots span:nth-child(2){animation-delay:.15s}
     .spinner-dots span:nth-child(3){animation-delay:.30s}
-    @keyframes pulse{
-      0%, 80%, 100%{transform:scale(1);opacity:.7}
-      40%{transform:scale(1.35);opacity:1}
-    }
+    @keyframes pulse{ 0%, 80%, 100%{transform:scale(1);opacity:.7} 40%{transform:scale(1.35);opacity:1} }
 
-    /* POPUP – slider vpravo dole (provízie) */
+    /* POPUP – slider z pravej strany */
     .popup{
       position: fixed; right: 16px; bottom: 16px; z-index: 70;
       max-width: 22rem; color:#fff; border-radius: 1rem;
@@ -61,15 +57,17 @@
     .popup.hide{ animation: slideOut .4s ease forwards }
     @keyframes slideIn{ to{ transform: translateX(0); opacity:1 } }
     @keyframes slideOut{ to{ transform: translateX(120%); opacity:0 } }
-    @media (max-width: 480px){ .popup{ left:12px; right:12px; bottom:12px; max-width: none; } }
+    @media (max-width: 480px){
+      .popup{ left:12px; right:12px; bottom:12px; max-width: none; }
+    }
 
-    /* NUDGE – ľavý horný roh (jemná oranžovo-žltá) */
+    /* NUDGE – ľavý horný roh (jemná oranžová) */
     .nudge{
       position: fixed; left: 16px; top: 16px; z-index: 80;
       max-width: 26rem; color:#fff; border-radius: 1rem;
       box-shadow: 0 10px 20px rgba(2,6,23,.18);
-      background:#f59e0b; /* soft amber */
-      padding:.875rem 1rem;
+      background:#f59e0b;
+      padding: .875rem 1rem;
       transform: translateY(-120%); opacity: 0;
     }
     .nudge.show{ animation: nudgeIn .45s ease-out forwards }
@@ -83,7 +81,15 @@
       width:28px;height:28px;border-radius:9999px;
     }
     .nudge .nudge-close:hover{opacity:1}
-    @media (max-width: 480px){ .nudge{ left:12px; right:12px; max-width:none } }
+    @media (max-width: 480px){
+      .nudge{ left:12px; right:12px; max-width:none }
+    }
+
+    /* Accordion (detaily) – vizuál ako FAQ */
+    details.bp-acc { border:1px solid rgba(2,6,23,.08); border-radius:1rem; background:#fff }
+    details.bp-acc > summary { cursor:pointer; list-style:none; padding:1rem 1.125rem; display:flex; align-items:center; justify-content:space-between; }
+    details.bp-acc[open] { box-shadow:0 8px 20px rgba(2,6,23,.06) }
+    details.bp-acc > summary::-webkit-details-marker { display:none }
   </style>
 </head>
 
@@ -98,13 +104,15 @@
     <a href="/" class="text-sm text-slate-700 hover:underline">Späť na úvod</a>
   </header>
 
-  <!-- MAIN -->
+  <!-- Hlavný obsah -->
   <main class="max-w-5xl mx-auto px-4 py-8 md:py-14">
+
+    <!-- Nadpis -->
     <h1 class="text-center text-4xl md:text-5xl font-extrabold tracking-tight">
       <span class="bg-clip-text text-transparent" style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">PARTNERI</span>
     </h1>
 
-    <!-- Gate -->
+    <!-- PRÍSTUPOVÝ FORM -->
     <section id="gate" class="mt-8 md:mt-10 flex justify-center">
       <div class="w-full max-w-2xl rounded-2xl card bg-white/90 backdrop-blur p-6 md:p-8">
         <h2 class="text-2xl font-bold mb-1">Prístupový kód</h2>
@@ -117,28 +125,29 @@
       </div>
     </section>
 
-    <!-- Loading -->
+    <!-- LOADING -->
     <section id="loading" class="hidden mt-10">
       <div class="rounded-2xl card bg-white/90 backdrop-blur p-6 md:p-8 flex flex-col items-center text-center" aria-live="polite">
         <div class="spinner-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-        <div class="mt-5 w-full max-w-2xl rounded-xl text-white p-5"
-             style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">
+        <div class="mt-5 w-full max-w-2xl rounded-xl text-white p-5" style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">
           <div class="text-sm md:text-base leading-relaxed">
-            <strong>Konkurencia nespí a rozširuje svoje služby.</strong>
-            <br/>Len spokojný klient sa vráti a prinesie firme zisk. <em><strong>Nerozmýšľajte dlho.</strong></em>
+            <strong>Konkurencia nespí a rozširuje svoje služby.</strong><br/>
+            Len spokojný klient sa vráti a prinesie firme zisk. <em><strong>Nerozmýšľajte dlho.</strong></em>
           </div>
         </div>
         <p class="mt-4 text-xs text-slate-500">Načítavame vaše materiály…</p>
       </div>
     </section>
 
-    <!-- Content -->
+    <!-- OBSAH PO ODOMKNUTÍ -->
     <section id="content" class="hidden mt-10">
+      <!-- Info panel -->
       <div class="rounded-2xl card bg-white/90 backdrop-blur p-6 md:p-8">
         <h2 class="text-2xl font-bold">Materiály pre partnerov</h2>
-        <p class="text-slate-600 mt-2">Nižšie nájdete prehľady, parametre a marketingové podklady.</p>
+        <p class="text-slate-600 mt-2">Nižšie nájdete pracovné tabuľky a prehľady.</p>
       </div>
 
+      <!-- GRID karty (pôvodné 6 ks) -->
       <div class="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         <!-- 1) Základné podmienky -->
         <div class="rounded-2xl card bg-white/95 p-5">
@@ -177,7 +186,7 @@
               <tr><td class="py-2">Skladací zámok</td><td class="py-2 text-right font-medium">plát ≥ 5×10 mm</td></tr>
               <tr><td class="py-2">Technika</td><td class="py-2 text-right font-medium">rám + koleso k pevnému bodu</td></tr>
               <tr><td class="py-2">Uzamknutý priestor</td><td class="py-2 text-right font-medium">100% krytie (garáž/byt/hotel)</td></tr>
-              <tr><td class="py-2">Voľne položený bicykel</td><td class="py-2 text-right font-medium">neuzamknutý na vašom <strong>uzamknutom</strong> pozemku</td></tr>
+              <tr><td class="py-2">Voľne položený bicykel</td><td class="py-2 text-right font-medium">neuzamknutý na Vašom <strong>uzamknutom</strong> pozemku pri dome</td></tr>
             </tbody>
           </table>
         </div>
@@ -208,45 +217,66 @@
           </table>
         </div>
 
-        <!-- 6) Marketing & materiály -->
+        <!-- 6) Marketing & materiály (pôvodná karta môže zostať, no hlavná práca bude v akordeóne nižšie) -->
         <div class="rounded-2xl card bg-white/95 p-5">
           <h3 class="text-lg font-semibold mb-3">Marketing & materiály</h3>
-          <table class="w-full text-sm">
-            <tbody class="divide-y">
-
-              <!-- SEO sprievodca (PDF) -->
-              <tr>
-                <td class="py-2">SEO sprievodca (texty na web)</td>
-                <td class="py-2 text-right font-medium">
-                  <!-- Nahraj: /partnery/seo-na-web-stranku-bicykel.pdf -->
-                  <a class="text-sky-700 hover:underline"
-   href="/partnery/seo-na-web-stranku-bicykel.pdf"
-   type="application/pdf"
-   download="seo-na-web-stranku-bicykel.pdf">
-  PDF na stiahnutie
-</a>
-                </td>
-              </tr>
-
-              <!-- Leták / informačný materiál (PDF) -->
-              <tr>
-                <td class="py-2">Leták do predajne (A4)</td>
-                <td class="py-2 text-right font-medium">
-                  <!-- Nahraj: /partnery/ochrana-bicykla-informacny-material.pdf -->
-                  <a class="text-sky-700 hover:underline"
-   href="/partnery/ochrana-bicykla-informacny-material.pdf"
-   type="application/pdf"
-   download="ochrana-bicykla-informacny-material.pdf">
-  PDF na stiahnutie
-</a>
-                </td>
-              </tr>
-
-              <tr><td class="py-2">Bannery na web</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">JPG/PNG</a></td></tr>
-              <tr><td class="py-2">FAQ pre personál</td><td class="py-2 text-right font-medium"><a class="text-sky-700 hover:underline" href="#">prehľad</a></td></tr>
-            </tbody>
-          </table>
+          <p class="text-sm text-slate-600">Detailné súbory nájdete nižšie v rozbaľovacej sekcii.</p>
         </div>
+      </div>
+
+      <!-- NOVINKA: Rozbaľovacia sekcia s dokumentmi -->
+      <div class="mt-8 space-y-4">
+        <h3 class="text-xl font-bold">Materiály na prevádzke (rozbaľovacie)</h3>
+
+        <!-- SEO návod -->
+        <details class="bp-acc">
+          <summary>
+            <span class="font-semibold">SEO na web stránku – bicykel (PDF)</span>
+            <svg class="w-5 h-5 text-slate-500 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </summary>
+          <div class="px-4 pb-4 pt-0 text-sm text-slate-700 space-y-3">
+            <p>Krátky návod pre obchodníka: ako pomenovať podstránku a kľúčové frázy, aby vás zákazníci našli. Zamerané na „poistenie bicykla“, „krádež bicykla“, „poistenie zodpovednosti“ a lokálne dopyty.</p>
+            <div class="flex flex-wrap gap-2">
+              <a class="btn btn-grad text-sm" data-doc="seo" data-open target="_blank" rel="noopener"
+                 href="/partnery/seo-na-web-stranku-bicykel.pdf">Otvoriť v novom okne</a>
+              <button class="btn btn-grad text-sm" type="button" data-doc="seo" data-preview>Zobraziť náhľad</button>
+            </div>
+            <div class="mt-3 hidden" id="preview-seo">
+              <div class="rounded-xl overflow-hidden border">
+                <iframe title="SEO na web stránku – bicykel" loading="lazy"
+                        style="width:100%;height:480px;border:0"
+                        data-src="/partnery/seo-na-web-stranku-bicykel.pdf"></iframe>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Ochrana bicykla – informačný materiál -->
+        <details class="bp-acc">
+          <summary>
+            <span class="font-semibold">Ochrana bicykla – informačný materiál (PDF)</span>
+            <svg class="w-5 h-5 text-slate-500 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </summary>
+          <div class="px-4 pb-4 pt-0 text-sm text-slate-700 space-y-3">
+            <p>Materiál do predajne: ako klientovi slušne vysvetliť význam ochrany majetku, aby rátal kilometre a zážitky – nie škody. Bez priameho tlaku na nákup poistenia.</p>
+            <div class="flex flex-wrap gap-2">
+              <a class="btn btn-grad text-sm" data-doc="ochrana" data-open target="_blank" rel="noopener"
+                 href="/partnery/ochrana-bicykla-informacny-material.pdf">Otvoriť v novom okne</a>
+              <button class="btn btn-grad text-sm" type="button" data-doc="ochrana" data-preview>Zobraziť náhľad</button>
+            </div>
+            <div class="mt-3 hidden" id="preview-ochrana">
+              <div class="rounded-xl overflow-hidden border">
+                <iframe title="Ochrana bicykla – informačný materiál" loading="lazy"
+                        style="width:100%;height:480px;border:0"
+                        data-src="/partnery/ochrana-bicykla-informacny-material.pdf"></iframe>
+              </div>
+            </div>
+          </div>
+        </details>
       </div>
     </section>
   </main>
@@ -278,7 +308,7 @@
     </div>
   </aside>
 
-  <!-- NUDGE – po kliknutí na X (10 s), potom späť popup -->
+  <!-- NUDGE -->
   <aside id="qrNudge" class="nudge" role="status" aria-live="polite" aria-label="Pripomenutie spolupráce">
     <div class="flex items-start gap-3">
       <div class="flex-1">
@@ -294,12 +324,12 @@
 
   <script>
     // === KONFIGURÁCIA ===
-    const ACCESS_CODE = "bike321!@";  // prístupový kód
-    const LOADING_MS  = 6500;         // loading
-    const POPUP_DELAY = 10000;        // 10 s po odomknutí
-    const IDLE_MS     = 8000;         // 8 s nečinnosť
-    const CHECK_MS    = 3000;         // kontrola nečinnosti
-    const NUDGE_MS    = 10000;        // nudge 10 s
+    const ACCESS_CODE = "bike321!@";
+    const LOADING_MS  = 6500;
+    const POPUP_DELAY = 30000;
+    const IDLE_MS     = 8000;
+    const CHECK_MS    = 3000;
+    const NUDGE_MS    = 10000;
     const FORM_QR_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdLwcHHQwPyvLWpQdBqbb92iMH86-yQUOHb7XCtlQVdOwansw/viewform?usp=header";
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -316,16 +346,16 @@
       const nudge     = document.getElementById("qrNudge");
       const nudgeClose= document.getElementById("nudgeClose");
 
-      // stav v sessionStorage
-      const KEY_SUPPRESS = "qr_popup_suppress";   // "1" ak user klikol CTA
+      // sessionStorage kľúč: už neotvárať po CTA
+      const KEY_SUPPRESS = "qr_popup_suppress";
 
-      // sledovanie aktivity (neprekážať pri čítaní)
+      // sledovanie aktivity
       let lastActivity = Date.now();
       ["scroll","keydown","pointerdown","touchstart","wheel"].forEach(ev=>{
         window.addEventListener(ev, ()=>{ lastActivity = Date.now(); }, {passive:true});
       });
 
-      // ?k=auto-unlock
+      // ?k= pre rýchle odomknutie
       const urlK = new URLSearchParams(location.search).get("k");
       if (urlK) tryUnlock(urlK);
 
@@ -342,13 +372,17 @@
           inputEl.focus();
           return;
         }
+
+        // gate -> loading
         gateEl.classList.add("hidden");
         loadEl.classList.remove("hidden");
 
+        // po čase loading -> content
         window.setTimeout(() => {
           loadEl.classList.add("hidden");
           contentEl.classList.remove("hidden");
 
+          // zruš ?k= v URL
           if (location.search.includes("k=")) {
             const u = new URL(location.href);
             u.searchParams.delete("k");
@@ -357,6 +391,7 @@
 
           if (qrBtn) qrBtn.href = FORM_QR_URL;
           startInitialPopupTimer();
+
         }, LOADING_MS);
       }
 
@@ -385,16 +420,12 @@
         popup.classList.add("hide");
       }
 
-      // NUDGE: 10 s, potom späť hlavný popup
       function showNudgeThenReshowPopup() {
         if (!nudge) return;
         if (sessionStorage.getItem(KEY_SUPPRESS) === "1") return;
         nudge.classList.remove("hide");
         nudge.classList.add("show");
-        window.setTimeout(() => {
-          hideNudge();
-          showPopup();
-        }, NUDGE_MS);
+        window.setTimeout(() => { hideNudge(); showPopup(); }, NUDGE_MS);
       }
 
       function hideNudge() {
@@ -405,19 +436,46 @@
 
       nudgeClose?.addEventListener("click", hideNudge);
 
-      // zavretie hlavného popupu = ukáž nudge, potom zas hlavný popup
-      qrClose?.addEventListener("click", () => {
-        hidePopup();
-        showNudgeThenReshowPopup();
+      if (qrClose) {
+        qrClose.addEventListener("click", () => {
+          hidePopup();
+          showNudgeThenReshowPopup();
+        });
+      }
+
+      if (qrBtn) {
+        qrBtn.addEventListener("click", () => {
+          sessionStorage.setItem(KEY_SUPPRESS, "1");
+          hidePopup();
+          hideNudge();
+        });
+      }
+
+      // ==== Akordeón – lazy-load náhľadov + jednoduché GA events ====
+      function loadPreview(which){
+        const box = document.getElementById(`preview-${which}`);
+        if (!box || !box.classList.contains("hidden")) return;
+        const ifr = box.querySelector("iframe[data-src]");
+        if (ifr && !ifr.src) ifr.src = ifr.getAttribute("data-src");
+        box.classList.remove("hidden");
+        if (typeof gtag==='function') gtag('event','doc_preview_open',{doc:which,section:'partneri'});
+      }
+
+      document.querySelectorAll('[data-preview]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const which = btn.getAttribute('data-doc');
+          loadPreview(which);
+        });
       });
 
-      // klik na CTA = už nezobrazovať nič
-      qrBtn?.addEventListener("click", () => {
-        sessionStorage.setItem(KEY_SUPPRESS, "1");
-        hidePopup();
-        hideNudge();
+      document.querySelectorAll('[data-open]').forEach(a=>{
+        a.addEventListener('click', ()=>{
+          const which = a.getAttribute('data-doc');
+          if (typeof gtag==='function') gtag('event','doc_open_new_tab',{doc:which,section:'partneri'});
+        });
       });
     });
   </script>
 </body>
 </html>
+
