@@ -1,766 +1,113 @@
 <!doctype html>
-<html lang="sk">
+<html lang="sk" class="scroll-smooth">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17960385666"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'AW-17960385666');
-</script>
-  <!-- GA4 – základ + Consent Mode (iba analytika po súhlase) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3KZ3Y4739"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-
-  /* Default: nič bez súhlasu (EÚ/EEA) */
-  gtag('consent', 'default', {
-    ad_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-    analytics_storage: 'denied',
-    region: ['SK'] // stačí takto
-  });
-
-  gtag('js', new Date());
-
-  /* GA4 konfigurácia – anonymizácia IP je v GA4 štandardne, nechávame ju zapnutú */
-  gtag('config', 'G-Z3KZ3Y4739', { send_page_view: true });
-</script>
+  <!-- Google Ads tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17960385666"></script>
   <script>
-  (function () {
-    const KEY = 'bp_cookie_consent';
-    const v = localStorage.getItem(KEY);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} 
+    gtag('js', new Date());
+    gtag('config', 'AW-17960385666');
+  </script>
+  <!-- GA4 + Consent Mode -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3KZ3Y4739"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['SK']});
+    gtag('js', new Date());
+    gtag('config', 'G-Z3KZ3Y4739', { send_page_view: true });
+  </script>
+  <script>
+    (function(){
+      const KEY='bp_cookie_consent';
+      const v=localStorage.getItem(KEY);
+      if(v==='accepted'){gtag('consent','update',{analytics_storage:'granted'});gtag('event','page_view');}
+      if(v==='rejected'){gtag('consent','update',{analytics_storage:'denied'});}
+      document.addEventListener('click',e=>{const a=e.target.closest('a[data-cta="form"]'); if(!a)return; gtag('event','cta_form_click',{link_url:a.href||'(built later by JS)',position:a.dataset.position||'homepage'});});
+    })();
+  </script>
 
-    // ak už má návštevník rozhodnutie z inej stránky:
-    if (v === 'accepted') {
-      gtag('consent', 'update', { analytics_storage: 'granted' });
-      // pre istotu kopni jeden page_view, aby sa ukázal v Reálnom čase
-      gtag('event', 'page_view');
-    } else if (v === 'rejected') {
-      gtag('consent', 'update', { analytics_storage: 'denied' });
-    }
-
-    // anonymné meranie klikov na CTA → bez PII
-    document.addEventListener('click', (e) => {
-      const a = e.target.closest('a[data-cta="form"]');
-      if (!a) return;
-      gtag('event', 'cta_form_click', {
-        link_url: a.href || '(built later by JS)',
-        position: 'homepage' // prípadne si meníš podľa stránky
-      });
-    });
-  })();
-</script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Poistenie bicykla a e-biku – rýchlo, férovo, online</title>
-  <meta name="description" content="Jednoduché poistenie bicykla, e-biku, kolobežky a cyklovozíka proti krádeži a poškodeniu. Krytie v SR aj EÚ. Nezáväzná ponuka po krátkom dotazníku.">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Poistenie bicykla a e-biku" />
-  <meta property="og:description" content="Krádež, havária, zodpovednosť. Nezáväzná ponuka do pár minút." />
+  <title>Bikepoistenie.sk – poistenie bicykla, e-biku a zodpovednosti</title>
+  <meta name="description" content="Moderné sprostredkovanie poistenia bicykla, e-biku, kolobežky a cyklovozíka. Krádež, havária, vandalizmus a voliteľná zodpovednosť. Nezáväzný Google dotazník." />
+  <meta name="theme-color" content="#07111f" />
+  <meta property="og:title" content="Bikepoistenie.sk – ochrana bicykla, e-biku a zodpovednosti" />
+  <meta property="og:description" content="Krádež, havária, zodpovednosť. Rýchly dotazník, ľudské porovnanie a nezáväzná ponuka." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bikepoistenie.sk" />
   <meta property="og:image" content="https://bikepoistenie.sk/hero2.png" />
-
   <link rel="icon" href="/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
-    /* Tlačidlá (grenadier) */
-    .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:.75rem;padding:.75rem 1.25rem;
-         color:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);transition:opacity .15s ease;text-decoration:none}
-    .btn-grad{background-image:linear-gradient(to right,#0B6EF3,#0ACF83)}
-    .btn:hover{opacity:.95}
-    .btn:focus-visible{outline:2px solid #fff;outline-offset:2px;box-shadow:0 0 0 4px rgba(11,110,243,.5)}
-
-    /* HERO – panorámovanie */
-    .hero-pan{background-size:cover;background-position:0% center}
-    @keyframes panX{0%{background-position:0% center}100%{background-position:100% center}}
-    .hero-anim{animation:panX 28s ease-in-out infinite alternate}
-    @media (prefers-reduced-motion: reduce){.hero-anim{animation:none}}
-
-    /* Pás ikon – ping-pong posun */
-    .bp-track{width:140%;animation:bp-osc 24s ease-in-out infinite alternate;will-change:transform}
-    @keyframes bp-osc{0%{transform:translateX(0)}100%{transform:translateX(-40%)}}
-    .group:hover .bp-track{animation-duration:32s}
-    @media (prefers-reduced-motion: reduce){.bp-track{animation:none;transform:translateX(0)}}
-
-    /* Sticky CTA len na mobile */
-    @media (max-width:640px){
-      .sticky-cta{position:fixed;left:0;right:0;bottom:12px;display:flex;justify-content:center;z-index:50}
-      .sticky-cta a{padding:.9rem 1.25rem;border-radius:9999px}
-    }
-
-    /* COOKIE BAR – na mobile hore, aby nič neprekrýval */
-    @media (max-width:640px){
-      #cookieBar{top:0 !important; bottom:auto !important;}
-      #cookieBar .cookie-card{margin:0 !important;border-radius:0 !important;}
-    }
+    :root{--ink:#07111f;--blue:#0B6EF3;--green:#0ACF83} body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f7fafc}.lux{background:radial-gradient(circle at 18% 18%,rgba(10,207,131,.2),transparent 30%),radial-gradient(circle at 78% 10%,rgba(11,110,243,.24),transparent 28%),linear-gradient(135deg,#050914 0%,#07111f 52%,#0a1b2b 100%)}.glass{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);box-shadow:0 24px 80px rgba(0,0,0,.24);backdrop-filter:blur(18px)}.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;border-radius:999px;padding:.9rem 1.25rem;font-weight:800;line-height:1;transition:transform .18s ease,box-shadow .18s ease;text-decoration:none}.btn:hover{transform:translateY(-1px)}.btn-primary{color:#fff;background:linear-gradient(135deg,var(--blue),var(--green));box-shadow:0 18px 45px rgba(11,110,243,.28)}.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08)}.card{border:1px solid rgba(7,17,31,.08);background:rgba(255,255,255,.94);box-shadow:0 20px 60px rgba(7,17,31,.08)}.hovercard{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}.hovercard:hover{transform:translateY(-3px);box-shadow:0 24px 70px rgba(7,17,31,.13);border-color:rgba(11,110,243,.24)}.gradtext{background:linear-gradient(135deg,#79b8ff,#68f2b3);-webkit-background-clip:text;background-clip:text;color:transparent}.marquee{mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent)}.marquee-track{width:max-content;animation:slide 28s linear infinite}@keyframes slide{to{transform:translateX(-50%)}}details>summary::-webkit-details-marker{display:none}@media(prefers-reduced-motion:reduce){.marquee-track{animation:none}.btn:hover,.hovercard:hover{transform:none}}@media(max-width:640px){#cookieBar{top:0!important;bottom:auto!important}#cookieBar .cookie-card{margin:0!important;border-radius:0!important}.sticky-cta{position:fixed;left:0;right:0;bottom:12px;display:flex;justify-content:center;z-index:50;pointer-events:none}.sticky-cta a{pointer-events:auto;padding:.95rem 1.25rem;border-radius:999px}}
   </style>
-
-  <!-- CTA/konfigurácia -->
   <script>
-    const PHONE = "+421 905 874 100";
-    const EMAIL = "hubacekm26@gmail.com";
-    const FORM_URL = "https://forms.gle/rNYBGAVB1dkxyL3g6";
-
-    function carryParams(){
-      const q = new URLSearchParams(location.search);
-      const d = new URLSearchParams({utm_source:"web",utm_medium:"cta",utm_campaign:"bike"});
-      for (const [k,v] of q.entries()) d.set(k,v);
-      const withParams = (u)=>u+(u.includes("?")?"&":"?")+d.toString();
-
-      document.querySelectorAll("a[data-cta='form']").forEach(a=>a.href=withParams(FORM_URL));
-      document.querySelectorAll("[data-bind='phone']").forEach(el=>el.textContent=PHONE);
-      document.querySelectorAll("[data-bind='email']").forEach(el=>el.textContent=EMAIL);
-      document.querySelectorAll("a[href^='tel:']").forEach(a=>a.href="tel:"+PHONE.replace(/\s+/g,''));
-      document.querySelectorAll("a[href^='mailto:']").forEach(a=>a.href="mailto:"+EMAIL);
-    }
-    document.addEventListener("DOMContentLoaded", carryParams);
+    const PHONE="+421 905 874 100";
+    const EMAIL="partner@martinhubacek.sk";
+    const FORM_URL="https://forms.gle/rNYBGAVB1dkxyL3g6";
+    function carryParams(){const q=new URLSearchParams(location.search);const d=new URLSearchParams({utm_source:'web',utm_medium:'cta',utm_campaign:'bikepoistenie'});for(const[k,v]of q.entries())d.set(k,v);const withParams=u=>u+(u.includes('?')?'&':'?')+d.toString();document.querySelectorAll("a[data-cta='form']").forEach(a=>a.href=withParams(FORM_URL));document.querySelectorAll("[data-bind='phone']").forEach(el=>el.textContent=PHONE);document.querySelectorAll("[data-bind='email']").forEach(el=>el.textContent=EMAIL);document.querySelectorAll("a[href^='tel:']").forEach(a=>a.href='tel:'+PHONE.replace(/\s+/g,''));document.querySelectorAll("a[href^='mailto:']").forEach(a=>a.href='mailto:'+EMAIL)}
+    document.addEventListener('DOMContentLoaded',carryParams);
   </script>
 </head>
-
-<body class="bg-gray-50 text-gray-900">
-  <!-- HEADER -->
-  <header class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-    <a href="/" class="font-semibold text-lg">Poistenie bicykla</a>
-    <nav class="hidden sm:flex items-center gap-6 text-[15px] md:text-base">
-      <a href="#ako" class="hover:underline"><strong>Ako to funguje</strong></a>
-      <a href="#faq" class="hover:underline"><strong>FAQ</strong></a>
-      <a href="#clanky" class="hover:underline"><strong>Články</strong></a>
-      <a href="#kontakt" class="hover:underline"><strong>Kontakt</strong></a>
-    </nav>
-    <a href="/partneri.html" class="btn btn-grad text-sm md:text-base">
-      Partneri
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-        <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
+<body class="text-slate-900 antialiased">
+  <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#07111f]/85 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+      <a href="/" class="flex items-center gap-3 text-white" aria-label="Bikepoistenie.sk"><span class="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-[#0B6EF3] to-[#0ACF83]"><svg viewBox="0 0 64 36" class="h-6 w-8" fill="none" stroke="currentColor" stroke-width="3"><circle cx="14" cy="25" r="8"/><circle cx="50" cy="25" r="8"/><path d="M14 25l10-16 10 16M24 9h14m-4 0l16 16" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="leading-tight"><strong class="block text-[15px] tracking-tight">Bikepoistenie.sk</strong><span class="text-xs text-white/60">bicykel • e-bike • zodpovednosť</span></span></a>
+      <nav class="hidden items-center gap-7 text-sm font-semibold text-white/78 md:flex"><a href="#krytie" class="hover:text-white">Krytie</a><a href="#ako" class="hover:text-white">Ako to funguje</a><a href="#novinky" class="hover:text-white">Cyklo novinky</a><a href="#faq" class="hover:text-white">FAQ</a><a href="#kontakt" class="hover:text-white">Kontakt</a></nav>
+      <a data-cta="form" data-position="header" class="btn btn-primary hidden text-sm sm:inline-flex">Vyplniť dotazník</a>
+    </div>
   </header>
 
-  <!-- HERO -->
-  <section class="relative">
-    <div class="hero-pan hero-anim w-full h-[360px] md:h-[460px]" style="background-image:url('/hero2.png')"></div>
-    <div class="absolute inset-0 bg-black/35"></div>
-    <div class="absolute inset-0 flex items-center">
-      <div class="max-w-7xl mx-auto px-4">
-        <h1 class="text-3xl md:text-5xl font-bold text-white max-w-4xl">
-          Sledujte najazdené kilometre a zážitky.
-          <span class="text-[#0ACF83]">Nie finančné straty pri krádeži a úrazoch.</span>
-        </h1>
-        <p class="mt-3 text-white/90 max-w-2xl">
-          Krytie krádeže, havárie a zodpovednosti za škodu. Platnosť v SR aj v EÚ. Nezáväzná ponuka po krátkom dotazníku.
-        </p>
-        <div class="mt-6">
-          <a data-cta="form" class="btn btn-grad">
-            Vyplniť dotazník
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 -mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-              <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
+  <main>
+    <section class="lux relative isolate overflow-hidden pt-24 text-white md:pt-28">
+      <div class="absolute inset-x-0 top-24 -z-10 h-64 bg-[url('/hero2.png')] bg-cover bg-center opacity-15 blur-sm"></div>
+      <div class="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-[1.05fr_.95fr] md:items-center md:py-20">
+        <div>
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3 py-1.5 text-xs font-bold uppercase tracking-[.18em] text-white/75"><span class="h-2 w-2 rounded-full bg-[#0ACF83]"></span> Poistenie pre reálny cyklo život</div>
+          <h1 class="mt-6 max-w-4xl text-4xl font-black leading-[.98] tracking-[-.055em] sm:text-5xl lg:text-7xl">Sledujte kilometre a zážitky. <span class="gradtext">Nie finančné straty.</span></h1>
+          <p class="mt-6 max-w-2xl text-lg leading-8 text-white/78">Pomôžeme nastaviť poistenie bicykla, e-biku, kolobežky, cyklovozíka a voliteľnej zodpovednosti tak, aby dávalo zmysel pri krádeži, havárii, vandalizme aj škode spôsobenej niekomu inému.</p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row"><a data-cta="form" data-position="hero" class="btn btn-primary">Získať nezáväznú ponuku →</a><a href="#krytie" class="btn btn-ghost">Pozrieť krytie</a></div>
+          <div class="mt-8 grid max-w-2xl grid-cols-3 gap-3 text-center text-sm"><div class="glass rounded-2xl p-4"><strong class="block text-2xl">5</strong><span class="text-white/62">kusov v zmluve</span></div><div class="glass rounded-2xl p-4"><strong class="block text-2xl">EÚ</strong><span class="text-white/62">územná platnosť</span></div><div class="glass rounded-2xl p-4"><strong class="block text-2xl">2 min</strong><span class="text-white/62">Google dotazník</span></div></div>
         </div>
+        <div class="relative"><div class="absolute -inset-5 rounded-[2.5rem] bg-gradient-to-br from-[#0B6EF3]/30 to-[#0ACF83]/25 blur-2xl"></div><div class="glass relative overflow-hidden rounded-[2rem] p-4"><img src="/hero2.png" alt="Cyklista v prírode" class="h-[420px] w-full rounded-[1.55rem] object-cover"><div class="absolute bottom-7 left-7 right-7 rounded-3xl bg-[#07111f]/78 p-5 backdrop-blur-xl"><p class="text-xs font-bold uppercase tracking-[.18em] text-[#68f2b3]">Dotazník napojený na Google Forms / Sheets</p><p class="mt-2 text-sm leading-6 text-white/78">CTA tlačidlá ponechávajú existujúci Google formulár s prenesením UTM parametrov. Po vyplnení ide dopyt do aktuálne nastavenej tabuľky.</p></div></div></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- PREČO CEZ NÁS -->
-  <section id="vyhody" class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-b from-[#F7FAFF] via-white to-white pointer-events-none"></div>
+    <section class="border-b border-slate-200 bg-white py-4"><div class="marquee mx-auto max-w-7xl overflow-hidden px-4 text-sm font-bold text-slate-500"><div class="marquee-track flex gap-10 whitespace-nowrap"><span>🚲 bicykle</span><span>⚡ e-biky</span><span>🛴 kolobežky</span><span>🔒 krádež vlámaním/lúpež</span><span>🌧️ živly</span><span>🧾 zodpovednosť</span><span>🇪🇺 Slovensko + Európa</span><span>🚲 bicykle</span><span>⚡ e-biky</span><span>🛴 kolobežky</span><span>🔒 krádež vlámaním/lúpež</span><span>🌧️ živly</span><span>🧾 zodpovednosť</span><span>🇪🇺 Slovensko + Európa</span></div></div></section>
 
-    <div class="relative max-w-7xl mx-auto px-4 py-14">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Prečo cez nás</h2>
-        <p class="mt-3 text-gray-600">
-          Poistíme to, čo naozaj používate – bicykel, e-bike, kolobežku, e-kolobežku, cyklovozík aj vašu
-          <strong>zodpovednosť za škodu</strong>. V jednej zmluve môžete mať až <strong>5 bicyklov</strong>.
-        </p>
-      </div>
+    <section id="krytie" class="bg-[#f7fafc] py-16 md:py-24"><div class="mx-auto max-w-7xl px-4"><div class="grid gap-8 md:grid-cols-[.85fr_1.15fr] md:items-end"><div><p class="text-sm font-black uppercase tracking-[.2em] text-[#0B6EF3]">Prečo cez nás</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em] md:text-5xl">Jednoduché na webe. Dôsledné v nastavení.</h2></div><p class="text-lg leading-8 text-slate-600">Poistíme to, čo naozaj používate – bicykel, e-bike, kolobežku, e-kolobežku, cyklovozík aj vašu zodpovednosť za škodu. V jednej zmluve môžete mať až <strong>5 kusov</strong>.</p></div><div class="mt-10 grid gap-5 md:grid-cols-3"><article class="card hovercard rounded-3xl p-6"><div class="text-3xl">🔐</div><h3 class="mt-4 text-xl font-black">Krádež a lúpež</h3><p class="mt-3 text-slate-600">Dôraz na správne zabezpečenie, doklady a postup pri poistnej udalosti.</p></article><article class="card hovercard rounded-3xl p-6"><div class="text-3xl">⚙️</div><h3 class="mt-4 text-xl font-black">Havária a poškodenie</h3><p class="mt-3 text-slate-600">Pád, nehoda, živly alebo vandalizmus podľa nastavenia konkrétneho produktu.</p></article><article class="card hovercard rounded-3xl p-6"><div class="text-3xl">🛡️</div><h3 class="mt-4 text-xl font-black">Zodpovednosť</h3><p class="mt-3 text-slate-600">Voliteľné krytie škody spôsobenej tretej osobe – dôležité pri rodine aj dochádzaní.</p></article></div></div></section>
 
-      <div class="group relative mt-8 overflow-hidden rounded-2xl border bg-white/70 backdrop-blur p-4">
-        <div class="bp-track flex items-center gap-10 md:gap-14">
-          <!-- Bicykel -->
-          <figure class="flex flex-col items-center">
-            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
-              <circle cx="14" cy="22" r="8" class="text-gray-300"/>
-              <circle cx="50" cy="22" r="8" class="text-gray-300"/>
-              <path d="M14 22l8-12 8 12m-8-12h12m-4 0l12 12" class="text-[#0B6EF3]"/>
-            </svg>
-            <figcaption class="mt-1 text-xs text-gray-600">Bicykel</figcaption>
-          </figure>
+    <section id="ako" class="bg-white py-16 md:py-24"><div class="mx-auto max-w-7xl px-4"><div class="mx-auto max-w-3xl text-center"><p class="text-sm font-black uppercase tracking-[.2em] text-[#0ACF83]">Postup</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em] md:text-5xl">Tri kroky bez papierového chaosu</h2><p class="mt-4 text-lg text-slate-600">Všetko začína krátkym dotazníkom. Potom sa porovnajú parametre, podmienky a limity.</p></div><div class="mt-12 grid gap-6 md:grid-cols-3"><div class="rounded-[2rem] bg-slate-950 p-6 text-white"><span class="grid h-12 w-12 place-items-center rounded-2xl bg-white/10 text-xl font-black">1</span><h3 class="mt-6 text-xl font-black">Krátky Google dotazník</h3><p class="mt-3 text-white/68">Vyplníte základné údaje. Smerovanie formulára zostáva na existujúci Google Forms / Sheets workflow.</p></div><div class="rounded-[2rem] bg-gradient-to-br from-[#0B6EF3] to-[#0ACF83] p-6 text-white"><span class="grid h-12 w-12 place-items-center rounded-2xl bg-white/20 text-xl font-black">2</span><h3 class="mt-6 text-xl font-black">Nezáväzná ponuka</h3><p class="mt-3 text-white/78">Dostanete ponuku e-mailom alebo telefonicky. Vysvetlíme limity, výluky a podmienky zabezpečenia.</p></div><div class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60"><span class="grid h-12 w-12 place-items-center rounded-2xl bg-slate-100 text-xl font-black">3</span><h3 class="mt-6 text-xl font-black">Aktivácia online</h3><p class="mt-3 text-slate-600">Po odsúhlasení podmienok sa rieši finálne nastavenie a krytie podľa dokumentácie poskytovateľa.</p></div></div><div class="mt-10 text-center"><a data-cta="form" data-position="process" class="btn btn-primary">Vyplniť dotazník</a></div></div></section>
 
-          <!-- E-bike -->
-          <figure class="flex flex-col items-center">
-            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
-              <circle cx="14" cy="22" r="8" class="text-gray-300"/>
-              <circle cx="50" cy="22" r="8" class="text-gray-300"/>
-              <path d="M14 22l8-12 8 12m-8-12h12m-4 0l12 12" class="text-[#0ACF83]"/>
-              <rect x="28" y="7" width="8" height="4" rx="1" class="text-[#0ACF83]"/>
-              <path d="M36 8.5h2" class="text-[#0ACF83]"/>
-            </svg>
-            <figcaption class="mt-1 text-xs text-gray-600">Elektrobicykel</figcaption>
-          </figure>
+    <section id="novinky" class="lux py-16 text-white md:py-24"><div class="mx-auto max-w-7xl px-4"><div class="grid gap-8 md:grid-cols-[.9fr_1.1fr] md:items-end"><div><p class="text-sm font-black uppercase tracking-[.2em] text-[#68f2b3]">Cyklistika žije</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em] md:text-5xl">Novinky zo sveta pretekov</h2></div><p class="text-lg leading-8 text-white/68">Bezpečný „link-only“ režim: zobrazujeme len titulok, dátum, zdroj a preklik na Cycling-Info.sk. Nekopírujeme ich články ani fotografie.</p></div><div class="mt-10 grid gap-5 md:grid-cols-4"><article class="glass hovercard rounded-[1.6rem] p-5"><span class="rounded-full bg-white/10 px-3 py-1 text-[11px] font-black uppercase tracking-[.15em] text-white/62">zdroj</span><p class="mt-3 text-xs text-white/45">3.4.2026</p><h3 class="mt-4 min-h-[112px] text-base font-black leading-6"><a href="https://www.cycling-info.sk/12283-stretnutie-superhviezd-vo-flamsku-aj-s-necakanym-zolikom-no-favorit-je-len-jeden-na-starte-aj-dvaja-slovaci" target="_blank" rel="noopener noreferrer" class="hover:underline">Stretnutie superhviezd vo Flámsku aj s nečakaným žolíkom</a></h3><p class="mt-4 text-xs leading-5 text-white/48">Zdroj: Cycling-Info.sk. Čítanie na pôvodnom webe.</p></article><article class="glass hovercard rounded-[1.6rem] p-5"><span class="rounded-full bg-white/10 px-3 py-1 text-[11px] font-black uppercase tracking-[.15em] text-white/62">zdroj</span><p class="mt-3 text-xs text-white/45">1.4.2026</p><h3 class="mt-4 min-h-[112px] text-base font-black leading-6"><a href="https://www.cycling-info.sk/12268-dwars-2026-ganna-kubis" target="_blank" rel="noopener noreferrer" class="hover:underline">Dwars door Vlaanderen: Ganna zdolal Van Aerta, Kubiš jedenásty</a></h3><p class="mt-4 text-xs leading-5 text-white/48">Zdroj: Cycling-Info.sk. Čítanie na pôvodnom webe.</p></article><article class="glass hovercard rounded-[1.6rem] p-5"><span class="rounded-full bg-white/10 px-3 py-1 text-[11px] font-black uppercase tracking-[.15em] text-white/62">zdroj</span><p class="mt-3 text-xs text-white/45">29.3.2026</p><h3 class="mt-4 min-h-[112px] text-base font-black leading-6"><a href="https://www.cycling-info.sk/12265-flanders-fields-2026" target="_blank" rel="noopener noreferrer" class="hover:underline">In Flanders Fields 2026: šprint vyhral Philipsen</a></h3><p class="mt-4 text-xs leading-5 text-white/48">Zdroj: Cycling-Info.sk. Čítanie na pôvodnom webe.</p></article><article class="glass hovercard rounded-[1.6rem] p-5"><span class="rounded-full bg-white/10 px-3 py-1 text-[11px] font-black uppercase tracking-[.15em] text-white/62">zdroj</span><p class="mt-3 text-xs text-white/45">27.3.2026</p><h3 class="mt-4 min-h-[112px] text-base font-black leading-6"><a href="https://www.cycling-info.sk/12263-e3-2026" target="_blank" rel="noopener noreferrer" class="hover:underline">E3 Saxo Classic: Van der Poel odletel od zvyšku favoritov</a></h3><p class="mt-4 text-xs leading-5 text-white/48">Zdroj: Cycling-Info.sk. Čítanie na pôvodnom webe.</p></article></div><div class="mt-8 flex flex-col gap-3 sm:flex-row"><a href="https://www.cycling-info.sk/spravodajstvo/cyklisticke-preteky" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Otvoriť Cycling-Info.sk</a><a href="/clanky/worldtour-kalendar-2026.html" class="btn btn-primary">WorldTour kalendár 2026</a></div></div></section>
 
-          <!-- Kolobežka -->
-          <figure class="flex flex-col items-center">
-            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
-              <circle cx="16" cy="22" r="7" class="text-gray-300"/>
-              <circle cx="48" cy="22" r="7" class="text-gray-300"/>
-              <path d="M20 22h16l4-10h6" class="text-sky-600"/>
-              <path d="M24 12v10" class="text-gray-400"/>
-            </svg>
-            <figcaption class="mt-1 text-xs text-gray-600">Kolobežka</figcaption>
-          </figure>
+    <section id="clanky" class="bg-[#f7fafc] py-16 md:py-24"><div class="mx-auto max-w-7xl px-4"><div class="flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p class="text-sm font-black uppercase tracking-[.2em] text-[#0B6EF3]">Magazín</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em] md:text-5xl">Články pre cyklistov</h2></div><a data-cta="form" data-position="articles" class="btn btn-primary w-fit">Chcem ponuku</a></div><div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4"><article class="card hovercard overflow-hidden rounded-[2rem]"><img src="/hero2.png" alt="WorldTour kalendár" class="h-44 w-full object-cover"><div class="p-5"><time class="text-xs font-bold uppercase tracking-[.16em] text-slate-400">2026</time><h3 class="mt-2 text-xl font-black"><a href="/clanky/worldtour-kalendar-2026.html">WorldTour 2026: kalendár pretekov</a></h3><p class="mt-3 text-sm leading-6 text-slate-600">Preklikový článok na kalendár sezóny a praktický cyklo kontext pre fanúšikov.</p></div></article><article class="card hovercard overflow-hidden rounded-[2rem]"><img src="/assets/article-bike-cover.jpg" alt="Poistenie bicykla" class="h-44 w-full object-cover" onerror="this.src='/hero2.png'"><div class="p-5"><time class="text-xs font-bold uppercase tracking-[.16em] text-slate-400">12.10.2025</time><h3 class="mt-2 text-xl font-black"><a href="/clanky/poistenie-bicykla-co-kryje.html">Poistenie bicykla: čo kryje a kedy plní</a></h3><p class="mt-3 text-sm leading-6 text-slate-600">Krádež, havária, výluky, doklady a poistná udalosť v praxi.</p></div></article><article class="card hovercard overflow-hidden rounded-[2rem]"><img src="/assets/article-locks-cover.jpg" alt="Bezpečnostné zámky" class="h-44 w-full object-cover" onerror="this.src='/hero2.png'"><div class="p-5"><time class="text-xs font-bold uppercase tracking-[.16em] text-slate-400">27.07.2025</time><h3 class="mt-2 text-xl font-black"><a href="/clanky/bezpecnostne-zamky-na-bicykel.html">Bezpečnostné zámky: návod na plné krytie</a></h3><p class="mt-3 text-sm leading-6 text-slate-600">Ako bicykel uzamknúť tak, aby bol postup obhájiteľný pri škode.</p></div></article><article class="card hovercard overflow-hidden rounded-[2rem]"><img src="/assets/elektrobike.png" alt="Elektrobicykel" class="h-44 w-full object-cover" onerror="this.src='/hero2.png'"><div class="p-5"><time class="text-xs font-bold uppercase tracking-[.16em] text-slate-400">21.09.2025</time><h3 class="mt-2 text-xl font-black"><a href="/clanky/elektrobicykel-pre-koho-preco-zmysel.html">Elektrobicykel: pre koho a prečo</a></h3><p class="mt-3 text-sm leading-6 text-slate-600">E-bike, výbava, bezpečnosť a poistné nastavenie.</p></div></article></div></div></section>
 
-          <!-- E-kolobežka -->
-          <figure class="flex flex-col items-center">
-            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
-              <circle cx="16" cy="22" r="7" class="text-gray-300"/>
-              <circle cx="48" cy="22" r="7" class="text-gray-300"/>
-              <path d="M20 22h16l4-10h6" class="text-emerald-600"/>
-              <path d="M24 12v10" class="text-gray-400"/>
-              <path d="M41 9l-3 5h3l-2 4" class="text-emerald-600"/>
-            </svg>
-            <figcaption class="mt-1 text-xs text-gray-600">Elektrokolobežka</figcaption>
-          </figure>
+    <section id="faq" class="bg-white py-16 md:py-24"><div class="mx-auto max-w-5xl px-4"><div class="text-center"><p class="text-sm font-black uppercase tracking-[.2em] text-[#0ACF83]">Q&A</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em] md:text-5xl">Časté otázky</h2><p class="mt-4 text-slate-600">Pôvodné odpovede sú ponechané, len upravené do modernejšieho a čitateľnejšieho vizuálu.</p></div><div class="mt-10 space-y-4">
+      <details class="group card rounded-3xl p-5" open><summary class="flex cursor-pointer list-none items-center justify-between gap-4"><span class="text-lg font-black">Kto a čo si môže poistiť?</span><span class="text-2xl transition group-open:rotate-45">+</span></summary><p class="mt-4 text-slate-600">Poistiť si viete až <strong>5 kusov</strong> (bicykle, e-biky, kolobežky, cyklovozíky) do <strong>10&nbsp;000&nbsp;€ na kus</strong>, spolu do <strong>50&nbsp;000&nbsp;€</strong>. Územne platí <strong>Slovensko + Európa</strong>.</p></details>
+      <details class="group card rounded-3xl p-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4"><span class="text-lg font-black">Aké riziká sú kryté?</span><span class="text-2xl transition group-open:rotate-45">+</span></summary><p class="mt-4 text-slate-600"><strong>Poškodenie pri páde/nehode</strong>, <strong>živly</strong>, <strong>vandalizmus</strong>, <strong>krádež vlámaním/lúpež</strong>, škody pri dopravnej nehode. (Preteky a niektoré špecifické situácie môžu byť vylúčené.)</p></details>
+      <details class="group card rounded-3xl p-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4"><span class="text-lg font-black">Ako musím bicykel zabezpečiť proti krádeži?</span><span class="text-2xl transition group-open:rotate-45">+</span></summary><div class="mt-4 space-y-3 text-slate-600"><p><strong>Rám k pevnému bodu</strong> alebo uzamknutý priestor =&nbsp;plné krytie.</p><ul class="ml-5 list-disc space-y-1"><li><strong>U-zámok</strong> – priemer strmeňa min. <strong>8&nbsp;mm</strong> (kalená oceľ),</li><li><strong>kábel/lanko/reťaz</strong> – oceľ min. <strong>8&nbsp;mm</strong>,</li><li><strong>skladací zámok</strong> – plát min. <strong>5&nbsp;mm</strong>, šírka min. <strong>10&nbsp;mm</strong>.</li></ul><p>Možné je aj uzamknutie k <strong>nosiču na vozidle</strong>. Krádež/lúpež hláste polícii.</p></div></details>
+      <details class="group card rounded-3xl p-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4"><span class="text-lg font-black">Platí poistenie aj mimo domova a v zahraničí?</span><span class="text-2xl transition group-open:rotate-45">+</span></summary><p class="mt-4 text-slate-600">Áno, platí <strong>mimo domova</strong>, na adrese aj na cestách, s územnou platnosťou <strong>Slovensko + Európa</strong>.</p></details>
+      <details class="group card rounded-3xl p-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4"><span class="text-lg font-black">Kryje aj zodpovednosť za škodu?</span><span class="text-2xl transition group-open:rotate-45">+</span></summary><p class="mt-4 text-slate-600">Voliteľné poistenie <strong>zodpovednosti</strong> s limitmi až do <strong>750&nbsp;000&nbsp;€</strong> (Európa). Nevzťahuje sa na vozidlá s povinným PZP.</p></details>
+      <details class="group card rounded-3xl p-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4"><span class="text-lg font-black">Dá sa poistiť aj starší bicykel?</span><span class="text-2xl transition group-open:rotate-45">+</span></summary><p class="mt-4 text-slate-600">Áno. Rozhoduje <strong>technický stav</strong>, nie formálny vek kusu.</p></details>
+      <details class="group card rounded-3xl p-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4"><span class="text-lg font-black">Ako sa vypláca škoda (nová vs. časová cena)?</span><span class="text-2xl transition group-open:rotate-45">+</span></summary><ul class="mt-4 ml-5 list-disc space-y-1 text-slate-600"><li><strong>Oprava ekonomická</strong> → plnenie v <strong>novej cene</strong>.</li><li><strong>Totálna škoda/krádež</strong> → plnenie v <strong>časovej cene</strong> (s ohľadom na opotrebenie).</li></ul></details>
+      <details class="group card rounded-3xl p-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4"><span class="text-lg font-black">Bicykel na firmu (IČO) – je to možné?</span><span class="text-2xl transition group-open:rotate-45">+</span></summary><p class="mt-4 text-slate-600">Áno, ak bicykel <strong>neslúži na podnikanie</strong> (predaj, požičiavanie). Poistený je vlastník (firma).</p></details>
+      <details class="group card rounded-3xl p-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4"><span class="text-lg font-black">Čo robiť pri poistnej udalosti?</span><span class="text-2xl transition group-open:rotate-45">+</span></summary><p class="mt-4 text-slate-600">Pri krádeži/lúpeži kontaktujte políciu a nahláste udalosť poisťovni. Pripravte doklad o vlastníctve, fotky zabezpečenia a popis udalosti. Pomôžeme vám s postupom.</p></details>
+    </div><p class="mt-6 text-center text-xs leading-6 text-slate-500">Pozn.: Informácie sú informatívne. Presné podmienky vyplývajú z dokumentácie konkrétneho produktu.</p></div></section>
 
-          <!-- Cyklovozík -->
-          <figure class="flex flex-col items-center">
-            <svg aria-hidden="true" class="h-14 md:h-16 opacity-90" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.6">
-              <circle cx="18" cy="22" r="6.5" class="text-gray-300"/>
-              <circle cx="42" cy="22" r="7.5" class="text-gray-300"/>
-              <path d="M12 22h18" class="text-amber-600"/>
-              <path d="M30 22l14-8 6 8" class="text-amber-600"/>
-              <path d="M44 14a6 6 0 0 0-6-6h-6" class="text-amber-600"/>
-            </svg>
-            <figcaption class="mt-1 text-xs text-gray-600">Cyklovozík</figcaption>
-          </figure>
-        </div>
+    <section id="kontakt" class="bg-[#07111f] py-16 text-white md:py-24"><div class="mx-auto grid max-w-7xl gap-8 px-4 md:grid-cols-[.9fr_1.1fr] md:items-center"><div><p class="text-sm font-black uppercase tracking-[.2em] text-[#68f2b3]">Kontakt</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em] md:text-5xl">Pošlite dopyt. Ozveme sa s riešením.</h2><p class="mt-5 text-lg leading-8 text-white/68">Ing. Martin Hubáček – M&amp;F Consulting s.r.o. Registrovaný podriadený finančný agent (PFA) pod SFA Finportal, a.s.</p></div><div class="glass rounded-[2rem] p-6"><div class="grid gap-4 sm:grid-cols-2"><div class="rounded-3xl bg-white/8 p-5"><span class="text-xs uppercase tracking-[.18em] text-white/45">E-mail</span><a href="mailto:partner@martinhubacek.sk" class="mt-2 block break-all text-lg font-black" data-bind="email">partner@martinhubacek.sk</a></div><div class="rounded-3xl bg-white/8 p-5"><span class="text-xs uppercase tracking-[.18em] text-white/45">Telefón</span><a href="tel:+421905874100" class="mt-2 block text-lg font-black" data-bind="phone">+421 905 874 100</a></div></div><a data-cta="form" data-position="contact" class="btn btn-primary mt-5 w-full">Odoslať dotazník</a><p class="mt-4 text-xs leading-6 text-white/48">Odoslanie údajov je dobrovoľné. Dotazník slúži na prípravu nezáväznej ponuky a komunikáciu k dopytu.</p></div></div></section>
 
-        <div class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent"></div>
-        <div class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"></div>
-      </div>
-    </div>
-  </section>
+    <section class="bg-white py-12"><div class="mx-auto max-w-7xl px-4"><div class="rounded-[2rem] border border-slate-200 bg-slate-50 p-6 text-sm leading-7 text-slate-700"><h2 class="text-xl font-black text-slate-950">Informácia o sprostredkovaní a právne upozornenie</h2><p class="mt-3">Táto webová stránka je v súkromnom vlastníctve prevádzkovateľa <strong>M&amp;F Consulting s.r.o.</strong> a <strong>nie je webovou stránkou poisťovne</strong>. Obsah má informatívny charakter a <strong>nejde o záväznú ponuku poisťovateľa</strong>. Výsledné podmienky a cena vždy závisia od konkrétnych parametrov klienta a následnej konzultácie.</p><p class="mt-3"><strong>Prevádzkovateľ vykonáva finančné sprostredkovanie v pozícii podriadeného finančného agenta (PFA) podľa § 9 zákona č. 186/2009 Z. z., na základe zmluvy so samostatným finančným agentom Finportal, a.s. (NBS register: 287587).</strong></p><p class="mt-3"><strong>GDPR / Ochrana súkromia:</strong> podrobnosti nájdete v dokumentoch <a class="font-bold text-[#0B6EF3] underline" href="/privacy.html">Ochrana súkromia</a> a <a class="font-bold text-[#0B6EF3] underline" href="/terms.html">Podmienky používania</a>. Údaje z dotazníka sa spracúvajú v rozsahu potrebnom na prípravu nezáväznej ponuky a komunikáciu k dopytu.</p></div></div></section>
+  </main>
 
-  <!-- AKO TO FUNGUJE -->
-  <section id="ako" class="relative">
-    <div class="absolute inset-0 bg-gradient-to-b from-[#F0F7FF] via-white to-white pointer-events-none"></div>
+  <footer class="border-t border-slate-200 bg-white"><div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 text-sm text-slate-500 md:flex-row md:items-center"><strong class="text-slate-950">M&amp;F Consulting s.r.o.</strong><span>PFA pod SFA Finportal, a.s. • NBS register: <strong>287587</strong></span><span class="md:ml-auto">© <span id="footerYear"></span> Bikepoistenie.sk</span></div><div id="cookieBar" class="fixed inset-x-0 bottom-0 z-40 hidden"><div class="cookie-card mx-auto m-3 max-w-7xl rounded-3xl bg-[#07111f] p-4 text-sm text-white shadow-2xl"><div class="flex flex-col gap-3 md:flex-row md:items-center md:gap-6"><p class="flex-1 leading-6">Používame základné súbory cookie na chod webu a anonymnú analytiku. Podrobnosti nájdete v <a href="/privacy.html" class="font-bold underline">Ochrane súkromia</a> a <a href="/terms.html" class="font-bold underline">Podmienkach používania</a>.</p><div class="flex gap-2"><button id="cookieReject" class="rounded-full bg-white/10 px-4 py-2 hover:bg-white/20">Odmietnuť</button><button id="cookieAccept" class="rounded-full bg-white px-4 py-2 font-black text-slate-950">Súhlasím</button></div></div></div></div></footer>
 
-    <div class="relative max-w-7xl mx-auto px-4 py-14">
-      <div class="max-w-2xl mx-auto text-center">
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Ako to funguje</h2>
-        <p class="mt-2 text-gray-600">Tri krátke kroky. Bez papierovania.</p>
-      </div>
-
-      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- 1 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white border shadow-sm hover:shadow-md transition">
-          <div class="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#E8F0FF]"></div>
-          <div class="p-5 md:p-6 flex flex-col items-center text-center">
-            <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#0B6EF3]/10 text-[#0B6EF3] font-semibold">1</span>
-            <h3 class="mt-3 text-lg font-semibold">Krátky dotazník</h3>
-            <svg xmlns="http://www.w3.org/2000/svg" class="mt-3 h-9 w-9 text-[#0B6EF3]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-              <path d="M9 7h6M9 12h6M9 17h3" stroke-linecap="round" stroke-linejoin="round"/>
-              <rect x="4" y="4" width="16" height="16" rx="2.5"/>
-            </svg>
-            <p class="mt-3 text-gray-700">Vyplníte základné údaje — ~2 minúty.</p>
-          </div>
-        </div>
-
-        <!-- 2 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white border shadow-sm hover:shadow-md transition">
-          <div class="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#E8FFF6]"></div>
-          <div class="p-5 md:p-6 flex flex-col items-center text-center">
-            <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#0ACF83]/10 text-[#0ACF83] font-semibold">2</span>
-            <h3 class="mt-3 text-lg font-semibold">Nezáväzná ponuka</h3>
-            <svg xmlns="http://www.w3.org/2000/svg" class="mt-3 h-9 w-9 text-[#0ACF83]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-              <path d="M4 6l8 5 8-5" stroke-linecap="round" stroke-linejoin="round"/>
-              <rect x="4" y="6" width="16" height="12" rx="2.5"/>
-            </svg>
-            <p class="mt-3 text-gray-700">Dostanete ponuku e-mailom alebo WhatsApp.</p>
-          </div>
-        </div>
-
-        <!-- 3 -->
-        <div class="group relative overflow-hidden rounded-2xl bg-white border shadow-sm hover:shadow-md transition">
-          <div class="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#FFF6E8]"></div>
-          <div class="p-5 md:p-6 flex flex-col items-center text-center">
-            <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 font-semibold">3</span>
-            <h3 class="mt-3 text-lg font-semibold">Aktivácia online</h3>
-            <svg xmlns="http://www.w3.org/2000/svg" class="mt-3 h-9 w-9 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-              <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
-              <rect x="3.5" y="4" width="17" height="16" rx="2.5"/>
-            </svg>
-            <p class="mt-3 text-gray-700">Potvrdíte súhlas a krytie spúšťame.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-10 flex justify-center">
-        <a data-cta="form" class="btn btn-grad">
-          Získať ponuku
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 -mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-            <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-
-      <!-- EU ROTÁTOR – pod CTA -->
-      <div class="mt-6 flex justify-center">
-        <div class="rounded-2xl bg-white border shadow-sm px-5 py-4 text-center">
-          <div class="text-sm text-gray-600">Poistenie je platné:</div>
-          <div class="mt-1 text-2xl md:text-3xl font-extrabold tracking-tight
-                      bg-clip-text text-transparent"
-               style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">
-            <span id="eu-rotator" aria-live="polite">Európa</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="max-w-7xl mx-auto px-4 py-12">
-    <h2 class="text-2xl font-bold">Časté otázky</h2>
-
-    <details class="group mt-4 rounded-2xl border bg-gray-50 p-4">
-      <summary class="flex cursor-pointer list-none items-center justify-between">
-        <span class="font-medium text-lg">Najčastejšie otázky o poistení bicykla</span>
-        <svg class="h-5 w-5 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </summary>
-
-      <div class="mt-4 space-y-3">
-        <details class="rounded-xl border bg-white p-4">
-          <summary class="flex cursor-pointer list-none items-center justify-between">
-            <span class="font-medium">Kto a čo si môže poistiť?</span>
-            <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <p class="mt-2 text-gray-700">Poistiť si viete až <strong>5 kusov</strong> (bicykle, e-biky, kolobežky, cyklovozíky) do <strong>10&nbsp;000&nbsp;€ na kus</strong>, spolu do <strong>50&nbsp;000&nbsp;€</strong>. Územne platí <strong>Slovensko + Európa</strong>.</p>
-        </details>
-
-        <details class="rounded-xl border bg-white p-4">
-          <summary class="flex cursor-pointer list-none items-center justify-between">
-            <span class="font-medium">Aké riziká sú kryté?</span>
-            <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <p class="mt-2 text-gray-700"><strong>Poškodenie pri páde/nehode</strong>, <strong>živly</strong>, <strong>vandalizmus</strong>, <strong>krádež vlámaním/lúpež</strong>, škody pri dopravnej nehode. (Preteky a niektoré špecifické situácie môžu byť vylúčené.)</p>
-        </details>
-
-        <details class="rounded-xl border bg-white p-4">
-          <summary class="flex cursor-pointer list-none items-center justify-between">
-            <span class="font-medium">Ako musím bicykel zabezpečiť proti krádeži?</span>
-            <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <div class="mt-2 text-gray-700 space-y-2">
-            <p><strong>Rám k pevnému bodu</strong> alebo uzamknutý priestor =&nbsp;plné krytie.</p>
-            <ul class="list-disc list-inside ml-4">
-              <li><strong>U-zámok</strong> – priemer strmeňa min. <strong>8&nbsp;mm</strong> (kalená oceľ),</li>
-              <li><strong>kábel/lanko/reťaz</strong> – oceľ min. <strong>8&nbsp;mm</strong>,</li>
-              <li><strong>skladací zámok</strong> – plát min. <strong>5&nbsp;mm</strong>, šírka min. <strong>10&nbsp;mm</strong>.</li>
-            </ul>
-            <p>Možné je aj uzamknutie k <strong>nosiču na vozidle</strong>. Krádež/lúpež hláste polícii.</p>
-          </div>
-        </details>
-
-        <details class="rounded-xl border bg-white p-4">
-          <summary class="flex cursor-pointer list-none items-center justify-between">
-            <span class="font-medium">Platí poistenie aj mimo domova a v zahraničí?</span>
-            <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <p class="mt-2 text-gray-700">Áno, platí <strong>mimo domova</strong>, na adrese aj na cestách, s územnou platnosťou <strong>Slovensko + Európa</strong>.</p>
-        </details>
-
-        <details class="rounded-xl border bg-white p-4">
-          <summary class="flex cursor-pointer list-none items-center justify-between">
-            <span class="font-medium">Kryje aj zodpovednosť za škodu?</span>
-            <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <p class="mt-2 text-gray-700">Voliteľné poistenie <strong>zodpovednosti</strong> s limitmi až do <strong>750&nbsp;000&nbsp;€</strong> (Európa). Nevzťahuje sa na vozidlá s povinným PZP.</p>
-        </details>
-
-        <details class="rounded-xl border bg-white p-4">
-          <summary class="flex cursor-pointer list-none items-center justify-between">
-            <span class="font-medium">Dá sa poistiť aj starší bicykel?</span>
-            <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <p class="mt-2 text-gray-700">Áno. Rozhoduje <strong>technický stav</strong>, nie formálny vek kusu.</p>
-        </details>
-
-        <details class="rounded-xl border bg-white p-4">
-          <summary class="flex cursor-pointer list-none items-center justify-between">
-            <span class="font-medium">Ako sa vypláca škoda (nová vs. časová cena)?</span>
-            <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <ul class="mt-2 text-gray-700 list-disc list-inside ml-4">
-            <li><strong>Oprava ekonomická</strong> → plnenie v <strong>novej cene</strong>.</li>
-            <li><strong>Totálna škoda/krádež</strong> → plnenie v <strong>časovej cene</strong> (s ohľadom na opotrebenie).</li>
-          </ul>
-        </details>
-
-        <details class="rounded-xl border bg-white p-4">
-          <summary class="flex cursor-pointer list-none items-center justify-between">
-            <span class="font-medium">Bicykel na firmu (IČO) – je to možné?</span>
-            <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <p class="mt-2 text-gray-700">Áno, ak bicykel <strong>neslúži na podnikanie</strong> (predaj, požičiavanie). Poistený je vlastník (firma).</p>
-        </details>
-
-        <details class="rounded-xl border bg-white p-4">
-          <summary class="flex cursor-pointer list-none items-center justify-between">
-            <span class="font-medium">Čo robiť pri poistnej udalosti?</span>
-            <svg class="h-4 w-4 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <p class="mt-2 text-gray-700">Pri krádeži/lúpeži kontaktujte políciu a nahláste udalosť poisťovni. Pripravte doklad o vlastníctve, fotky zabezpečenia a popis udalosti. Pomôžeme vám s postupom.</p>
-        </details>
-
-        <p class="px-1 pt-2 text-xs text-gray-500">Pozn.: Informácie sú informatívne. Presné podmienky vyplývajú z dokumentácie konkrétneho produktu.</p>
-      </div>
-    </details>
-  </section>
-
-  <!-- ČLÁNKY (4 karty s dátumami + CTA v každej) -->
-  <section id="clanky" class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 py-12">
-      <h2 class="text-2xl font-bold">Články</h2>
-
-      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-        <!-- Poistenie bicykla -->
-        <article class="rounded-2xl overflow-hidden border bg-white flex flex-col">
-          <a href="/clanky/poistenie-bicykla-co-kryje.html" class="block">
-            <img class="w-full h-44 object-cover" src="/assets/article-bike-cover.jpg" alt="Poistenie bicykla – čo kryje" loading="lazy" onerror="this.src='/hero2.png'">
-          </a>
-          <div class="p-4 flex-1 flex flex-col">
-            <div class="text-xs text-gray-500">Publikované: <time datetime="2025-10-12">12. 10. 2025 (ne)</time></div>
-            <a href="/clanky/poistenie-bicykla-co-kryje.html" class="mt-1 font-semibold hover:underline">Poistenie bicykla: čo kryje a kedy plní</a>
-            <p class="text-sm text-gray-600 mt-1 flex-1">Praktický prehľad krytia, výluk a zabezpečenia.</p>
-            <div class="mt-4">
-              <a data-cta="form" class="btn btn-grad w-full">Získať nezáväznú ponuku</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- E-bike -->
-        <article class="rounded-2xl overflow-hidden border bg-white flex flex-col">
-          <a href="/clanky/elektrobicykel-pre-koho-preco-zmysel.html" class="block">
-            <img class="w-full h-44 object-cover" src="/assets/elektrobike.png" alt="Elektrobicykel" loading="lazy" onerror="this.src='/hero2.png'">
-          </a>
-          <div class="p-4 flex-1 flex flex-col">
-            <div class="text-xs text-gray-500">Publikované: <time datetime="2025-09-21">21. 09. 2025 (ne)</time></div>
-            <a href="/clanky/elektrobicykel-pre-koho-preco-zmysel.html" class="mt-1 font-semibold hover:underline">Elektrobicykel: pre koho a prečo</a>
-            <p class="text-sm text-gray-600 mt-1 flex-1">10 dôvodov „pre“, čo si postrážiť a poistenie.</p>
-            <div class="mt-4">
-              <a data-cta="form" class="btn btn-grad w-full">Získať nezáväznú ponuku</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Turiec -->
-        <article class="rounded-2xl overflow-hidden border bg-white flex flex-col">
-          <a href="/clanky/turiec-horska-cyklistika.html" class="block">
-            <img class="w-full h-44 object-cover" src="/assets/turiec-hero.png" alt="Turiec – MTB tipy" loading="lazy" onerror="this.src='/hero2.png'">
-          </a>
-          <div class="p-4 flex-1 flex flex-col">
-            <div class="text-xs text-gray-500">Publikované: <time datetime="2025-08-24">24. 08. 2025 (ne)</time></div>
-            <a href="/clanky/turiec-horska-cyklistika.html" class="mt-1 font-semibold hover:underline">Turiec: tipy na horskú cyklistiku</a>
-            <p class="text-sm text-gray-600 mt-1 flex-1">Overené trasy, praktické rady a bezpečnosť.</p>
-            <div class="mt-4">
-              <a data-cta="form" class="btn btn-grad w-full">Získať nezáväznú ponuku</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Zámky -->
-        <article class="rounded-2xl overflow-hidden border bg-white flex flex-col">
-          <a href="/clanky/bezpecnostne-zamky-na-bicykel.html" class="block">
-            <img class="w-full h-44 object-cover" src="/assets/article-locks-cover.jpg" alt="Bezpečnostné zámky" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1541625602330-2277a4c46182?q=80&w=1200&auto=format&fit=crop'">
-          </a>
-          <div class="p-4 flex-1 flex flex-col">
-            <div class="text-xs text-gray-500">Publikované: <time datetime="2025-07-27">27. 07. 2025 (ne)</time></div>
-            <a href="/clanky/bezpecnostne-zamky-na-bicykel.html" class="mt-1 font-semibold hover:underline">Bezpečnostné zámky: návod na 100&nbsp;% krytie</a>
-            <p class="text-sm text-gray-600 mt-1 flex-1">Techniky uzamknutia a minimá pre uznanie poistky.</p>
-            <div class="mt-4">
-              <a data-cta="form" class="btn btn-grad w-full">Získať nezáväznú ponuku</a>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- SPROSTREDKOVANIE / PRÁVNE INFO -->
-  <section class="max-w-7xl mx-auto px-4 py-12">
-    <div class="p-6 rounded-2xl border bg-gray-50 text-sm text-gray-700 leading-6">
-      <h2 class="text-lg font-semibold mb-2">Informácia o sprostredkovaní</h2>
-      <p>Poskytujeme <strong>sprostredkovanie poistenia</strong> (PFA) na základe platnej registrácie v NBS, číslo registrácie <strong>287587</strong>. Táto stránka má informatívny charakter – nejde o priamy predaj poistenia. Zobrazené informácie sú orientačné a výsledná ponuka vždy závisí od presných parametrov klienta a následnej konzultácie.</p>
-      <p class="mt-2">Pred odoslaním dopytu si, prosím, prečítajte <a href="/terms.html" class="underline">Podmienky</a> a <a href="/privacy.html" class="underline">Ochranu súkromia</a>.</p>
-    </div>
-  </section>
-
-  <!-- KONTAKT -->
-  <section id="kontakt" class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 py-12 grid md:grid-cols-2 gap-6">
-      <div>
-        <h2 class="text-2xl font-bold">Kontakt</h2>
-        <p class="mt-2 text-gray-700">Ing. Martin Hubáček – M&F Consulting s.r.o.</p>
-        <p class="text-gray-700">Tel: <a class="underline" href="tel:"><span data-bind="phone"></span></a></p>
-        <p class="text-gray-700">E-mail: <a class="underline" href="mailto:"><span data-bind="email"></span></a></p>
-      </div>
-      <div class="p-6 rounded-2xl border bg-gray-50 text-sm text-gray-600">
-        <p>Registrovaný finančný agent – podriadený finančný agent (PFA). Detailné informácie poskytujeme pred uzavretím zmluvy.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="bg-white border-t">
-    <div class="max-w-7xl mx-auto px-4 py-10 text-sm text-gray-700">
-      <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
-        <div class="font-semibold">M&F Consulting s.r.o.</div>
-        <div class="text-gray-500">PFA pod SFA Finportal, a.s. • Registrácia v NBS: <strong>287587</strong></div>
-        <div class="md:ml-auto text-gray-500">© <span id="footerYear"></span> M&F Consulting s.r.o.</div>
-      </div>
-
-      <hr class="my-6 border-gray-200" />
-
-      <div class="space-y-3 leading-6 text-gray-700">
-        <p>
-          Táto webová stránka je v súkromnom vlastníctve prevádzkovateľa
-          <strong>M&amp;F Consulting s.r.o.</strong> a <strong>nie je webovou stránkou poisťovne</strong>.
-          Obsah má informatívny charakter a <strong>nejde o záväznú ponuku poisťovateľa</strong>.
-          Výsledné podmienky a cena vždy závisia od konkrétnych parametrov klienta a následnej konzultácie.
-        </p>
-
-        <p>
-          <strong>Odoslanie akýchkoľvek údajov je dobrovoľné</strong> a odoslaním udeľujete súhlas so
-          spracúvaním v rozsahu potrebnom na prípravu nezáväznej ponuky a komunikáciu k dopytu.
-          Nie ste povinný/á uzavrieť akýkoľvek produkt.
-        </p>
-
-        <p>
-          Prevádzkovateľ vykonáva finančné sprostredkovanie v pozícii
-          <strong>podriadeného finančného agenta (PFA)</strong> podľa § 9 zákona č. 186/2009 Z. z.,
-          na základe zmluvy so <strong>samostatným finančným agentom Finportal, a.s.</strong>
-          (NBS register: <strong>287587</strong>).
-        </p>
-
-        <p class="text-gray-600">
-          <strong>GDPR / Ochrana súkromia:</strong>
-          podrobnosti nájdete v našich dokumentoch:
-          <a class="underline text-sky-700" href="/privacy.html">Ochrana súkromia</a>
-          •
-          <a class="underline text-sky-700" href="/terms.html">Podmienky používania</a>
-        </p>
-
-        <p class="text-gray-600">
-          <strong>Zodpovednosť a aktualizácie:</strong> hoci dbáme na presnosť informácií,
-          môžu sa kedykoľvek zmeniť. <strong>Vyhradzujeme si právo na úpravu a zmenu informácií</strong>
-          bez predchádzajúceho upozornenia. Za konečné podmienky sú rozhodujúce dokumenty poskytovateľov
-          a zmluvná dokumentácia.
-        </p>
-
-        <p class="text-gray-600">
-          <strong>Kontakt:</strong>
-          <a class="underline" href="mailto:hubacekm26@gmail.com">hubacekm26@gmail.com</a> •
-          <a class="underline" href="tel:+421905874100">+421&nbsp;905&nbsp;874&nbsp;100</a>
-        </p>
-      </div>
-    </div>
-
-    <!-- Cookie bar (mobil hore) -->
-    <div id="cookieBar" class="fixed inset-x-0 bottom-0 z-40 hidden">
-      <div class="cookie-card max-w-7xl mx-auto m-3 rounded-2xl shadow-lg text-sm text-white"
-           style="background-image:linear-gradient(90deg,#0B6EF3,#0ACF83)">
-        <div class="px-4 py-4 md:py-5 flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
-          <p class="flex-1 leading-6">
-            Používame základné súbory cookie na chod webu a anonymnú analytiku.
-            Pokračovaním súhlasíte s ich používaním. Podrobnosti nájdete v
-            <a href="/privacy.html" class="underline font-medium">Ochrane súkromia</a>
-            a <a href="/terms.html" class="underline font-medium">Podmienkach používania</a>.
-          </p>
-          <div class="flex gap-2">
-            <button id="cookieReject" class="px-4 py-2 rounded-xl bg-white/15 hover:bg-white/25 transition">
-              Odmietnuť
-            </button>
-            <button id="cookieAccept" class="px-4 py-2 rounded-xl bg-white text-gray-900 font-semibold">
-              Súhlasím
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Rok + cookies -->
+  <div class="sticky-cta sm:hidden"><a data-cta="form" data-position="sticky-mobile" class="btn btn-primary">Získať ponuku</a></div>
   <script>
-  document.getElementById('footerYear').textContent = new Date().getFullYear();
-
-  (function () {
-    const KEY = 'bp_cookie_consent';
-    const bar = document.getElementById('cookieBar');
-    const a = document.getElementById('cookieAccept');
-    const r = document.getElementById('cookieReject');
-    if (!bar || !a || !r) return;
-
-    const val = localStorage.getItem(KEY);
-    if (val !== 'accepted' && val !== 'rejected') {
-      bar.classList.remove('hidden');
-    }
-
-    a.addEventListener('click', () => {
-      localStorage.setItem(KEY, 'accepted');
-      bar.classList.add('hidden');
-      // povol analytiku hneď
-      if (typeof gtag === 'function') {
-        gtag('consent', 'update', { analytics_storage: 'granted' });
-        gtag('event', 'page_view'); // okamžite uvidíš návštevu v Reálnom čase
-      }
-    });
-
-    r.addEventListener('click', () => {
-      localStorage.setItem(KEY, 'rejected');
-      bar.classList.add('hidden');
-      if (typeof gtag === 'function') {
-        gtag('consent', 'update', { analytics_storage: 'denied' });
-      }
-    });
-  })();
-</script>
-
-
-  <!-- EU ROTÁTOR (0,6 s; náhodné; bez Ruska a Kazachstanu) -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const el = document.getElementById("eu-rotator");
-      if (!el) return;
-
-      let COUNTRIES = [
-        "Albánsko","Andorra","Arménsko","Rakúsko",
-        "Bielorusko","Belgicko","Bosna a Hercegovina","Bulharsko","Chorvátsko",
-        "Cyprus","Česko","Dánsko","Estónsko","Fínsko","Francúzsko","Nemecko",
-        "Grécko","Maďarsko","Island","Írsko","Taliansko","Kosovo","Lotyšsko",
-        "Lichtenštajnsko","Litva","Luxembursko","Malta","Moldavsko","Monako",
-        "Čierna Hora","Holandsko","Severné Macedónsko","Nórsko","Poľsko",
-        "Portugalsko","Rumunsko","San Maríno","Srbsko","Slovensko","Slovinsko",
-        "Španielsko","Švédsko","Švajčiarsko","Turecko (eur.)","Ukrajina",
-        "Spojené kráľovstvo","Vatikán"
-      ];
-
-      function shuffle(arr){
-        for (let i = arr.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
-      }
-
-      COUNTRIES = shuffle(COUNTRIES.slice());
-      let i = 0;
-
-      function nextLabel(){
-        el.textContent = COUNTRIES[i];
-        i++;
-        if (i >= COUNTRIES.length) {
-          COUNTRIES = shuffle(COUNTRIES);
-          i = 0;
-        }
-      }
-
-      nextLabel();
-      setInterval(nextLabel, 600); // 0,6 s
-    });
-  </script>
-
-  <!-- Sticky CTA (MOBIL) -->
-  <div class="sticky-cta">
-    <a data-cta="form" class="btn btn-grad">Získať ponuku</a>
-  </div>
-
-  <!-- Floating nudge -->
-  <style>
-    @keyframes wheelSpin { to { transform: rotate(360deg); } }
-    @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-2px) } }
-    @keyframes slideIn { from { transform: translateX(110%); opacity: 0 } to { transform: translateX(0); opacity: 1 } }
-    @keyframes slideOut { to { transform: translateX(110%); opacity: 0 } }
-    @media (prefers-reduced-motion: reduce) {
-      #bike-nudge, #bike-nudge * { animation: none !important; transition: none !important; }
-    }
-  </style>
-
-  <div id="bike-nudge"
-       class="fixed right-3 sm:right-6 z-[60] max-w-[92vw] sm:max-w-md
-              translate-x-full opacity-0 pointer-events-auto"
-       role="region" aria-live="polite" aria-label="Informácia">
-    <div class="flex items-center gap-3 sm:gap-4 rounded-2xl shadow-lg px-3 py-2 sm:px-4 sm:py-3 text-white
-                bg-gradient-to-r from-[#0B6EF3] to-[#0ACF83]">
-      <svg class="h-10 w-14 sm:h-12 sm:w-16 shrink-0" viewBox="0 0 88 48" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="24" cy="34" r="10" class="text-white/50"
-                style="transform-origin:24px 34px; animation: wheelSpin 3s linear infinite;"></circle>
-        <circle cx="64" cy="34" r="10" class="text-white/50"
-                style="transform-origin:64px 34px; animation: wheelSpin 3s linear infinite;"></circle>
-        <path d="M24 34l10-16 10 16M34 18h15M49 18l16 16"
-              class="text-white" style="animation:bob 2.6s ease-in-out infinite;"></path>
-        <circle cx="46" cy="10" r="4" class="text-white"></circle>
-      </svg>
-
-      <div class="text-sm sm:text-base pr-2 leading-snug">
-        Zaťiaľ čo čítaš stránku, <strong>ukradli niekomu bicykel</strong>.
-      </div>
-
-      <button id="bike-nudge-close"
-              class="ml-1 inline-flex items-center justify-center rounded-full p-1
-                      text-white/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/70"
-              aria-label="Zavrieť">
-        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M6 6l12 12M18 6l-12 12" stroke-linecap="round"></path>
-        </svg>
-      </button>
-    </div>
-  </div>
-
-  <script>
-    (function () {
-      const SHOW_AFTER_MS = 60000;
-      const STORAGE_KEY = "bikeNudgeShown";
-
-      function positionNudge() {
-        const el = document.getElementById("bike-nudge");
-        if (!el) return;
-        const mobile = window.matchMedia("(max-width: 640px)").matches;
-        el.style.bottom = mobile ? "76px" : "24px"; // nad sticky CTA
-        el.style.animation = "slideIn .6s ease-out forwards";
-      }
-
-      function showNudge() {
-        if (sessionStorage.getItem(STORAGE_KEY) === "1") return;
-        positionNudge();
-        sessionStorage.setItem(STORAGE_KEY, "1");
-      }
-
-      let timer = setTimeout(showNudge, SHOW_AFTER_MS);
-
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden) { clearTimeout(timer); }
-        else { timer = setTimeout(showNudge, 8000); }
-      });
-
-      document.getElementById("bike-nudge-close")?.addEventListener("click", () => {
-        const el = document.getElementById("bike-nudge");
-        if (!el) return;
-        el.style.animation = "slideOut .4s ease-in forwards";
-      });
-
-      window.addEventListener("resize", () => {
-        if (sessionStorage.getItem(STORAGE_KEY) === "1") positionNudge();
-      });
-    })();
+    document.getElementById('footerYear').textContent=new Date().getFullYear();
+    (function(){const KEY='bp_cookie_consent',bar=document.getElementById('cookieBar'),a=document.getElementById('cookieAccept'),r=document.getElementById('cookieReject');if(!bar||!a||!r)return;const val=localStorage.getItem(KEY);if(val!=='accepted'&&val!=='rejected')bar.classList.remove('hidden');a.addEventListener('click',()=>{localStorage.setItem(KEY,'accepted');bar.classList.add('hidden');if(typeof gtag==='function'){gtag('consent','update',{analytics_storage:'granted'});gtag('event','page_view');}});r.addEventListener('click',()=>{localStorage.setItem(KEY,'rejected');bar.classList.add('hidden');if(typeof gtag==='function')gtag('consent','update',{analytics_storage:'denied'});});})();
   </script>
 </body>
 </html>
