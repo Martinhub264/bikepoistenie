@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://bikepoistenie.sk/</loc><priority>1.0</priority></url>
-  <url><loc>https://bikepoistenie.sk/privacy.html</loc></url>
-  <url><loc>https://bikepoistenie.sk/terms.html</loc></url>
-  <url><loc>https://bikepoistenie.sk/clanky/ako-vybrat-zamok.html</loc></url>
+  <url><loc>https://bikepoistenie.sk/privacy.html</loc><priority>0.4</priority></url>
+  <url><loc>https://bikepoistenie.sk/terms.html</loc><priority>0.4</priority></url>
+  <url><loc>https://bikepoistenie.sk/sezona.html</loc><priority>0.6</priority></url>
+  <url><loc>https://bikepoistenie.sk/clanky/poistenie-bicykla-co-kryje.html</loc><priority>0.7</priority></url>
+  <url><loc>https://bikepoistenie.sk/clanky/bezpecnostne-zamky-na-bicykel.html</loc><priority>0.7</priority></url>
+  <url><loc>https://bikepoistenie.sk/clanky/elektrobicykel-pre-koho-preco-zmysel.html</loc><priority>0.7</priority></url>
+  <url><loc>https://bikepoistenie.sk/clanky/turiec-horska-cyklistika.html</loc><priority>0.5</priority></url>
 </urlset>
-<url><loc>https://bikepoistenie.sk/clanky/bezpecnostne-zamky-na-bicykel.html</loc></url>
-<url><loc>https://bikepoistenie.sk/clanky/elektrobicykel-pre-koho-preco-zmysel.html</loc></url>
-<url><loc>https://bikepoistenie.sk/clanky/turiec-horska-cyklistika.html</loc></url>
-<url>
-  <loc>https://bikepoistenie.sk/clanky/poistenie-bicykla-co-kryje.html</loc>
-  <changefreq>monthly</changefreq>
-  <priority>0.6</priority>
-</url>
-
